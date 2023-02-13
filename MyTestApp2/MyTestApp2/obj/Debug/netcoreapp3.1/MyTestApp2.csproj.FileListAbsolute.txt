@@ -1,0 +1,155 @@
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.exe
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.deps.json
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.runtimeconfig.json
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.runtimeconfig.dev.json
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.pdb
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.AssemblyReference.cache
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmConnect.resources
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.GenerateResource.cache
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.AssemblyInfoInputs.cache
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.AssemblyInfo.cs
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.CoreCompileInputs.cache
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.dll
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.pdb
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.genruntimeconfig.cache
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\Microsoft.Win32.Registry.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\Oracle.ManagedDataAccess.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.DirectoryServices.Protocols.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.IO.FileSystem.AccessControl.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.AccessControl.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.Permissions.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.Principal.Windows.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Text.Json.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Windows.Extensions.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\Microsoft.Win32.Registry.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\linux\lib\netcoreapp2.0\System.DirectoryServices.Protocols.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\osx\lib\netcoreapp2.0\System.DirectoryServices.Protocols.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.DirectoryServices.Protocols.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.IO.FileSystem.AccessControl.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.AccessControl.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+C:\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Windows.Extensions.dll
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.CopyComplete
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmMainForm.resources
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.Properties.Resources.resources
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmAddProduct.resources
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmFindProducts.resources
+C:\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmListProducts.resources
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.exe
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.deps.json
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.runtimeconfig.json
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.runtimeconfig.dev.json
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.pdb
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\Microsoft.Win32.Registry.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\Oracle.ManagedDataAccess.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.DirectoryServices.Protocols.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.IO.FileSystem.AccessControl.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.AccessControl.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.Permissions.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.Principal.Windows.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Text.Json.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Windows.Extensions.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\Microsoft.Win32.Registry.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\linux\lib\netcoreapp2.0\System.DirectoryServices.Protocols.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\osx\lib\netcoreapp2.0\System.DirectoryServices.Protocols.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.DirectoryServices.Protocols.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.IO.FileSystem.AccessControl.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.AccessControl.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Windows.Extensions.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.AssemblyReference.cache
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmAddProduct.resources
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmConnect.resources
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmFindProducts.resources
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmListProducts.resources
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmMainForm.resources
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.Properties.Resources.resources
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.GenerateResource.cache
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.AssemblyInfoInputs.cache
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.AssemblyInfo.cs
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.CoreCompileInputs.cache
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.CopyComplete
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.dll
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.pdb
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.genruntimeconfig.cache
+C:\03 MTU AY2122\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmUpdProduct.resources
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.exe
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.deps.json
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.runtimeconfig.json
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.runtimeconfig.dev.json
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\MyTestApp2.pdb
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\Microsoft.Win32.Registry.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\Oracle.ManagedDataAccess.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.DirectoryServices.Protocols.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.IO.FileSystem.AccessControl.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.AccessControl.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.Permissions.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Security.Principal.Windows.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Text.Json.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\System.Windows.Extensions.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\Microsoft.Win32.Registry.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\linux\lib\netcoreapp2.0\System.DirectoryServices.Protocols.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\osx\lib\netcoreapp2.0\System.DirectoryServices.Protocols.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.DirectoryServices.Protocols.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.IO.FileSystem.AccessControl.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.AccessControl.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Windows.Extensions.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.AssemblyReference.cache
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmAddProduct.resources
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmConnect.resources
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmFindProducts.resources
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmListProducts.resources
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmMainForm.resources
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.frmUpdProduct.resources
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.Properties.Resources.resources
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.GenerateResource.cache
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.AssemblyInfoInputs.cache
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.AssemblyInfo.cs
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.CoreCompileInputs.cache
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.csproj.CopyComplete
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.dll
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.pdb
+C:\03 MTU AY2223\04 SWEP\MyTestApp2\MyTestApp2\obj\Debug\netcoreapp3.1\MyTestApp2.genruntimeconfig.cache
