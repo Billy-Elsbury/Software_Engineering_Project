@@ -13,7 +13,6 @@ namespace Restuarant_System
 {
     public partial class frmAddMenuItem : Form
     {
-        private Mediator _mediator = new Mediator();
 
         public frmAddMenuItem()
         {
@@ -25,9 +24,9 @@ namespace Restuarant_System
             //get next Product ID
             txtItemId.Text = MenuItem.getNextmenuItemId().ToString("0000");
 
-            cboMenuItemType.Items.Add("F - Food");
-            cboMenuItemType.Items.Add("B - Beverage");
-            cboMenuItemType.Items.Add("D - Dessert");
+            cboMenuItemType.Items.Add("F");
+            cboMenuItemType.Items.Add("B");
+            cboMenuItemType.Items.Add("D");
 
             
 
@@ -74,7 +73,7 @@ namespace Restuarant_System
 
             //Populate Data Grid View with default information
 
-            string[] menuItem1 = { "A - Available", "1", "Spaghetti", "F - Food", "Italian", "15.00" };
+            string[] menuItem1 = { "A - Available", "1", "Spaghetti", "F", "Italian", "15.00" };
 
             menuItemsDataGridView.Rows.Add(menuItem1);
         }
@@ -181,12 +180,12 @@ namespace Restuarant_System
             //insert the data into database
             MenuItem anItem = new MenuItem();
 
-            //Create an instance of Product and instantiate with values from form controls
-            MenuItem aProduct = new MenuItem(Convert.ToInt32(txtItemId.Text), cboMenuItemType.Text,txtItemName.Text, txtItemDescription.Text,
+            //Create an instance of a Menu Item and instantiate with values from form controls
+            MenuItem aMenuItem = new MenuItem(Convert.ToInt32(txtItemId.Text), cboMenuItemType.Text,txtItemName.Text, txtItemDescription.Text,
                 Convert.ToDecimal(txtPrice.Text));
 
-            //invoke the method to add the data to the Products table
-            aProduct.addProduct();
+            //invoke the method to add the data to the MenuItems table
+            aMenuItem.addMenuItems();
 
             //display confirmation message
             MessageBox.Show("Product " + txtItemId.Text + " added successfully", "Success",

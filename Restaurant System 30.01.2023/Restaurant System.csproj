@@ -152,7 +152,6 @@
     <Compile Include="frmRestaurantTillMenu.Designer.cs">
       <DependentUpon>frmRestaurantTillMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mediator.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

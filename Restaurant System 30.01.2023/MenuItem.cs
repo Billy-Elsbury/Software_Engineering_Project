@@ -55,7 +55,7 @@ namespace Restuarant_System
 
             //Define the SQL query to be executed
             String sqlQuery = "SELECT ItemId, , Type, Name, Description, Price " +
-                "FROM Products ORDER BY Name";
+                "FROM MenuItems ORDER BY Name";
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
@@ -71,14 +71,14 @@ namespace Restuarant_System
             return ds;
         }
 
-        public static DataSet getAllProducts(String Type)
+        public static DataSet getAllMenuItems(String Type)
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "SELECT ProductId, Name, Qty,Price " +
-                "FROM Products WHERE ItemId = '" + Type + "' ORDER BY Name";
+            String sqlQuery = "SELECT MenuItems, Name, Qty,Price " +
+                "FROM MenuItems WHERE ItemId = '" + Type + "' ORDER BY Name";
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
@@ -94,13 +94,13 @@ namespace Restuarant_System
             return ds;
         }
 
-        public void getProduct(int Id)
+        public void getMenuItems(int Id)
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "SELECT * FROM Products WHERE ProductID = " + Id;
+            String sqlQuery = "SELECT * FROM MenuItems WHERE ItemId = " + Id;
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
@@ -120,42 +120,41 @@ namespace Restuarant_System
             conn.Close();
         }
 
-        public void addProduct()
+        public void addMenuItems()
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "INSERT INTO Products Values (" +
+            String sqlQuery = "INSERT INTO MenuItems Values (" +
                 this.itemId + ",'" +
                 this.type + "','" +
                 this.name + "','" +
-                this.description + "','" +
-                this.price + ",')";
+                this.description + "'," +
+                this.price + ")";
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
             conn.Open();
-
             cmd.ExecuteNonQuery();
 
             //Close db connection
             conn.Close();
         }
 
-        public void updateProduct()
+        public void updateMenuItems()
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "UPDATE Products SET " +
-                "ProductId = " + this.itemId + "," +
+            String sqlQuery = "UPDATE MenuItems SET " +
+                "ItemId = " + this.itemId + "," +
                 "Name = '" + this.name + "'," +
                 "Type = '" + this.type + "'," +
                 "Description = '" + this.description + "'," +
                 "Price = " + this.price + "," +
-                "WHERE ProductId = " + this.itemId;
+                "WHERE ItemId = " + this.itemId;
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
@@ -167,13 +166,13 @@ namespace Restuarant_System
             conn.Close();
         }
 
-        public static DataSet findProducts(String itemName)
+        public static DataSet findMenuItems(String itemName)
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "SELECT ProductId, Name, Manufacturer FROM Products " +
+            String sqlQuery = "SELECT ItemId, Name, Manufacturer FROM Products " +
                 "WHERE Name LIKE '%" + itemName + "%' ORDER BY Name";
 
             //Execute the SQL query (OracleCommand)
@@ -195,24 +194,24 @@ namespace Restuarant_System
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
-            //Define the SQL query to be executed
-            String sqlQuery = "SELECT MAX(ProductId) FROM Products";
+            //SQL query to be executed:
+            String sqlQuery = "SELECT MAX(ItemId) FROM MenuItems";
 
-            //Execute the SQL query (OracleCommand)
+            //Execute the SQL query (OracleCommand())
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
             conn.Open();
 
-            OracleDataReader dr = cmd.ExecuteReader();
+            OracleDataReader reader = cmd.ExecuteReader();
 
-            //Does dr contain a value or NULL?
+            //Test dataReader for NULL value?
             int nextId;
-            dr.Read();
+            reader.Read();
 
-            if (dr.IsDBNull(0))
+            if (reader.IsDBNull(0))
                 nextId = 1;
             else
             {
-                nextId = dr.GetInt32(0) + 1;
+                nextId = reader.GetInt32(0) + 1;
             }
 
             //Close db connection
