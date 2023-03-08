@@ -3,7 +3,8 @@
 DROP TABLE MenuItems;
 
 CREATE TABLE MenuItems
-(ItemID numeric(4),
+(Availability CHAR(1) NOT NULL,
+ItemID numeric(4),
  Type char(1) NOT NULL,
  Name varchar2(20),
  Description varchar2(25),

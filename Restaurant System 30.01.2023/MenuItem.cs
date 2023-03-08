@@ -10,6 +10,7 @@ namespace Restuarant_System
 {
     public class MenuItem
     {
+        private char availability;
         private int itemId;
         private String type;
         private String name;
@@ -18,6 +19,7 @@ namespace Restuarant_System
 
         public MenuItem()
         {
+            this.availability = 'X';
             this.itemId = 0;
             this.type = "";
             this.name = "";
@@ -25,8 +27,9 @@ namespace Restuarant_System
             this.price = 0;
         }
 
-        public MenuItem(int itemId, string type, string name, string description, decimal price)
+        public MenuItem(char availability, int itemId, string type, string name, string description, decimal price)
         {
+            this.availability = availability;
             this.itemId = itemId;
             this.type = type;
             this.name = name;
@@ -35,6 +38,7 @@ namespace Restuarant_System
         }
 
         //getters
+        public char getAvailability() { return this.availability; }
         public int getItemId() { return this.itemId; }
         public String getType() { return this.type; }
         public String getName() { return this.name; }
@@ -42,6 +46,7 @@ namespace Restuarant_System
         public decimal getPrice() { return this.price; }
 
         //setters
+        public void setAvailability(char Availability) { availability = Availability; }
         public void setItemId(int ItemId) { itemId = ItemId; }
         public void setType(String Type) { type = Type; }
         public void setName(String Name) { name = Name; }
@@ -54,7 +59,7 @@ namespace Restuarant_System
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "SELECT ItemId, , Type, Name, Description, Price " +
+            String sqlQuery = "SELECT Availability ,ItemId, Type, Name, Description, Price " +
                 "FROM MenuItems ORDER BY Name";
 
             //Execute the SQL query (OracleCommand)
@@ -110,10 +115,11 @@ namespace Restuarant_System
             dr.Read();
 
             //set the instance variables with values from data reader
-            setItemId(dr.GetInt32(0));
-            setType(dr.GetString(1));
-            setName(dr.GetString(1));
-            setDescription(dr.GetString(2));
+            setAvailability(dr.GetChar(0));
+            setItemId(dr.GetInt32(1));
+            setType(dr.GetString(2));
+            setName(dr.GetString(3));
+            setDescription(dr.GetString(4));
             setPrice(dr.GetDecimal(5));
 
             //close DB
@@ -126,12 +132,14 @@ namespace Restuarant_System
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "INSERT INTO MenuItems Values (" +
-                this.itemId + ",'" +
-                this.type + "','" +
-                this.name + "','" +
-                this.description + "'," +
+            string sqlQuery = "INSERT INTO MenuItems VALUES ('" + 
+                this.availability + "', " + 
+                this.itemId + ", '" + 
+                this.type + "', '" + 
+                this.name + "', '" + 
+                this.description + "', " + 
                 this.price + ")";
+
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);

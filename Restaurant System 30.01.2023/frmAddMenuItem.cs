@@ -178,10 +178,9 @@ namespace Restuarant_System
             }
 
             //insert the data into database
-            MenuItem anItem = new MenuItem();
 
             //Create an instance of a Menu Item and instantiate with values from form controls
-            MenuItem aMenuItem = new MenuItem(Convert.ToInt32(txtItemId.Text), cboMenuItemType.Text,txtItemName.Text, txtItemDescription.Text,
+            MenuItem aMenuItem = new MenuItem('A', Convert.ToInt32(txtItemId.Text), cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text,
                 Convert.ToDecimal(txtPrice.Text));
 
             //invoke the method to add the data to the MenuItems table
