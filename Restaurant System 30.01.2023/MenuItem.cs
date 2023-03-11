@@ -197,6 +197,7 @@ namespace Restuarant_System
             return ds;
         }
 
+        //code to ensure menuItem id is up to date and iterated correctly
         public static int getNextmenuItemId()
         {
             //Open a db connection
