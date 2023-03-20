@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -135,12 +136,12 @@ namespace Restuarant_System
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            string sqlQuery = "INSERT INTO MenuItems VALUES ('" + 
-                this.availability + "', " + 
-                this.itemId + ", '" + 
-                this.type + "', '" + 
-                this.name + "', '" + 
-                this.description + "', " + 
+            string sqlQuery = "INSERT INTO MenuItems VALUES ('" +
+                this.availability + "', " +
+                this.itemId + ", '" +
+                this.type + "', '" +
+                this.name + "', '" +
+                this.description + "', " +
                 this.price + ")";
 
 
@@ -232,29 +233,23 @@ namespace Restuarant_System
             return nextId;
         }
 
-            public void InsertMethod(int itemId)
-            {
-                var queryString = string.Format(@"INSERT INTO TABLE(ID, OWNER, TEXT) VALUES (TABLE_SEQ.NEXTVAL,:OWNER, :TEXT)");
-                try
-                {
-                    using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
-                    {
-                        conn.Open();
-                        OracleCommand cmd = conn.CreateCommand();
-                        cmd.CommandText = queryString;
-                        //cmd.Parameters.Add("OWNER", itemId.Owner);
-                        //cmd.Parameters.Add("TEXT", itemId.Text);
+        public static void UpdateMenuItem (int itemId)
+        {
+            OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
-                        int rowsUpdated = cmd.ExecuteNonQuery();
+            OracleCommand command = conn.CreateCommand();
+            command.CommandText = "UPDATE menuItems SET Availability='U' WHERE ItemId = " + itemId + "";
 
-                        if (rowsUpdated > 0) success = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error in Remove Function, Please try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            // return value of ExecuteNonQuery (i) is the number of rows affected by the command
+            conn.Open();
+
+            int i = command.ExecuteNonQuery();
+            Console.WriteLine(Environment.NewLine + "Rows in menuItems updated: {0}", i + Environment.NewLine);
+
+            //Close db connection
+            conn.Close();
         }
     }
+}
+
 

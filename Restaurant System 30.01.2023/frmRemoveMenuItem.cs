@@ -59,13 +59,19 @@ namespace Restuarant_System
             {
                 try
                 {
+                    //Retrieve itemID from database
+                    //String itemId = menuItemsDataGridView.get;
+
                     //remove item from database
 
-                    //MenuItem.
+                    MenuItem.UpdateMenuItem(Convert.ToInt32(2));
 
                     //display confirmation message
                     MessageBox.Show("Product removed from available Menu Items successfully", "Success",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    //update data grid view table.
+                    DataSet dataSet = MenuItem.getAllMenuItems();
                 }
 
                 catch (Exception ex)
