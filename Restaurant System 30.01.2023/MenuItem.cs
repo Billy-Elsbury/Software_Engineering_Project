@@ -63,8 +63,7 @@ namespace Restuarant_System
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "SELECT Availability ,ItemId, Type, Name, Description, Price " +
-                "FROM MenuItems ORDER BY ItemId";
+            String sqlQuery = "SELECT ItemId, Name FROM MenuItems ORDER BY Name";
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
@@ -178,6 +177,8 @@ namespace Restuarant_System
             conn.Close();
         }
 
+ 
+
         public static DataSet findMenuItems(String itemName)
         {
             //Open a db connection
@@ -233,7 +234,7 @@ namespace Restuarant_System
             return nextId;
         }
 
-        public static void UpdateMenuItem (int itemId)
+        public static void RemoveItem (int itemId)
         {
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 

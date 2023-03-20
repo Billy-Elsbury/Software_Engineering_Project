@@ -24,15 +24,14 @@ namespace Restuarant_System
 
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            menuItemsDataGridView.ColumnHeadersDefaultCellStyle.Font =
-                new Font(menuItemsDataGridView.Font, FontStyle.Bold);
+            menuItemsDataGridView.ColumnHeadersDefaultCellStyle.Font = new Font(menuItemsDataGridView.Font, FontStyle.Bold);
 
             menuItemsDataGridView.Name = "menuItemsDataGridView";
             menuItemsDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             menuItemsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             menuItemsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.Single;
             menuItemsDataGridView.GridColor = Color.Black;
-            menuItemsDataGridView.ForeColor = Color.White;
+            menuItemsDataGridView.ForeColor = Color.Black;
             menuItemsDataGridView.RowHeadersVisible = false;
             menuItemsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             menuItemsDataGridView.AllowUserToAddRows = false;
@@ -48,6 +47,7 @@ namespace Restuarant_System
 
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
+
             foreach (DataGridViewColumn column in menuItemsDataGridView.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -59,19 +59,21 @@ namespace Restuarant_System
             {
                 try
                 {
-                    //Retrieve itemID from database
-                    //String itemId = menuItemsDataGridView.get;
+                    //Retrieve itemID
+                    
+                    int selectedId = menuItemsDataGridView.CurrentCell.RowIndex;
 
                     //remove item from database
 
-                    MenuItem.UpdateMenuItem(Convert.ToInt32(2));
+                    //MenuItem.UpdateMenuItem(Convert.ToInt32(selectedId));
 
                     //display confirmation message
-                    MessageBox.Show("Product removed from available Menu Items successfully", "Success",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Product Id: " + selectedId + " removed from available Menu Items successfully", "Success",
+                    //MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     //update data grid view table.
                     DataSet dataSet = MenuItem.getAllMenuItems();
+                    menuItemsDataGridView.DataSource = dataSet.Tables[0];
                 }
 
                 catch (Exception ex)
@@ -79,6 +81,22 @@ namespace Restuarant_System
                     MessageBox.Show("Error in Remove Function, Please try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void menuItemsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure", "Some Title", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                MenuItem.RemoveItem(Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentCell.RowIndex].Cells[0].Value));
+
+                MessageBox.Show("Product Id: " + menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentCell.RowIndex].Cells[0].Value + " removed from available Menu Items successfully", "Success");
+            }
+        }
+
+        private void grpEditMenuItem_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -30,8 +30,8 @@ namespace Restuarant_System
         private void InitializeComponent()
         {
             this.grpEditMenuItem = new System.Windows.Forms.GroupBox();
-            this.btnRemoveMenuItem = new System.Windows.Forms.Button();
             this.menuItemsDataGridView = new System.Windows.Forms.DataGridView();
+            this.btnRemoveMenuItem = new System.Windows.Forms.Button();
             this.grpEditMenuItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -46,16 +46,7 @@ namespace Restuarant_System
             this.grpEditMenuItem.TabIndex = 22;
             this.grpEditMenuItem.TabStop = false;
             this.grpEditMenuItem.Text = "Remove Menu Item Details";
-            // 
-            // btnRemoveMenuItem
-            // 
-            this.btnRemoveMenuItem.Location = new System.Drawing.Point(6, 391);
-            this.btnRemoveMenuItem.Name = "btnRemoveMenuItem";
-            this.btnRemoveMenuItem.Size = new System.Drawing.Size(153, 35);
-            this.btnRemoveMenuItem.TabIndex = 3;
-            this.btnRemoveMenuItem.Text = "Remove Menu Item";
-            this.btnRemoveMenuItem.UseVisualStyleBackColor = true;
-            this.btnRemoveMenuItem.Click += new System.EventHandler(this.btnRemoveMenuItem_Click);
+            this.grpEditMenuItem.Enter += new System.EventHandler(this.grpEditMenuItem_Enter);
             // 
             // menuItemsDataGridView
             // 
@@ -66,6 +57,17 @@ namespace Restuarant_System
             this.menuItemsDataGridView.ReadOnly = true;
             this.menuItemsDataGridView.Size = new System.Drawing.Size(460, 318);
             this.menuItemsDataGridView.TabIndex = 30;
+            this.menuItemsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.menuItemsDataGridView_CellClick);
+            // 
+            // btnRemoveMenuItem
+            // 
+            this.btnRemoveMenuItem.Location = new System.Drawing.Point(6, 391);
+            this.btnRemoveMenuItem.Name = "btnRemoveMenuItem";
+            this.btnRemoveMenuItem.Size = new System.Drawing.Size(153, 35);
+            this.btnRemoveMenuItem.TabIndex = 3;
+            this.btnRemoveMenuItem.Text = "Remove Menu Item";
+            this.btnRemoveMenuItem.UseVisualStyleBackColor = true;
+            this.btnRemoveMenuItem.Click += new System.EventHandler(this.btnRemoveMenuItem_Click);
             // 
             // frmRemoveMenuItem
             // 

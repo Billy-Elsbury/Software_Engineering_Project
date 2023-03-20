@@ -15,8 +15,8 @@ namespace Restuarant_System
 {
     public partial class frmAddMenuItem : Form
     {
-        //Retrieve itemID from database
-        String itemId = MenuItem.getNextmenuItemId().ToString("0000");
+        
+        
 
 
         public frmAddMenuItem()
@@ -33,7 +33,8 @@ namespace Restuarant_System
             cboMenuItemType.Items.Add("B");
             cboMenuItemType.Items.Add("D");
 
-            txtItemId.Text = itemId;
+            //Retrieve itemID from database
+            txtItemId.Text = MenuItem.getNextmenuItemId().ToString("0000");
 
             //Create Data Grid View
 
@@ -143,6 +144,9 @@ namespace Restuarant_System
                                                                             break;
                                                                         case false:
 
+                                                                            //update item Id
+                                                                            String itemId = MenuItem.getNextmenuItemId().ToString("0000");
+
                                                                             //insert the data into database
 
                                                                             //Create an instance of a Menu Item and instantiate with values from form controls
@@ -184,11 +188,12 @@ namespace Restuarant_System
             txtPrice.Text = "0.00";
             cboMenuItemType.Focus();
 
-            //update table
+            //update data view grid table
 
             DataSet dataSet = MenuItem.getAllMenuItems();
 
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
+
         }
     }
 }
