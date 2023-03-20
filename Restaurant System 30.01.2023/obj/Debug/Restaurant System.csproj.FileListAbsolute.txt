@@ -215,7 +215,6 @@ C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\bin\Debug\System.Text.Json.dll
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\bin\Debug\System.Threading.Tasks.Extensions.dll
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\bin\Debug\System.ValueTuple.dll
-C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\bin\Debug\System.Buffers.xml
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\bin\Debug\System.Memory.xml
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\bin\Debug\System.Numerics.Vectors.xml
@@ -243,3 +242,5 @@ C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\obj\Debug\Restaurant System.csproj.CopyComplete
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\obj\Debug\Restuarant System.exe
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\obj\Debug\Restuarant System.pdb
+C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System 30.01.2023\obj\Debug\Restaurant System.csproj.SuggestedBindingRedirects.cache

@@ -1,10 +1,13 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Restuarant_System
 {
@@ -60,7 +63,7 @@ namespace Restuarant_System
 
             //Define the SQL query to be executed
             String sqlQuery = "SELECT Availability ,ItemId, Type, Name, Description, Price " +
-                "FROM MenuItems ORDER BY Name";
+                "FROM MenuItems ORDER BY ItemId";
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
@@ -76,14 +79,14 @@ namespace Restuarant_System
             return ds;
         }
 
-        public static DataSet getAllMenuItems(String Type)
+        public static DataSet getAllMenuItemsByType(String Type)
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
             String sqlQuery = "SELECT MenuItems, Name, Qty,Price " +
-                "FROM MenuItems WHERE ItemId = '" + Type + "' ORDER BY Name";
+                "FROM MenuItems WHERE ItemId = '" + Type + "' ORDER BY Type";
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
@@ -197,7 +200,7 @@ namespace Restuarant_System
             return ds;
         }
 
-        //code to ensure menuItem id is up to date and iterated correctly
+        //Retrieve MenuItemID from database and ensure it is itterated and up to date.
         public static int getNextmenuItemId()
         {
             //Open a db connection
@@ -228,5 +231,30 @@ namespace Restuarant_System
 
             return nextId;
         }
+
+            public void InsertMethod(int itemId)
+            {
+                var queryString = string.Format(@"INSERT INTO TABLE(ID, OWNER, TEXT) VALUES (TABLE_SEQ.NEXTVAL,:OWNER, :TEXT)");
+                try
+                {
+                    using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
+                    {
+                        conn.Open();
+                        OracleCommand cmd = conn.CreateCommand();
+                        cmd.CommandText = queryString;
+                        //cmd.Parameters.Add("OWNER", itemId.Owner);
+                        //cmd.Parameters.Add("TEXT", itemId.Text);
+
+                        int rowsUpdated = cmd.ExecuteNonQuery();
+
+                        if (rowsUpdated > 0) success = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error in Remove Function, Please try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
-}
+

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,26 +15,27 @@ namespace Restuarant_System
 {
     public partial class frmAddMenuItem : Form
     {
+        //Retrieve itemID from database
+        String itemId = MenuItem.getNextmenuItemId().ToString("0000");
+
 
         public frmAddMenuItem()
         {
             InitializeComponent();
         }
 
+
+
         private void frmAddMenuItem_Load(object sender, EventArgs e)
         {
-            //get next Product ID
-            txtItemId.Text = MenuItem.getNextmenuItemId().ToString("0000");
 
             cboMenuItemType.Items.Add("F");
             cboMenuItemType.Items.Add("B");
             cboMenuItemType.Items.Add("D");
 
-            
+            txtItemId.Text = itemId;
 
             //Create Data Grid View
-
-            menuItemsDataGridView.ColumnCount = 6;
 
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -40,45 +43,27 @@ namespace Restuarant_System
                 new Font(menuItemsDataGridView.Font, FontStyle.Bold);
 
             menuItemsDataGridView.Name = "menuItemsDataGridView";
-            menuItemsDataGridView.AutoSizeRowsMode =
-                DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-            menuItemsDataGridView.ColumnHeadersBorderStyle =
-                DataGridViewHeaderBorderStyle.Single;
+            menuItemsDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            menuItemsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             menuItemsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.Single;
             menuItemsDataGridView.GridColor = Color.Black;
             menuItemsDataGridView.RowHeadersVisible = false;
-
-            menuItemsDataGridView.Columns[0].Name = "Availability"; 
-            menuItemsDataGridView.Columns[1].Name = "ID";
-            menuItemsDataGridView.Columns[2].Name = "Name";
-            menuItemsDataGridView.Columns[3].Name = "Type";
-            menuItemsDataGridView.Columns[4].Name = "Description";
-            menuItemsDataGridView.Columns[5].Name = "Price";
-
-            menuItemsDataGridView.Columns[0].DefaultCellStyle.Font =
-                new Font(menuItemsDataGridView.DefaultCellStyle.Font, FontStyle.Italic);
-
-            menuItemsDataGridView.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            menuItemsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             menuItemsDataGridView.AllowUserToAddRows = false;
             menuItemsDataGridView.MultiSelect = false;
 
             //ensure columns span whole DataGrid View Table
             menuItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            menuItemsDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            menuItemsDataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            menuItemsDataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            menuItemsDataGridView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
 
-            //Populate Data Grid View with default information
+            //Populate Data Grid View with information from database
 
-            string[] menuItem1 = { "A - Available", "1", "Spaghetti", "F", "Italian", "15.00" };
+            DataSet dataSet = MenuItem.getAllMenuItems(); 
+                
+            menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
-            menuItemsDataGridView.Rows.Add(menuItem1);
         }
 
-        int idCount = 2;
         private void btnAddMenuItem_Click(object sender, EventArgs e)
         {
             //Add to Data Grid View with inputted information ----After validating
@@ -157,9 +142,21 @@ namespace Restuarant_System
                                                                             MessageBox.Show("Item Price must be a positive number.", "Error!");
                                                                             break;
                                                                         case false:
-                                                                            string[] newMenuItem = { "A - Available", idCount.ToString(), txtItemName.Text, cboMenuItemType.Text, txtItemDescription.Text, txtPrice.Text };
-                                                                            menuItemsDataGridView.Rows.Add(newMenuItem);
-                                                                            idCount++;
+
+                                                                            //insert the data into database
+
+                                                                            //Create an instance of a Menu Item and instantiate with values from form controls
+                                                                            MenuItem aMenuItem = new MenuItem('A', Convert.ToInt32(itemId), cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text,
+                                                                                Convert.ToDecimal(txtPrice.Text));
+
+                                                                            //invoke the method to add the data to the MenuItems table
+                                                                            aMenuItem.addMenuItems();
+
+                                                                            //display confirmation message
+                                                                            MessageBox.Show("Product " + txtItemId.Text + " added successfully", "Success",
+                                                                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
                                                                             break;
                                                                     }
                                                                     break;
@@ -177,27 +174,21 @@ namespace Restuarant_System
                     break;
             }
 
-            //insert the data into database
-
-            //Create an instance of a Menu Item and instantiate with values from form controls
-            MenuItem aMenuItem = new MenuItem('A', Convert.ToInt32(txtItemId.Text), cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text,
-                Convert.ToDecimal(txtPrice.Text));
-
-            //invoke the method to add the data to the MenuItems table
-            aMenuItem.addMenuItems();
-
-            //display confirmation message
-            MessageBox.Show("Product " + txtItemId.Text + " added successfully", "Success",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
 
             //reset UI
-            txtItemName.Text = MenuItem.getNextmenuItemId().ToString("0000");
+            txtItemId.Text = MenuItem.getNextmenuItemId().ToString("0000");
             txtItemName.Clear();
             cboMenuItemType.SelectedIndex = -1;
             txtItemDescription.Clear();
             txtPrice.Text = "0.00";
             cboMenuItemType.Focus();
 
+            //update table
+
+            DataSet dataSet = MenuItem.getAllMenuItems();
+
+            menuItemsDataGridView.DataSource = dataSet.Tables[0];
         }
     }
 }

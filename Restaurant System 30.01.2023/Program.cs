@@ -16,7 +16,9 @@ namespace Restuarant_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             //Application.Run(new DB_Connection_Test());
+
             Application.Run(new frmRestaurantTillMenu());
 
         }
