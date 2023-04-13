@@ -43,7 +43,7 @@ namespace Restuarant_System
 
             //Populate Data Grid View with information from database
 
-            DataSet dataSet = MenuItem.getAllMenuItems();
+            DataSet dataSet = MenuItem.getSummarisedMenuItems();
 
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
@@ -72,7 +72,7 @@ namespace Restuarant_System
                     //MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     //update data grid view table.
-                    DataSet dataSet = MenuItem.getAllMenuItems();
+                    DataSet dataSet = MenuItem.getSummarisedMenuItems();
                     menuItemsDataGridView.DataSource = dataSet.Tables[0];
                 }
 

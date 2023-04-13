@@ -59,7 +59,7 @@ namespace Restuarant_System
 
             //Populate Data Grid View with information from database
 
-            DataSet dataSet = MenuItem.getAllMenuItems(); 
+            DataSet dataSet = MenuItem.getSummarisedMenuItems(); 
                 
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
@@ -150,7 +150,7 @@ namespace Restuarant_System
                                                                             //insert the data into database
 
                                                                             //Create an instance of a Menu Item and instantiate with values from form controls
-                                                                            MenuItem aMenuItem = new MenuItem('A', Convert.ToInt32(itemId), cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text,
+                                                                            MenuItem aMenuItem = new MenuItem(Convert.ToInt32(itemId), 'A', cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text,
                                                                                 Convert.ToDecimal(txtPrice.Text));
 
                                                                             //invoke the method to add the data to the MenuItems table
@@ -190,7 +190,7 @@ namespace Restuarant_System
 
             //update data view grid table
 
-            DataSet dataSet = MenuItem.getAllMenuItems();
+            DataSet dataSet = MenuItem.getSummarisedMenuItems();
 
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
 

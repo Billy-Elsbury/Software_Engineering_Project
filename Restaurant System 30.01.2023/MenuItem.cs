@@ -13,9 +13,9 @@ using System.Windows.Forms;
 namespace Restuarant_System
 {
     public class MenuItem
-    {
-        private char availability;
+    {      
         private int itemId;
+        private char availability;
         private String type;
         private String name;
         private String description;
@@ -23,18 +23,18 @@ namespace Restuarant_System
 
         public MenuItem()
         {
-            this.availability = 'X';
             this.itemId = 0;
+            this.availability = 'X';
             this.type = "";
             this.name = "";
             this.description = "";
             this.price = 0;
         }
 
-        public MenuItem(char availability, int itemId, string type, string name, string description, decimal price)
+        public MenuItem(int itemId, char availability, string type, string name, string description, decimal price)
         {
-            this.availability = availability;
             this.itemId = itemId;
+            this.availability = availability;
             this.type = type;
             this.name = name;
             this.description = description;
@@ -42,20 +42,42 @@ namespace Restuarant_System
         }
 
         //getters
-        public char getAvailability() { return this.availability; }
         public int getItemId() { return this.itemId; }
+        public char getAvailability() { return this.availability; }
         public String getType() { return this.type; }
         public String getName() { return this.name; }
         public String getDescription() { return this.description; }
         public decimal getPrice() { return this.price; }
 
         //setters
-        public void setAvailability(char Availability) { availability = Availability; }
         public void setItemId(int ItemId) { itemId = ItemId; }
+        public void setAvailability(char Availability) { availability = Availability; }
         public void setType(String Type) { type = Type; }
         public void setName(String Name) { name = Name; }
         public void setDescription(String Description) { description = Description; }
         public void setPrice(Decimal Price) { price = Price; }
+
+        public static DataSet getSummarisedMenuItems()
+        {
+            //Open a db connection
+            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+
+            //Define the SQL query to be executed
+            String sqlQuery = "SELECT ItemId, Name FROM MenuItems ORDER BY ItemId";
+
+            //Execute the SQL query (OracleCommand)
+            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
+
+            OracleDataAdapter da = new OracleDataAdapter(cmd);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds, "menuItem");
+
+            //Close db connection
+            conn.Close();
+
+            return ds;
+        }
 
         public static DataSet getAllMenuItems()
         {
@@ -63,7 +85,7 @@ namespace Restuarant_System
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "SELECT ItemId, Name FROM MenuItems ORDER BY Name";
+            String sqlQuery = "SELECT ItemId, Availability, Type, Name, Description, Price FROM MenuItems ORDER BY ItemId";
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
@@ -135,9 +157,10 @@ namespace Restuarant_System
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            string sqlQuery = "INSERT INTO MenuItems VALUES ('" +
-                this.availability + "', " +
-                this.itemId + ", '" +
+            string sqlQuery = "INSERT INTO MenuItems VALUES (" +
+
+                this.itemId + " , '" +
+                this.availability + "' , '" +
                 this.type + "', '" +
                 this.name + "', '" +
                 this.description + "', " +
@@ -153,31 +176,42 @@ namespace Restuarant_System
             conn.Close();
         }
 
-        public void updateMenuItems()
+        public static void updateMenuItems(int itemId, string type, string name, string description, decimal price)
         {
             //Open a db connection
-            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+            using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
+            {
+                try
+                {
+                    conn.Open();
 
-            //Define the SQL query to be executed
-            String sqlQuery = "UPDATE MenuItems SET " +
-                "ItemId = " + this.itemId + "," +
-                "Name = '" + this.name + "'," +
-                "Type = '" + this.type + "'," +
-                "Description = '" + this.description + "'," +
-                "Price = " + this.price + "," +
-                "WHERE ItemId = " + this.itemId;
+                    // Sanitize input parameters
+                    type = type.Replace("'", "''");
+                    name = name.Replace("'", "''");
+                    description = description.Replace("'", "''");
 
-            //Execute the SQL query (OracleCommand)
-            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
-            conn.Open();
+                    //Define the SQL query to be executed
+                    String sqlQuery = "UPDATE MenuItems SET " +
+                        "Type = '" + type + "'," +
+                        "Name = '" + name + "'," +
+                        "Description = '" + description + "'," +
+                        "Price = " + price +
+                        " WHERE ItemId = " + itemId;
 
-            cmd.ExecuteNonQuery();
-
-            //Close db connection
-            conn.Close();
+                    //Execute the SQL query (OracleCommand)
+                    OracleCommand cmd = new OracleCommand(sqlQuery, conn);
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    // Handle any errors
+                    Console.WriteLine("Error updating menu item: " + ex.Message);
+                }
+            }
         }
 
- 
+
+
 
         public static DataSet findMenuItems(String itemName)
         {

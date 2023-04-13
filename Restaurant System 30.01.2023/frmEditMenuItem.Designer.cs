@@ -31,6 +31,8 @@ namespace Restuarant_System
         {
             this.grpEditMenuItem = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cboItemAvailability = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtItemName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,8 +46,6 @@ namespace Restuarant_System
             this.menuItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.btnEditMenuItem = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.cboItemAvailability = new System.Windows.Forms.ComboBox();
             this.grpEditMenuItem.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
@@ -86,10 +86,29 @@ namespace Restuarant_System
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Editable";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(19, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(82, 13);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "Item Availability:";
+            // 
+            // cboItemAvailability
+            // 
+            this.cboItemAvailability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboItemAvailability.Enabled = false;
+            this.cboItemAvailability.FormattingEnabled = true;
+            this.cboItemAvailability.Location = new System.Drawing.Point(112, 19);
+            this.cboItemAvailability.Name = "cboItemAvailability";
+            this.cboItemAvailability.Size = new System.Drawing.Size(111, 21);
+            this.cboItemAvailability.TabIndex = 26;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(39, 60);
+            this.label5.Location = new System.Drawing.Point(39, 101);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 13);
             this.label5.TabIndex = 21;
@@ -97,7 +116,7 @@ namespace Restuarant_System
             // 
             // txtItemName
             // 
-            this.txtItemName.Location = new System.Drawing.Point(112, 57);
+            this.txtItemName.Location = new System.Drawing.Point(112, 98);
             this.txtItemName.MaxLength = 20;
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.Size = new System.Drawing.Size(158, 20);
@@ -106,7 +125,7 @@ namespace Restuarant_System
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 100);
+            this.label1.Location = new System.Drawing.Point(43, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 19;
@@ -116,7 +135,7 @@ namespace Restuarant_System
             // 
             this.cboMenuItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMenuItemType.FormattingEnabled = true;
-            this.cboMenuItemType.Location = new System.Drawing.Point(112, 97);
+            this.cboMenuItemType.Location = new System.Drawing.Point(112, 56);
             this.cboMenuItemType.Name = "cboMenuItemType";
             this.cboMenuItemType.Size = new System.Drawing.Size(111, 21);
             this.cboMenuItemType.TabIndex = 2;
@@ -208,24 +227,6 @@ namespace Restuarant_System
             this.btnEditMenuItem.Text = "Edit Menu Item";
             this.btnEditMenuItem.UseVisualStyleBackColor = false;
             this.btnEditMenuItem.Click += new System.EventHandler(this.btnEditMenuItem_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(19, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(82, 13);
-            this.label7.TabIndex = 27;
-            this.label7.Text = "Item Availability:";
-            // 
-            // cboItemAvailability
-            // 
-            this.cboItemAvailability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboItemAvailability.FormattingEnabled = true;
-            this.cboItemAvailability.Location = new System.Drawing.Point(112, 19);
-            this.cboItemAvailability.Name = "cboItemAvailability";
-            this.cboItemAvailability.Size = new System.Drawing.Size(111, 21);
-            this.cboItemAvailability.TabIndex = 26;
             // 
             // frmEditMenuItem
             // 
