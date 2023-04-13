@@ -57,13 +57,13 @@ namespace Restuarant_System
         public void setDescription(String Description) { description = Description; }
         public void setPrice(Decimal Price) { price = Price; }
 
-        public static DataSet getSummarisedMenuItems()
+        public static DataSet GetSummarisedMenuItems()
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "SELECT ItemId, Name FROM MenuItems ORDER BY ItemId";
+            String sqlQuery = "SELECT ItemId, Availability, Name FROM MenuItems ORDER BY ItemId";
 
             //Execute the SQL query (OracleCommand)
             OracleCommand cmd = new OracleCommand(sqlQuery, conn);
@@ -79,7 +79,7 @@ namespace Restuarant_System
             return ds;
         }
 
-        public static DataSet getAllMenuItems()
+        public static DataSet GetAllMenuItems()
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
@@ -101,7 +101,7 @@ namespace Restuarant_System
             return ds;
         }
 
-        public static DataSet getAllMenuItemsByType(String Type)
+        public static DataSet GetAllMenuItemsByType(String Type)
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
@@ -124,7 +124,7 @@ namespace Restuarant_System
             return ds;
         }
 
-        public void getMenuItems(int Id)
+        public void GetMenuItems(int Id)
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
@@ -151,7 +151,7 @@ namespace Restuarant_System
             conn.Close();
         }
 
-        public void addMenuItems()
+        public void AddMenuItems()
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
@@ -176,7 +176,7 @@ namespace Restuarant_System
             conn.Close();
         }
 
-        public static void updateMenuItems(int itemId, string type, string name, string description, decimal price)
+        public static void UpdateMenuItem(int itemId, string availability, string type, string name, string description, decimal price)
         {
             //Open a db connection
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
@@ -192,6 +192,7 @@ namespace Restuarant_System
 
                     //Define the SQL query to be executed
                     String sqlQuery = "UPDATE MenuItems SET " +
+                        "Availability = '" + availability + "'," +
                         "Type = '" + type + "'," +
                         "Name = '" + name + "'," +
                         "Description = '" + description + "'," +
@@ -213,13 +214,13 @@ namespace Restuarant_System
 
 
 
-        public static DataSet findMenuItems(String itemName)
+        public static DataSet FindMenuItems(String itemName)
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             //Define the SQL query to be executed
-            String sqlQuery = "SELECT ItemId, Name, Manufacturer FROM Products " +
+            String sqlQuery = "SELECT ItemId, Name, Type FROM MenuItems " +
                 "WHERE Name LIKE '%" + itemName + "%' ORDER BY Name";
 
             //Execute the SQL query (OracleCommand)
@@ -234,38 +235,6 @@ namespace Restuarant_System
             conn.Close();
 
             return ds;
-        }
-
-        //Retrieve MenuItemID from database and ensure it is itterated and up to date.
-        public static int getNextmenuItemId()
-        {
-            //Open a db connection
-            OracleConnection conn = new OracleConnection(DBConnect.oradb);
-
-            //SQL query to be executed:
-            String sqlQuery = "SELECT MAX(ItemId) FROM MenuItems";
-
-            //Execute the SQL query (OracleCommand())
-            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
-            conn.Open();
-
-            OracleDataReader reader = cmd.ExecuteReader();
-
-            //Test dataReader for NULL value?
-            int nextId;
-            reader.Read();
-
-            if (reader.IsDBNull(0))
-                nextId = 1;
-            else
-            {
-                nextId = reader.GetInt32(0) + 1;
-            }
-
-            //Close db connection
-            conn.Close();
-
-            return nextId;
         }
 
         public static void RemoveItem (int itemId)

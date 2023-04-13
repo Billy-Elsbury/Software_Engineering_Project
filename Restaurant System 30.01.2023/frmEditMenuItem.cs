@@ -27,7 +27,7 @@ namespace Restuarant_System
             cboItemAvailability.Items.Add("U");
 
             //Retrieve itemID from database
-            int itemIdCount = Convert.ToInt32(MenuItem.getNextmenuItemId().ToString("0000"));
+            int itemIdCount = Convert.ToInt32(Utility.GetNextmenuItemId().ToString("0000"));
 
             for (int i = 1; i < itemIdCount; i++)
                 cboItemID.Items.Add(i);
@@ -39,7 +39,7 @@ namespace Restuarant_System
 
             //Populate Data Grid View with information from database
 
-            DataSet dataSet = MenuItem.getAllMenuItems();
+            DataSet dataSet = MenuItem.GetAllMenuItems();
 
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
@@ -122,19 +122,43 @@ namespace Restuarant_System
 
         private void btnEditMenuItem_Click(object sender, EventArgs e)
         {
+            // Get input values from form controls
+            string itemType = cboMenuItemType.Text;
+            string itemName = txtItemName.Text;
+            string itemDescription = txtItemDescription.Text;
+            string price = txtPrice.Text;
+
+            // Validate input using the ValidationUtility class
+            string errorMessage;
+            if (!Utility.ValidationUtility.IsMenuItemValid(itemType, itemName, itemDescription, price, out errorMessage))
+            {
+                // Display error message and return if input is invalid
+                MessageBox.Show(errorMessage, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // If input is valid, proceed with adding the menu item to the database and updating the UI
+
             {
                 try
                 {
-                    MenuItem.updateMenuItems(Convert.ToInt32(cboItemID.Text), cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text, Convert.ToInt32(txtPrice.Text));
+                    int selectedID = cboItemID.SelectedIndex;
+                    String newItemName = txtItemName.Text;
 
-                    //update grid
-                    DataSet dataSet = MenuItem.getAllMenuItems();
+                    DataGridViewRow newDataRow = menuItemsDataGridView.Rows[selectedID];
+                    newDataRow.Cells[1].Value = cboItemAvailability.Text;
+                    newDataRow.Cells[2].Value = cboMenuItemType.Text;
+                    newDataRow.Cells[3].Value = txtItemName.Text;
+                    newDataRow.Cells[4].Value = txtItemDescription.Text;
+                    newDataRow.Cells[5].Value = txtPrice.Text;
+
+                    MenuItem.UpdateMenuItem(Convert.ToInt32(cboItemID.Text), cboItemAvailability.Text, cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text, Convert.ToInt32(txtPrice.Text));
 
                     //display confirmation message
                     MessageBox.Show("Product " + cboItemID.Text + " updated successfully", "Success",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 }
+
                 catch (Exception ex)
                 {
                    MessageBox.Show("Error in Update, Please try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);

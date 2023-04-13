@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utility.cs" />
     <Compile Include="DBConnect.cs" />
     <Compile Include="DB_Connection_Test.cs">
       <SubType>Form</SubType>

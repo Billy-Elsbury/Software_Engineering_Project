@@ -57,7 +57,6 @@ namespace Restuarant_System
             this.menuItemsDataGridView.ReadOnly = true;
             this.menuItemsDataGridView.Size = new System.Drawing.Size(460, 318);
             this.menuItemsDataGridView.TabIndex = 30;
-            this.menuItemsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.menuItemsDataGridView_CellClick);
             // 
             // btnRemoveMenuItem
             // 

@@ -34,7 +34,7 @@ namespace Restuarant_System
             cboMenuItemType.Items.Add("D");
 
             //Retrieve itemID from database
-            txtItemId.Text = MenuItem.getNextmenuItemId().ToString("0000");
+            txtItemId.Text = Utility.GetNextmenuItemId().ToString("0000");
 
             //Create Data Grid View
 
@@ -44,8 +44,7 @@ namespace Restuarant_System
                 new Font(menuItemsDataGridView.Font, FontStyle.Bold);
 
             menuItemsDataGridView.Name = "menuItemsDataGridView";
-            menuItemsDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-            menuItemsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            menuItemsDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;            menuItemsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             menuItemsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.Single;
             menuItemsDataGridView.GridColor = Color.Black;
             menuItemsDataGridView.RowHeadersVisible = false;
@@ -59,7 +58,7 @@ namespace Restuarant_System
 
             //Populate Data Grid View with information from database
 
-            DataSet dataSet = MenuItem.getSummarisedMenuItems(); 
+            DataSet dataSet = MenuItem.GetSummarisedMenuItems(); 
                 
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
@@ -92,96 +91,39 @@ namespace Restuarant_System
                 return;
             }
 
-            switch (cboMenuItemType.Text)
+            // Get input values from form controls
+            string itemType = cboMenuItemType.Text;
+            string itemName = txtItemName.Text;
+            string itemDescription = txtItemDescription.Text;
+            string price = txtPrice.Text;
+
+            // Validate input using the ValidationUtility class
+            string errorMessage;
+            if (!Utility.ValidationUtility.IsMenuItemValid(itemType, itemName, itemDescription, price, out errorMessage))
             {
-                case "":
-                    MessageBox.Show("A Menu Item Type must be selected.", "Error!");
-                    break;
-                default:
-
-                    switch (txtItemName.Text)
-                    {
-                        case "":
-                            MessageBox.Show("Item Name cannot be empty.", "Error!");
-                            break;
-                        default:
-
-                            switch (txtItemDescription.Text)
-                            {
-                                case "":
-                                    MessageBox.Show("Item Description cannot be empty.", "Error!");
-                                    break;
-                                default:
-
-                                    switch (itemNameContainsDigit || itemDescriptionContainsDigit)
-                                    {
-                                        case true:
-                                            MessageBox.Show("Item Name and Description cannot include numbers", "Error!");
-                                            break;
-                                        case false:
-                                            switch (itemNameHasNoSpecial || itemDescriptionHasNoSpecial)
-                                            {
-                                                case false:
-                                                    MessageBox.Show("Item Name and Description cannot include special characters", "Error!");
-                                                    break;
-                                                case true:
-                                                    switch (priceIsParcable)
-                                                    {
-                                                        case false:
-                                                            MessageBox.Show("Item Price must be a number, cannot include letters.", "Error!");
-                                                            break;
-                                                        case true:
-                                                            switch (txtPrice.Text)
-                                                            {
-                                                                case "":
-                                                                    MessageBox.Show("Item Price cannot be empty.", "Error!");
-                                                                    break;
-                                                                default:
-                                                                    switch (double.Parse(txtPrice.Text) <= 0)
-                                                                    {
-                                                                        case true:
-                                                                            MessageBox.Show("Item Price must be a positive number.", "Error!");
-                                                                            break;
-                                                                        case false:
-
-                                                                            //update item Id
-                                                                            String itemId = MenuItem.getNextmenuItemId().ToString("0000");
-
-                                                                            //insert the data into database
-
-                                                                            //Create an instance of a Menu Item and instantiate with values from form controls
-                                                                            MenuItem aMenuItem = new MenuItem(Convert.ToInt32(itemId), 'A', cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text,
-                                                                                Convert.ToDecimal(txtPrice.Text));
-
-                                                                            //invoke the method to add the data to the MenuItems table
-                                                                            aMenuItem.addMenuItems();
-
-                                                                            //display confirmation message
-                                                                            MessageBox.Show("Product " + txtItemId.Text + " added successfully", "Success",
-                                                                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-                                                                            break;
-                                                                    }
-                                                                    break;
-                                                            }
-                                                            break;
-                                                    }
-                                                    break;
-                                            }
-                                            break;
-                                    }
-                                    break;
-                            }
-                            break;
-                    }
-                    break;
+                // Display error message and return if input is invalid
+                MessageBox.Show(errorMessage, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
-            
+            // If input is valid, proceed with adding the menu item to the database and updating the UI
+
+            //update item Id
+            string itemId = Utility.GetNextmenuItemId().ToString("0000");
+
+            // Create an instance of a Menu Item and instantiate with values from form controls
+            MenuItem aMenuItem = new MenuItem(Convert.ToInt32(itemId), 'A', itemType, itemName, itemDescription, Convert.ToDecimal(price));
+
+            // Invoke the method to add the data to the MenuItems table
+            aMenuItem.AddMenuItems();
+
+            // Display confirmation message
+            MessageBox.Show("Product " + txtItemId.Text + " added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
 
             //reset UI
-            txtItemId.Text = MenuItem.getNextmenuItemId().ToString("0000");
+            txtItemId.Text = Utility.GetNextmenuItemId().ToString("0000");
             txtItemName.Clear();
             cboMenuItemType.SelectedIndex = -1;
             txtItemDescription.Clear();
@@ -190,7 +132,7 @@ namespace Restuarant_System
 
             //update data view grid table
 
-            DataSet dataSet = MenuItem.getSummarisedMenuItems();
+            DataSet dataSet = MenuItem.GetSummarisedMenuItems();
 
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
 

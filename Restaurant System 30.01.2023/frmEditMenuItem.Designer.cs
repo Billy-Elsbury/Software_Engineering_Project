@@ -98,7 +98,6 @@ namespace Restuarant_System
             // cboItemAvailability
             // 
             this.cboItemAvailability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboItemAvailability.Enabled = false;
             this.cboItemAvailability.FormattingEnabled = true;
             this.cboItemAvailability.Location = new System.Drawing.Point(112, 19);
             this.cboItemAvailability.Name = "cboItemAvailability";
