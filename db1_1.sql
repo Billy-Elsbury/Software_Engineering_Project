@@ -26,3 +26,5 @@ INSERT INTO MenuItems VALUES (9, 'U', 'B', 'Mojito', 'Cuban', 4.90);
 INSERT INTO MenuItems VALUES (10, 'A', 'F', 'Biryani', 'Persian', 9.99);
 INSERT INTO MenuItems VALUES (11, 'A', 'F', 'Quesadilla', 'Mexican', 6.50);
 INSERT INTO MenuItems VALUES (12, 'U', 'F', 'Chow Mein', 'Chinese', 10.75);
+
+Commit;

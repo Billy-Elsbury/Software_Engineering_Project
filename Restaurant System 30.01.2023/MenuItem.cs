@@ -237,22 +237,54 @@ namespace Restuarant_System
             return ds;
         }
 
-        public static void RemoveItem (int itemId)
+        public static void RemoveItem(int itemId)
         {
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
 
             OracleCommand command = conn.CreateCommand();
-            command.CommandText = "UPDATE menuItems SET Availability='U' WHERE ItemId = " + itemId + "";
+            command.CommandText = "SELECT Availability FROM menuItems WHERE ItemId = " + itemId;
 
-            // return value of ExecuteNonQuery (i) is the number of rows affected by the command
             conn.Open();
 
-            int i = command.ExecuteNonQuery();
-            Console.WriteLine(Environment.NewLine + "Rows in menuItems updated: {0}", i + Environment.NewLine);
+            // Execute the query to get the availability status of the item
+            OracleDataReader reader = command.ExecuteReader();
 
-            //Close db connection
+            if (reader.Read())
+            {
+                string availability = reader.GetString(0);
+
+                if (availability == "A")
+                {
+                    // If the item is available, update its availability status
+                    reader.Close();
+                    command.CommandText = "UPDATE menuItems SET Availability='U' WHERE ItemId = " + itemId;
+
+                    int i = command.ExecuteNonQuery();
+                    Console.WriteLine(Environment.NewLine + "Rows in menuItems updated: {0}", i + Environment.NewLine);
+
+                    //display confirmation message
+                    MessageBox.Show("Product Id: " + itemId + " removed from available Menu Items successfully", "Success",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // If the item is not available, display an error message
+                    reader.Close();
+                    MessageBox.Show("Product Id: " + itemId + " is already removed from available Menu Items", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                // If the item is not found, display an error message
+                reader.Close();
+                MessageBox.Show("Product Id: " + itemId + " not found", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             conn.Close();
         }
+
     }
 }
 

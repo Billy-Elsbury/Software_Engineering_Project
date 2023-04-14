@@ -145,14 +145,14 @@ namespace Restuarant_System
                     int selectedID = cboItemID.SelectedIndex;
                     String newItemName = txtItemName.Text;
 
+                    MenuItem.UpdateMenuItem(Convert.ToInt32(cboItemID.Text), cboItemAvailability.Text, cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text, Convert.ToInt32(txtPrice.Text));
+
                     DataGridViewRow newDataRow = menuItemsDataGridView.Rows[selectedID];
                     newDataRow.Cells[1].Value = cboItemAvailability.Text;
                     newDataRow.Cells[2].Value = cboMenuItemType.Text;
                     newDataRow.Cells[3].Value = txtItemName.Text;
                     newDataRow.Cells[4].Value = txtItemDescription.Text;
                     newDataRow.Cells[5].Value = txtPrice.Text;
-
-                    MenuItem.UpdateMenuItem(Convert.ToInt32(cboItemID.Text), cboItemAvailability.Text, cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text, Convert.ToInt32(txtPrice.Text));
 
                     //display confirmation message
                     MessageBox.Show("Product " + cboItemID.Text + " updated successfully", "Success",

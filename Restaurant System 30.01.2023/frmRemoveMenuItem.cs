@@ -67,9 +67,7 @@ namespace Restuarant_System
 
                     MenuItem.RemoveItem(Convert.ToInt32(selectedId + 1));
 
-                    //display confirmation message
-                    MessageBox.Show("Product Id: " + selectedId + " removed from available Menu Items successfully", "Success",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
 
                     //update data grid view table.
 
