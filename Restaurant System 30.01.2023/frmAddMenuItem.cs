@@ -137,5 +137,10 @@ namespace Restuarant_System
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Utility.BackButton(this);
+        }
     }
 }

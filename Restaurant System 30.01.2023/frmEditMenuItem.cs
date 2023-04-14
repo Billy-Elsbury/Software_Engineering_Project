@@ -33,8 +33,6 @@ namespace Restuarant_System
                 cboItemID.Items.Add(i);
 
 
-
-
             //Create Data Grid View
 
             //Populate Data Grid View with information from database
@@ -145,7 +143,7 @@ namespace Restuarant_System
                     int selectedID = cboItemID.SelectedIndex;
                     String newItemName = txtItemName.Text;
 
-                    MenuItem.UpdateMenuItem(Convert.ToInt32(cboItemID.Text), cboItemAvailability.Text, cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text, Convert.ToInt32(txtPrice.Text));
+                    MenuItem.UpdateMenuItem(Convert.ToInt32(cboItemID.Text), cboItemAvailability.Text, cboMenuItemType.Text, txtItemName.Text, txtItemDescription.Text, Decimal.Parse(txtPrice.Text));
 
                     DataGridViewRow newDataRow = menuItemsDataGridView.Rows[selectedID];
                     newDataRow.Cells[1].Value = cboItemAvailability.Text;
@@ -164,6 +162,11 @@ namespace Restuarant_System
                    MessageBox.Show("Error in Update, Please try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Utility.BackButton(this);
         }
     }
 }

@@ -29,8 +29,11 @@ namespace Restuarant_System
 
 
             //Create Data Grid View
+            //Populate Data Grid View with information from database
 
-            menuItemsDataGridView.ColumnCount = 6;
+            DataSet dataSet = MenuItem.GetAllMenuItems();
+
+            menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -65,35 +68,6 @@ namespace Restuarant_System
             menuItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             menuItemsDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-
-            //Populate Data Grid View with default information
-
-            string[] menuItem1 = { "A - Available", "1", "Spaghetti", "F - Food", "Italian", "14.00" };
-            string[] menuItem2 = { "A - Available", "2", "Sushi", "F - Food", "Japanese", "12.50" };
-            string[] menuItem3 = { "U - Unvailable", "3", "Guiness", "B - Beverage", "Irish", "4.90" };
-            string[] menuItem4 = { "A - Available", "4", "CheeseCake", "D - Dessert", "Greek", "7.50" };
-            string[] menuItem5 = { "A - Available", "5", "Chips", "F - Food", "Belgium", "6.00" };
-            string[] menuItem6 = { "U - Unvailable", "6", "Apple-Pie", "D - Dessert", "English", "5.40" };
-            string[] menuItem7 = { "U - Unvailable", "7", "Bloody Mary", "B - Beverage", "French", "9.75" };
-            string[] menuItem8 = { "A - Available", "8", "Vindaloo", "F - Food", "Portuguese", "12.00" };
-            string[] menuItem9 = { "U - Unvailable", "9", "Mojito", "B - Beverage", "Cuban", "4.90" };
-            string[] menuItem10 = { "A - Available", "10", "Biryani", "F - Food", "Persian", "9.99" };
-            string[] menuItem11 = { "A - Available", "11", "Quesadilla", "F - Food", "Mexican", "6.50" };
-            string[] menuItem12 = { "U - Unvailable", "12", "Chow Mein", "F - Food", "Chinese", "10.75" };
-
-            menuItemsDataGridView.Rows.Add(menuItem1);
-            menuItemsDataGridView.Rows.Add(menuItem2);
-            menuItemsDataGridView.Rows.Add(menuItem3);
-            menuItemsDataGridView.Rows.Add(menuItem4);
-            menuItemsDataGridView.Rows.Add(menuItem5);
-            menuItemsDataGridView.Rows.Add(menuItem6);
-            menuItemsDataGridView.Rows.Add(menuItem7);
-            menuItemsDataGridView.Rows.Add(menuItem8);
-            menuItemsDataGridView.Rows.Add(menuItem9);
-            menuItemsDataGridView.Rows.Add(menuItem10);
-            menuItemsDataGridView.Rows.Add(menuItem11);
-            menuItemsDataGridView.Rows.Add(menuItem12);
-
             foreach (DataGridViewColumn column in menuItemsDataGridView.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -124,25 +98,34 @@ namespace Restuarant_System
 
         private void menuItemsDataGridView_Click(object sender, EventArgs e)
         {
-            //Read from Data Grid View and display on form
 
-            String itemAvailability = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value).ToString();
-            txtItemAvailability.Text = itemAvailability;
 
-            int itemID = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[1].Value);
-            cboItemID.Text = Convert.ToString(itemID);
+            if (menuItemsDataGridView.SelectedRows.Count > 0) // Check if a row is selected first to avoid crash when selecting empty part of grid view
+            {
+                //Read from Data Grid View and display on form
+                String itemAvailability = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value).ToString();
+                txtItemAvailability.Text = itemAvailability;
 
-            String itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[2].Value).ToString();
-            txtItemName.Text = Convert.ToString(itemName);
+                int itemID = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[1].Value);
+                cboItemID.Text = Convert.ToString(itemID);
 
-            String itemType = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[3].Value).ToString();
-            txtItemType.Text = itemType;
+                String itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[2].Value).ToString();
+                txtItemName.Text = Convert.ToString(itemName);
 
-            String itemDescription = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[4].Value).ToString();
-            txtItemDescription.Text = itemDescription;
+                String itemType = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[3].Value).ToString();
+                txtItemType.Text = itemType;
 
-            String itemPrice = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[5].Value).ToString();
-            txtPrice.Text = itemPrice;
+                String itemDescription = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[4].Value).ToString();
+                txtItemDescription.Text = itemDescription;
+
+                String itemPrice = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[5].Value).ToString();
+                txtPrice.Text = itemPrice;
+            }
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Utility.BackButton(this);
         }
     }
 }

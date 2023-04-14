@@ -82,9 +82,9 @@ namespace Restuarant_System
             }
         }
 
-        private void grpEditMenuItem_Enter(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
-
+            Utility.BackButton(this);
         }
     }
 }

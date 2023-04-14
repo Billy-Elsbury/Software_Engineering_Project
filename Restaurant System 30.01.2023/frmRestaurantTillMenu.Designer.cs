@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Restuarant_System
 {
     partial class frmRestaurantTillMenu
@@ -70,7 +72,6 @@ namespace Restuarant_System
             this.addMenuItemToolStripMenuItem.Name = "addMenuItemToolStripMenuItem";
             this.addMenuItemToolStripMenuItem.Size = new System.Drawing.Size(128, 20);
             this.addMenuItemToolStripMenuItem.Text = "Manage Menu Items";
-            this.addMenuItemToolStripMenuItem.Click += new System.EventHandler(this.addMenuItemToolStripMenuItem_Click);
             // 
             // mnuAddMenuItem
             // 
@@ -191,6 +192,7 @@ namespace Restuarant_System
 
         }
 
+   
         #endregion
 
         private System.Windows.Forms.MenuStrip mnuMainMenu;

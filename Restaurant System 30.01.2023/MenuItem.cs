@@ -178,6 +178,9 @@ namespace Restuarant_System
 
         public static void UpdateMenuItem(int itemId, string availability, string type, string name, string description, decimal price)
         {
+            //using parameterized query to avoid SQL Injection
+            //https://www.c-sharpcorner.com/UploadFile/a20beb/why-should-always-use-the-parameterized-query-to-avoid-sql-i/
+
             //Open a db connection
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
             {
@@ -185,22 +188,27 @@ namespace Restuarant_System
                 {
                     conn.Open();
 
-                    // Sanitize input parameters
-                    type = type.Replace("'", "''");
-                    name = name.Replace("'", "''");
-                    description = description.Replace("'", "''");
-
-                    //Define the SQL query to be executed
+                    //Define the SQL query with placeholders
                     String sqlQuery = "UPDATE MenuItems SET " +
-                        "Availability = '" + availability + "'," +
-                        "Type = '" + type + "'," +
-                        "Name = '" + name + "'," +
-                        "Description = '" + description + "'," +
-                        "Price = " + price +
-                        " WHERE ItemId = " + itemId;
+                        "Availability = :availability," +
+                        "Type = :type," +
+                        "Name = :name," +
+                        "Description = :description," +
+                        "Price = :price" +
+                        " WHERE ItemId = :itemId";
 
-                    //Execute the SQL query (OracleCommand)
+                    //Create a new OracleCommand object
                     OracleCommand cmd = new OracleCommand(sqlQuery, conn);
+
+                    //Set the parameterized values
+                    cmd.Parameters.Add(new OracleParameter(":availability", availability));
+                    cmd.Parameters.Add(new OracleParameter(":type", type));
+                    cmd.Parameters.Add(new OracleParameter(":name", name));
+                    cmd.Parameters.Add(new OracleParameter(":description", description));
+                    cmd.Parameters.Add(new OracleParameter(":price", price));
+                    cmd.Parameters.Add(new OracleParameter(":itemId", itemId));
+
+                    //Execute the SQL query
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception ex)
@@ -210,6 +218,7 @@ namespace Restuarant_System
                 }
             }
         }
+
 
 
 

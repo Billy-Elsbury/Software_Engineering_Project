@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Restuarant_System
 {
@@ -120,5 +121,23 @@ namespace Restuarant_System
 
             return nextId;
         }
+        
+        public static void ShowNextForm(Form currentForm, Form nextForm)
+        {
+            currentForm.Hide();
+            nextForm.ShowDialog();
+            currentForm.Show();
+        }
+
+        //Back Button Code
+        public static void BackButton(Form currentForm)
+        {
+            currentForm.Hide();
+            frmRestaurantTillMenu nextForm = new frmRestaurantTillMenu();
+            nextForm.ShowDialog();
+            currentForm.Show();
+        }
+
+
     }
 }

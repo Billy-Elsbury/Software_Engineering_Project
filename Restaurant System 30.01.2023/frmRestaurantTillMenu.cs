@@ -19,10 +19,6 @@ namespace Restuarant_System
             InitializeComponent();
         }
 
-        private void addMenuItemToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void frmRestuarantTillMenu_Load(object sender, EventArgs e)
         {
             menuPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -30,82 +26,61 @@ namespace Restuarant_System
 
         private void mnuAddMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmAddMenuItem nextForm = new frmAddMenuItem();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmAddMenuItem));
         }
+
         private void mnuEditMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmEditMenuItem nextForm = new frmEditMenuItem();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmEditMenuItem));
         }
 
         private void mnuRemovetMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmRemoveMenuItem nextForm = new frmRemoveMenuItem();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmRemoveMenuItem));
         }
 
         private void mnuQueryMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmQueryMenuItem nextForm = new frmQueryMenuItem();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmQueryMenuItem));
         }
 
         private void mnuPlaceOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmPlaceOrder nextForm = new frmPlaceOrder();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmPlaceOrder));
         }
 
         private void mnuEditOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmEditOrder nextForm = new frmEditOrder();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmEditOrder));
         }
 
         private void mnuCancelOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmCancelOrder nextForm = new frmCancelOrder();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmCancelOrder));
         }
 
         private void mnuPayBillToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmPayBill nextForm = new frmPayBill();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmPayBill));
         }
 
         private void mnuMenuItemAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmItemAnalysis nextForm = new frmItemAnalysis();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmItemAnalysis));
         }
 
         private void mnuRevenueAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmRevenueAnalysis nextForm = new frmRevenueAnalysis();
-            nextForm.ShowDialog();
-            this.Show();
+            GoToForm(typeof(frmRevenueAnalysis));
         }
+
+        //Code to
+        private void GoToForm(Type formType)
+        {
+            Form nextForm = (Form)Activator.CreateInstance(formType);
+            Utility.ShowNextForm(this, nextForm);
+        }
+
 
         private void frmRestauarantTilMenu_FormClosing(object sender, FormClosingEventArgs e)
         {

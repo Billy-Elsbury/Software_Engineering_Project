@@ -32,12 +32,14 @@ namespace Restuarant_System
             this.grpEditMenuItem = new System.Windows.Forms.GroupBox();
             this.menuItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.btnRemoveMenuItem = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             this.grpEditMenuItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // grpEditMenuItem
             // 
+            this.grpEditMenuItem.Controls.Add(this.btnBack);
             this.grpEditMenuItem.Controls.Add(this.menuItemsDataGridView);
             this.grpEditMenuItem.Controls.Add(this.btnRemoveMenuItem);
             this.grpEditMenuItem.Location = new System.Drawing.Point(12, 12);
@@ -46,7 +48,6 @@ namespace Restuarant_System
             this.grpEditMenuItem.TabIndex = 22;
             this.grpEditMenuItem.TabStop = false;
             this.grpEditMenuItem.Text = "Remove Menu Item Details";
-            this.grpEditMenuItem.Enter += new System.EventHandler(this.grpEditMenuItem_Enter);
             // 
             // menuItemsDataGridView
             // 
@@ -68,6 +69,16 @@ namespace Restuarant_System
             this.btnRemoveMenuItem.UseVisualStyleBackColor = true;
             this.btnRemoveMenuItem.Click += new System.EventHandler(this.btnRemoveMenuItem_Click);
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(399, 397);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 44;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // frmRemoveMenuItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -88,5 +99,6 @@ namespace Restuarant_System
         private System.Windows.Forms.GroupBox grpEditMenuItem;
         private System.Windows.Forms.Button btnRemoveMenuItem;
         private System.Windows.Forms.DataGridView menuItemsDataGridView;
+        private System.Windows.Forms.Button btnBack;
     }
 }

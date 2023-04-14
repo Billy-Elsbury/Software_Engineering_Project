@@ -34,6 +34,9 @@ namespace Restuarant_System
             this.cboItemID = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.grpQueryMenuItem = new System.Windows.Forms.GroupBox();
+            this.txtItemAvailability = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtItemType = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtItemName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,9 +44,7 @@ namespace Restuarant_System
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.txtItemDescription = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtItemType = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtItemAvailability = new System.Windows.Forms.TextBox();
+            this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
             this.grpQueryMenuItem.SuspendLayout();
             this.SuspendLayout();
@@ -91,6 +92,7 @@ namespace Restuarant_System
             // 
             // grpQueryMenuItem
             // 
+            this.grpQueryMenuItem.Controls.Add(this.btnBack);
             this.grpQueryMenuItem.Controls.Add(this.txtItemAvailability);
             this.grpQueryMenuItem.Controls.Add(this.label7);
             this.grpQueryMenuItem.Controls.Add(this.txtItemType);
@@ -111,6 +113,34 @@ namespace Restuarant_System
             this.grpQueryMenuItem.TabIndex = 22;
             this.grpQueryMenuItem.TabStop = false;
             this.grpQueryMenuItem.Text = "Query Menu Item";
+            // 
+            // txtItemAvailability
+            // 
+            this.txtItemAvailability.Location = new System.Drawing.Point(113, 334);
+            this.txtItemAvailability.MaxLength = 20;
+            this.txtItemAvailability.Name = "txtItemAvailability";
+            this.txtItemAvailability.ReadOnly = true;
+            this.txtItemAvailability.Size = new System.Drawing.Size(158, 20);
+            this.txtItemAvailability.TabIndex = 42;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.SystemColors.Info;
+            this.label7.Location = new System.Drawing.Point(20, 337);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(82, 13);
+            this.label7.TabIndex = 41;
+            this.label7.Text = "Item Availability:";
+            // 
+            // txtItemType
+            // 
+            this.txtItemType.Location = new System.Drawing.Point(113, 416);
+            this.txtItemType.MaxLength = 20;
+            this.txtItemType.Name = "txtItemType";
+            this.txtItemType.ReadOnly = true;
+            this.txtItemType.Size = new System.Drawing.Size(158, 20);
+            this.txtItemType.TabIndex = 39;
             // 
             // label5
             // 
@@ -180,33 +210,15 @@ namespace Restuarant_System
             this.label4.TabIndex = 37;
             this.label4.Text = "Price:";
             // 
-            // txtItemType
+            // btnBack
             // 
-            this.txtItemType.Location = new System.Drawing.Point(113, 416);
-            this.txtItemType.MaxLength = 20;
-            this.txtItemType.Name = "txtItemType";
-            this.txtItemType.ReadOnly = true;
-            this.txtItemType.Size = new System.Drawing.Size(158, 20);
-            this.txtItemType.TabIndex = 39;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.SystemColors.Info;
-            this.label7.Location = new System.Drawing.Point(20, 337);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(82, 13);
-            this.label7.TabIndex = 41;
-            this.label7.Text = "Item Availability:";
-            // 
-            // txtItemAvailability
-            // 
-            this.txtItemAvailability.Location = new System.Drawing.Point(113, 334);
-            this.txtItemAvailability.MaxLength = 20;
-            this.txtItemAvailability.Name = "txtItemAvailability";
-            this.txtItemAvailability.ReadOnly = true;
-            this.txtItemAvailability.Size = new System.Drawing.Size(158, 20);
-            this.txtItemAvailability.TabIndex = 42;
+            this.btnBack.Location = new System.Drawing.Point(497, 528);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 43;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmQueryMenuItem
             // 
@@ -241,5 +253,6 @@ namespace Restuarant_System
         private System.Windows.Forms.TextBox txtItemType;
         private System.Windows.Forms.TextBox txtItemAvailability;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnBack;
     }
 }

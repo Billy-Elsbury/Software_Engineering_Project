@@ -35,13 +35,14 @@ namespace Restuarant_System
             this.txtItemName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.grpAddMenuItem = new System.Windows.Forms.GroupBox();
+            this.txtItemId = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.menuItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtItemDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtItemId = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.btnBack = new System.Windows.Forms.Button();
             this.grpAddMenuItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -115,6 +116,25 @@ namespace Restuarant_System
             this.grpAddMenuItem.TabStop = false;
             this.grpAddMenuItem.Text = "Enter New Menu Item Details";
             // 
+            // txtItemId
+            // 
+            this.txtItemId.Location = new System.Drawing.Point(148, 32);
+            this.txtItemId.MaxLength = 20;
+            this.txtItemId.Name = "txtItemId";
+            this.txtItemId.ReadOnly = true;
+            this.txtItemId.Size = new System.Drawing.Size(52, 20);
+            this.txtItemId.TabIndex = 27;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label3.Location = new System.Drawing.Point(92, 35);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Item ID:";
+            // 
             // menuItemsDataGridView
             // 
             this.menuItemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -162,30 +182,22 @@ namespace Restuarant_System
             this.label2.TabIndex = 23;
             this.label2.Text = "Item Description:";
             // 
-            // txtItemId
+            // btnBack
             // 
-            this.txtItemId.Location = new System.Drawing.Point(148, 32);
-            this.txtItemId.MaxLength = 20;
-            this.txtItemId.Name = "txtItemId";
-            this.txtItemId.ReadOnly = true;
-            this.txtItemId.Size = new System.Drawing.Size(52, 20);
-            this.txtItemId.TabIndex = 27;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label3.Location = new System.Drawing.Point(92, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "Item ID:";
+            this.btnBack.Location = new System.Drawing.Point(471, 634);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 45;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmAddMenuItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(559, 633);
+            this.ClientSize = new System.Drawing.Size(559, 669);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.grpAddMenuItem);
             this.Name = "frmAddMenuItem";
             this.Text = "Billy\'s Restuarant - [Add Menu Item]";
@@ -212,6 +224,7 @@ namespace Restuarant_System
         private System.Windows.Forms.DataGridView menuItemsDataGridView;
         private System.Windows.Forms.TextBox txtItemId;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnBack;
     }
 }
 

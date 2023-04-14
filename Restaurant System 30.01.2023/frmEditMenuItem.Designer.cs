@@ -46,6 +46,7 @@ namespace Restuarant_System
             this.menuItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.btnEditMenuItem = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             this.grpEditMenuItem.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
@@ -53,6 +54,7 @@ namespace Restuarant_System
             // 
             // grpEditMenuItem
             // 
+            this.grpEditMenuItem.Controls.Add(this.btnBack);
             this.grpEditMenuItem.Controls.Add(this.groupBox1);
             this.grpEditMenuItem.Controls.Add(this.cboItemID);
             this.grpEditMenuItem.Controls.Add(this.label6);
@@ -227,6 +229,16 @@ namespace Restuarant_System
             this.btnEditMenuItem.UseVisualStyleBackColor = false;
             this.btnEditMenuItem.Click += new System.EventHandler(this.btnEditMenuItem_Click);
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(498, 577);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 44;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // frmEditMenuItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,5 +276,6 @@ namespace Restuarant_System
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cboItemAvailability;
+        private System.Windows.Forms.Button btnBack;
     }
 }
