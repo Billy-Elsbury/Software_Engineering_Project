@@ -121,23 +121,43 @@ namespace Restuarant_System
 
             return nextId;
         }
-        
+
         public static void ShowNextForm(Form currentForm, Form nextForm)
         {
             currentForm.Hide();
+
+            //use FirstOrDefault to check if mainMenu is open, if already open show it or create a new one if not.
+            //https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.firstordefault?view=net-8.0
+
+            frmRestaurantTillMenu mainMenu = Application.OpenForms.OfType<frmRestaurantTillMenu>().FirstOrDefault();
+            if (mainMenu != null)
+            {
+                mainMenu.Hide();
+            }
             nextForm.ShowDialog();
             currentForm.Show();
+            if (mainMenu != null)
+            {
+                mainMenu.Show();
+            }
         }
+
+
 
         //Back Button Code
         public static void BackButton(Form currentForm)
         {
             currentForm.Hide();
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form is frmRestaurantTillMenu)
+                {
+                    form.Show();
+                    return;
+                }
+            }
             frmRestaurantTillMenu nextForm = new frmRestaurantTillMenu();
-            nextForm.ShowDialog();
-            currentForm.Show();
+            nextForm.Show();
         }
-
-
     }
 }

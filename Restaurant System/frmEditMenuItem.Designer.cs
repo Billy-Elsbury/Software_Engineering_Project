@@ -30,6 +30,7 @@ namespace Restuarant_System
         private void InitializeComponent()
         {
             this.grpEditMenuItem = new System.Windows.Forms.GroupBox();
+            this.btnBack = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cboItemAvailability = new System.Windows.Forms.ComboBox();
@@ -46,7 +47,6 @@ namespace Restuarant_System
             this.menuItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.btnEditMenuItem = new System.Windows.Forms.Button();
-            this.btnBack = new System.Windows.Forms.Button();
             this.grpEditMenuItem.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
@@ -67,6 +67,16 @@ namespace Restuarant_System
             this.grpEditMenuItem.TabIndex = 21;
             this.grpEditMenuItem.TabStop = false;
             this.grpEditMenuItem.Text = "Edit Menu Item Details";
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(498, 577);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 44;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // groupBox1
             // 
@@ -103,7 +113,7 @@ namespace Restuarant_System
             this.cboItemAvailability.FormattingEnabled = true;
             this.cboItemAvailability.Location = new System.Drawing.Point(112, 19);
             this.cboItemAvailability.Name = "cboItemAvailability";
-            this.cboItemAvailability.Size = new System.Drawing.Size(111, 21);
+            this.cboItemAvailability.Size = new System.Drawing.Size(76, 21);
             this.cboItemAvailability.TabIndex = 26;
             // 
             // label5
@@ -138,7 +148,7 @@ namespace Restuarant_System
             this.cboMenuItemType.FormattingEnabled = true;
             this.cboMenuItemType.Location = new System.Drawing.Point(112, 56);
             this.cboMenuItemType.Name = "cboMenuItemType";
-            this.cboMenuItemType.Size = new System.Drawing.Size(111, 21);
+            this.cboMenuItemType.Size = new System.Drawing.Size(76, 21);
             this.cboMenuItemType.TabIndex = 2;
             // 
             // label2
@@ -228,16 +238,6 @@ namespace Restuarant_System
             this.btnEditMenuItem.Text = "Edit Menu Item";
             this.btnEditMenuItem.UseVisualStyleBackColor = false;
             this.btnEditMenuItem.Click += new System.EventHandler(this.btnEditMenuItem_Click);
-            // 
-            // btnBack
-            // 
-            this.btnBack.Location = new System.Drawing.Point(498, 577);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 23);
-            this.btnBack.TabIndex = 44;
-            this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmEditMenuItem
             // 

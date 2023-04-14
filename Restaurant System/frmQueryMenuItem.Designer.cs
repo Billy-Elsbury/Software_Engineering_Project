@@ -34,9 +34,8 @@ namespace Restuarant_System
             this.cboItemID = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.grpQueryMenuItem = new System.Windows.Forms.GroupBox();
-            this.txtItemAvailability = new System.Windows.Forms.TextBox();
+            this.btnBack = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtItemType = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtItemName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,7 +43,9 @@ namespace Restuarant_System
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.txtItemDescription = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnBack = new System.Windows.Forms.Button();
+            this.cboItemAvailability = new System.Windows.Forms.ComboBox();
+            this.cboMenuItemType = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
             this.grpQueryMenuItem.SuspendLayout();
             this.SuspendLayout();
@@ -92,10 +93,11 @@ namespace Restuarant_System
             // 
             // grpQueryMenuItem
             // 
+            this.grpQueryMenuItem.Controls.Add(this.button1);
+            this.grpQueryMenuItem.Controls.Add(this.cboItemAvailability);
+            this.grpQueryMenuItem.Controls.Add(this.cboMenuItemType);
             this.grpQueryMenuItem.Controls.Add(this.btnBack);
-            this.grpQueryMenuItem.Controls.Add(this.txtItemAvailability);
             this.grpQueryMenuItem.Controls.Add(this.label7);
-            this.grpQueryMenuItem.Controls.Add(this.txtItemType);
             this.grpQueryMenuItem.Controls.Add(this.label5);
             this.grpQueryMenuItem.Controls.Add(this.txtItemName);
             this.grpQueryMenuItem.Controls.Add(this.label1);
@@ -114,14 +116,15 @@ namespace Restuarant_System
             this.grpQueryMenuItem.TabStop = false;
             this.grpQueryMenuItem.Text = "Query Menu Item";
             // 
-            // txtItemAvailability
+            // btnBack
             // 
-            this.txtItemAvailability.Location = new System.Drawing.Point(113, 334);
-            this.txtItemAvailability.MaxLength = 20;
-            this.txtItemAvailability.Name = "txtItemAvailability";
-            this.txtItemAvailability.ReadOnly = true;
-            this.txtItemAvailability.Size = new System.Drawing.Size(158, 20);
-            this.txtItemAvailability.TabIndex = 42;
+            this.btnBack.Location = new System.Drawing.Point(497, 528);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 43;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // label7
             // 
@@ -133,20 +136,11 @@ namespace Restuarant_System
             this.label7.TabIndex = 41;
             this.label7.Text = "Item Availability:";
             // 
-            // txtItemType
-            // 
-            this.txtItemType.Location = new System.Drawing.Point(113, 416);
-            this.txtItemType.MaxLength = 20;
-            this.txtItemType.Name = "txtItemType";
-            this.txtItemType.ReadOnly = true;
-            this.txtItemType.Size = new System.Drawing.Size(158, 20);
-            this.txtItemType.TabIndex = 39;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.SystemColors.Info;
-            this.label5.Location = new System.Drawing.Point(40, 376);
+            this.label5.Location = new System.Drawing.Point(40, 418);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 13);
             this.label5.TabIndex = 34;
@@ -154,7 +148,7 @@ namespace Restuarant_System
             // 
             // txtItemName
             // 
-            this.txtItemName.Location = new System.Drawing.Point(113, 373);
+            this.txtItemName.Location = new System.Drawing.Point(113, 415);
             this.txtItemName.MaxLength = 20;
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.ReadOnly = true;
@@ -165,7 +159,7 @@ namespace Restuarant_System
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.Info;
-            this.label1.Location = new System.Drawing.Point(44, 416);
+            this.label1.Location = new System.Drawing.Point(44, 375);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 33;
@@ -210,15 +204,33 @@ namespace Restuarant_System
             this.label4.TabIndex = 37;
             this.label4.Text = "Price:";
             // 
-            // btnBack
+            // cboItemAvailability
             // 
-            this.btnBack.Location = new System.Drawing.Point(497, 528);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 23);
-            this.btnBack.TabIndex = 43;
-            this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            this.cboItemAvailability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboItemAvailability.FormattingEnabled = true;
+            this.cboItemAvailability.Location = new System.Drawing.Point(113, 335);
+            this.cboItemAvailability.Name = "cboItemAvailability";
+            this.cboItemAvailability.Size = new System.Drawing.Size(76, 21);
+            this.cboItemAvailability.TabIndex = 45;
+            // 
+            // cboMenuItemType
+            // 
+            this.cboMenuItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMenuItemType.FormattingEnabled = true;
+            this.cboMenuItemType.Location = new System.Drawing.Point(113, 372);
+            this.cboMenuItemType.Name = "cboMenuItemType";
+            this.cboMenuItemType.Size = new System.Drawing.Size(76, 21);
+            this.cboMenuItemType.TabIndex = 44;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(497, 435);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 77);
+            this.button1.TabIndex = 46;
+            this.button1.Text = "Filter";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmQueryMenuItem
             // 
@@ -250,9 +262,10 @@ namespace Restuarant_System
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.TextBox txtItemDescription;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtItemType;
-        private System.Windows.Forms.TextBox txtItemAvailability;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.ComboBox cboItemAvailability;
+        private System.Windows.Forms.ComboBox cboMenuItemType;
+        private System.Windows.Forms.Button button1;
     }
 }
