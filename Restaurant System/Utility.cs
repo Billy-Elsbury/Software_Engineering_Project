@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,19 +19,18 @@ namespace Restuarant_System
                 errorMessage = string.Empty;
 
                 double numberDouble;
-                bool priceIsParcable = double.TryParse(price, out numberDouble);
+                bool priceIsParsable = double.TryParse(price, out numberDouble);
+                bool itemNameBlank = itemName.Equals("");
                 bool itemNameContainsDigit = itemName.Any(char.IsDigit);
-                bool itemDescriptionContainsDigit = itemDescription.Any(char.IsDigit);
-                bool itemNameHasNoSpecial = itemName.All(char.IsLetter);
-                bool itemDescriptionHasNoSpecial = itemDescription.All(char.IsLetter);
+                bool itemDescriptionBlank = itemDescription.Equals("");
+                bool itemDescriptionContainsDigit = itemName.Any(char.IsDigit);
 
-                if (string.IsNullOrEmpty(itemType))
-                {
-                    errorMessage = "A Menu Item Type must be selected.";
-                    return false;
-                }
+                //https://learn.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex?view=net-8.0
 
-                if (string.IsNullOrEmpty(itemName))
+                bool itemNameHasNoSpecial = !Regex.IsMatch(itemName, @"[^a-zA-Z\s]"); // Only allow letters and spaces
+                bool itemDescriptionHasNoSpecial = !Regex.IsMatch(itemDescription, @"[^a-zA-Z\s]"); // Only allow letters and spaces
+
+                if (itemNameBlank)
                 {
                     errorMessage = "Name must be entered.";
                     return false;
@@ -48,7 +48,7 @@ namespace Restuarant_System
                     return false;
                 }
 
-                if (string.IsNullOrEmpty(itemDescription))
+                if (itemDescriptionBlank)
                 {
                     errorMessage = "Description must be entered.";
                     return false;
@@ -60,21 +60,16 @@ namespace Restuarant_System
                     return false;
                 }
 
+
                 if (!itemDescriptionHasNoSpecial)
                 {
                     errorMessage = "Item Description cannot include special characters.";
                     return false;
                 }
 
-                if (!priceIsParcable)
+                if (!priceIsParsable)
                 {
                     errorMessage = "Item Price must be a number, cannot include letters.";
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(price))
-                {
-                    errorMessage = "Item Price cannot be empty.";
                     return false;
                 }
 
@@ -84,9 +79,63 @@ namespace Restuarant_System
                     return false;
                 }
 
+                if (string.IsNullOrEmpty(itemType))
+                {
+                    errorMessage = "Item Type cannot be empty.";
+                    return false;
+                }
+
                 // If all validation passed, return true
                 return true;
             }
+
+            public static bool QueryValidFilter(string itemName, string itemDescription, string price, out string errorMessage)
+            {
+                // Initialize errorMessage to empty string
+                errorMessage = string.Empty;
+
+                double numberDouble;
+                bool priceIsParseable = double.TryParse(price, out numberDouble);
+
+                if (!string.IsNullOrEmpty(itemName))
+                {
+                    bool itemNameHasNoSpecial = itemName.All(c => char.IsLetter(c));
+                    if (!itemNameHasNoSpecial)
+                    {
+                        errorMessage = "Item Name cannot include special characters or numbers.";
+                        return false;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(itemDescription))
+                {
+                    bool itemDescriptionHasNoSpecial = itemDescription.All(c => char.IsLetter(c));
+                    if (!itemDescriptionHasNoSpecial)
+                    {
+                        errorMessage = "Item Description cannot include special characters or numbers.";
+                        return false;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(price))
+                {
+                    if (!priceIsParseable)
+                    {
+                        errorMessage = "Item Price must be a number, cannot include letters.";
+                        return false;
+                    }
+
+                    if (double.Parse(price) <= 0)
+                    {
+                        errorMessage = "Item Price must be a positive number.";
+                        return false;
+                    }
+                }
+
+                // If all validation passed, return true
+                return true;
+            }
+
 
         }
 

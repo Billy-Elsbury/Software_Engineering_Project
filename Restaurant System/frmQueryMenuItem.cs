@@ -23,20 +23,22 @@ namespace Restuarant_System
 
         private void frmQueryMenuItem_Load(object sender, EventArgs e)
         {
-
-            cboMenuItemType.Items.Add("F");
-            cboMenuItemType.Items.Add("B");
-            cboMenuItemType.Items.Add("D");
-
-            cboItemAvailability.Items.Add("A");
-            cboItemAvailability.Items.Add("U");
-
             //Retrieve itemID from database
             int itemIdCount = Convert.ToInt32(Utility.GetNextmenuItemId().ToString("0000"));
+
+            cboItemID.Items.Add("");
 
             for (int i = 1; i < itemIdCount; i++)
                 cboItemID.Items.Add(i);
 
+            cboMenuItemType.Items.Add("");
+            cboMenuItemType.Items.Add("F");
+            cboMenuItemType.Items.Add("B");
+            cboMenuItemType.Items.Add("D");
+
+            cboItemAvailability.Items.Add("");
+            cboItemAvailability.Items.Add("A");
+            cboItemAvailability.Items.Add("U");
 
             //Create Data Grid View
             //Populate Data Grid View with information from database
@@ -86,30 +88,28 @@ namespace Restuarant_System
 
         private void cboItemID_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedID = cboItemID.SelectedIndex;
+            //int selectedID = cboItemID.SelectedIndex;
 
-            String itemAvailability = (menuItemsDataGridView.Rows[selectedID].Cells[0].Value).ToString();
-            cboItemAvailability.Text = Convert.ToString(itemAvailability);
+            //String itemAvailability = (menuItemsDataGridView.Rows[selectedID].Cells[0].Value).ToString();
+            //cboItemAvailability.Text = Convert.ToString(itemAvailability);
 
-            String itemType = (menuItemsDataGridView.Rows[selectedID].Cells[1].Value).ToString();
-            cboMenuItemType.Text = Convert.ToString(itemType);
+            //String itemType = (menuItemsDataGridView.Rows[selectedID].Cells[1].Value).ToString();
+            //cboMenuItemType.Text = Convert.ToString(itemType);
 
-            String itemName = (menuItemsDataGridView.Rows[selectedID].Cells[2].Value).ToString();
-            txtItemName.Text = Convert.ToString(itemName);
+            //String itemName = (menuItemsDataGridView.Rows[selectedID].Cells[2].Value).ToString();
+            //txtItemName.Text = Convert.ToString(itemName);
 
-            String itemDescription = (menuItemsDataGridView.Rows[selectedID].Cells[4].Value).ToString();
-            txtItemDescription.Text = itemDescription;
+            //String itemDescription = (menuItemsDataGridView.Rows[selectedID].Cells[4].Value).ToString();
+            //txtItemDescription.Text = itemDescription;
 
-            String itemPrice = (menuItemsDataGridView.Rows[selectedID].Cells[5].Value).ToString();
-            txtPrice.Text = itemPrice;
+            //String itemPrice = (menuItemsDataGridView.Rows[selectedID].Cells[5].Value).ToString();
+            //txtPrice.Text = itemPrice;
 
-            menuItemsDataGridView.Rows[selectedID].Selected = true;
+            //menuItemsDataGridView.Rows[selectedID].Selected = true;
         }
 
         private void menuItemsDataGridView_Click(object sender, EventArgs e)
         {
-
-
             if (menuItemsDataGridView.SelectedRows.Count > 0) // Check if a row is selected first to avoid crash when selecting empty part of grid view
             {
                 //Read from Data Grid View and display on form
@@ -139,9 +139,65 @@ namespace Restuarant_System
             Utility.BackButton(this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnFilter_Click(object sender, EventArgs e)
         {
+            // Validate the input before filtering
+            string errorMessage;
 
+            if (!Utility.ValidationUtility.QueryValidFilter(txtItemName.Text, txtItemDescription.Text, txtPrice.Text, out errorMessage))
+            {
+                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string sql = "SELECT * FROM MenuItems WHERE 1=1";
+            if (!string.IsNullOrEmpty(cboItemID.Text))
+            {
+                sql += $" AND ItemId = {cboItemID.Text}";
+            }
+            if (!string.IsNullOrEmpty(cboItemAvailability.Text))
+            {
+                sql += $" AND Availability = '{cboItemAvailability.Text}'";
+            }
+            if (!string.IsNullOrEmpty(cboMenuItemType.Text))
+            {
+                sql += $" AND Type = '{cboMenuItemType.Text}'";
+            }
+            if (!string.IsNullOrEmpty(txtItemName.Text))
+            {
+                sql += $" AND Name LIKE '%{txtItemName.Text}%'";
+            }
+            if (!string.IsNullOrEmpty(txtItemDescription.Text))
+            {
+                sql += $" AND Description LIKE '%{txtItemDescription.Text}%'";
+            }
+            if (!string.IsNullOrEmpty(txtPrice.Text))
+            {
+                sql += $" AND Price = {txtPrice.Text}";
+            }
+            DataSet dataSet = MenuItem.FilterMenuItems(sql);
+            if (dataSet != null && dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0)
+            {
+                menuItemsDataGridView.DataSource = dataSet.Tables[0];
+            }
+            else
+            {
+                menuItemsDataGridView.DataSource = new DataTable();
+            }
         }
+
+        private void btnClearFilters_Click(object sender, EventArgs e)
+        {
+            // Clear text boxes
+            txtItemName.Text = "";
+            txtItemDescription.Text = "";
+            txtPrice.Text = "";
+
+            // Clear combo boxes
+            cboItemID.SelectedIndex = 0;
+            cboItemAvailability.SelectedIndex = 0;
+            cboMenuItemType.SelectedIndex = 0;
+        }
+
     }
 }

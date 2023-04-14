@@ -223,7 +223,7 @@ namespace Restuarant_System
 
 
 
-        public static DataSet FindMenuItems(String itemName)
+        public static DataSet FilterMenuItemsByName(String itemName)
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
@@ -293,6 +293,39 @@ namespace Restuarant_System
 
             conn.Close();
         }
+
+        public static DataSet FilterMenuItems(string sql)
+        {
+            DataSet dataSet = new DataSet();
+            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+
+            try
+            {
+                OracleDataAdapter adapter = new OracleDataAdapter(sql, conn);
+                adapter.Fill(dataSet);
+
+                // Check if the dataset has any tables
+                if (dataSet.Tables.Count > 0)
+                {
+                    DataTable dataTable = dataSet.Tables[0];
+
+                    // Check if the table exists in the Tables collection
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        return dataSet;
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception appropriately
+                throw new Exception("Error executing SQL query", ex);
+            }
+        }
+
+
 
     }
 }

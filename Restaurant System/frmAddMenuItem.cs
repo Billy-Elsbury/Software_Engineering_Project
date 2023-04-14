@@ -84,13 +84,6 @@ namespace Restuarant_System
                 return;
             }
 
-            if(txtItemName.Text.Equals(""))
-            {
-                MessageBox.Show("Name must be entered.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtItemName.Focus();
-                return;
-            }
-
             // Get input values from form controls
             string itemType = cboMenuItemType.Text;
             string itemName = txtItemName.Text;
