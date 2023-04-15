@@ -13,6 +13,6 @@ namespace Restuarant_System
         public const String oradb = "Data Source = oracle/orcl; User Id = T00224562; Password = tqxyP7*9vgw4;";
 
         //Home Connection
-        // public const String oradb = "Data Source = localhost/orcl.students.ittralee.ie; User ID = 'UserName'; password= 'password';";
+        //public const String oradb = "Data Source = localhost/orcl.students.ittralee.ie; User ID = T00224562; password= tqxyP7*9vgw4;";
     }
 }
