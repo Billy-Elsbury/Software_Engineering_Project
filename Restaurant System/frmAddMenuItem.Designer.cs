@@ -169,7 +169,7 @@ namespace Restuarant_System
             this.txtItemDescription.Location = new System.Drawing.Point(148, 152);
             this.txtItemDescription.MaxLength = 30;
             this.txtItemDescription.Name = "txtItemDescription";
-            this.txtItemDescription.Size = new System.Drawing.Size(158, 20);
+            this.txtItemDescription.Size = new System.Drawing.Size(291, 20);
             this.txtItemDescription.TabIndex = 22;
             // 
             // label2

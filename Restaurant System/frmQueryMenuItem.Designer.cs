@@ -34,6 +34,7 @@ namespace Restuarant_System
             this.cboItemID = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.grpQueryMenuItem = new System.Windows.Forms.GroupBox();
+            this.btnClearFilters = new System.Windows.Forms.Button();
             this.btnFilter = new System.Windows.Forms.Button();
             this.cboItemAvailability = new System.Windows.Forms.ComboBox();
             this.cboMenuItemType = new System.Windows.Forms.ComboBox();
@@ -46,7 +47,6 @@ namespace Restuarant_System
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.txtItemDescription = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnClearFilters = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
             this.grpQueryMenuItem.SuspendLayout();
             this.SuspendLayout();
@@ -117,6 +117,16 @@ namespace Restuarant_System
             this.grpQueryMenuItem.TabIndex = 22;
             this.grpQueryMenuItem.TabStop = false;
             this.grpQueryMenuItem.Text = "Query Menu Item";
+            // 
+            // btnClearFilters
+            // 
+            this.btnClearFilters.Location = new System.Drawing.Point(497, 378);
+            this.btnClearFilters.Name = "btnClearFilters";
+            this.btnClearFilters.Size = new System.Drawing.Size(75, 57);
+            this.btnClearFilters.TabIndex = 47;
+            this.btnClearFilters.Text = "Clear";
+            this.btnClearFilters.UseVisualStyleBackColor = true;
+            this.btnClearFilters.Click += new System.EventHandler(this.btnClearFilters_Click);
             // 
             // btnFilter
             // 
@@ -218,7 +228,7 @@ namespace Restuarant_System
             this.txtItemDescription.Location = new System.Drawing.Point(113, 455);
             this.txtItemDescription.MaxLength = 30;
             this.txtItemDescription.Name = "txtItemDescription";
-            this.txtItemDescription.Size = new System.Drawing.Size(158, 20);
+            this.txtItemDescription.Size = new System.Drawing.Size(252, 20);
             this.txtItemDescription.TabIndex = 35;
             // 
             // label4
@@ -230,16 +240,6 @@ namespace Restuarant_System
             this.label4.Size = new System.Drawing.Size(34, 13);
             this.label4.TabIndex = 37;
             this.label4.Text = "Price:";
-            // 
-            // btnClearFilters
-            // 
-            this.btnClearFilters.Location = new System.Drawing.Point(497, 378);
-            this.btnClearFilters.Name = "btnClearFilters";
-            this.btnClearFilters.Size = new System.Drawing.Size(75, 57);
-            this.btnClearFilters.TabIndex = 47;
-            this.btnClearFilters.Text = "Clear";
-            this.btnClearFilters.UseVisualStyleBackColor = true;
-            this.btnClearFilters.Click += new System.EventHandler(this.btnClearFilters_Click);
             // 
             // frmQueryMenuItem
             // 

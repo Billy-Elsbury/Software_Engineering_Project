@@ -150,6 +150,8 @@ namespace Restuarant_System
                 return;
             }
 
+            //https://stackoverflow.com/questions/1264681/what-is-the-purpose-of-using-where-1-1-in-sql-statements
+
             string sql = "SELECT * FROM MenuItems WHERE 1=1";
             if (!string.IsNullOrEmpty(cboItemID.Text))
             {
@@ -173,9 +175,11 @@ namespace Restuarant_System
             }
             if (!string.IsNullOrEmpty(txtPrice.Text))
             {
-                sql += $" AND Price = {txtPrice.Text}";
+                sql += $" AND Price LIKE '{txtPrice.Text}%'";
             }
             DataSet dataSet = MenuItem.FilterMenuItems(sql);
+
+
             if (dataSet != null && dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0)
             {
                 menuItemsDataGridView.DataSource = dataSet.Tables[0];

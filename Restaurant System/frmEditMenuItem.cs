@@ -97,25 +97,28 @@ namespace Restuarant_System
 
         private void menuItemsDataGridView_Click(object sender, EventArgs e)
         {
-            //Read from Data Grid View and display on form
+            if (menuItemsDataGridView.SelectedRows.Count > 0) // Check if a row is selected first to avoid crash when selecting empty part of grid view
+            {
+                //Read from Data Grid View and display on form
 
-            int itemID = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value);
-            cboItemID.Text = Convert.ToString(itemID);
+                int itemID = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value);
+                cboItemID.Text = Convert.ToString(itemID);
 
-            String itemAvailability = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[1].Value).ToString();
-            cboItemAvailability.Text = itemAvailability;
+                String itemAvailability = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[1].Value).ToString();
+                cboItemAvailability.Text = itemAvailability;
 
-            String itemType = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[2].Value).ToString();
-            cboMenuItemType.Text = itemType;
+                String itemType = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[2].Value).ToString();
+                cboMenuItemType.Text = itemType;
 
-            String itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[3].Value).ToString();
-            txtItemName.Text = itemName;
+                String itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[3].Value).ToString();
+                txtItemName.Text = itemName;
 
-            String itemDescription = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[4].Value).ToString();
-            txtItemDescription.Text = itemDescription;
+                String itemDescription = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[4].Value).ToString();
+                txtItemDescription.Text = itemDescription;
 
-            String itemPrice = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[5].Value).ToString();
-            txtPrice.Text = itemPrice;
+                String itemPrice = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[5].Value).ToString();
+                txtPrice.Text = itemPrice;
+            }
         }
 
         private void btnEditMenuItem_Click(object sender, EventArgs e)

@@ -220,32 +220,6 @@ namespace Restuarant_System
         }
 
 
-
-
-
-        public static DataSet FilterMenuItemsByName(String itemName)
-        {
-            //Open a db connection
-            OracleConnection conn = new OracleConnection(DBConnect.oradb);
-
-            //Define the SQL query to be executed
-            String sqlQuery = "SELECT ItemId, Name, Type FROM MenuItems " +
-                "WHERE Name LIKE '%" + itemName + "%' ORDER BY Name";
-
-            //Execute the SQL query (OracleCommand)
-            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
-
-            OracleDataAdapter da = new OracleDataAdapter(cmd);
-
-            DataSet ds = new DataSet();
-            da.Fill(ds, "menuItem");
-
-            //Close db connection
-            conn.Close();
-
-            return ds;
-        }
-
         public static void RemoveItem(int itemId)
         {
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
