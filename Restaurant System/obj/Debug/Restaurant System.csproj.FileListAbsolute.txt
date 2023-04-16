@@ -282,7 +282,6 @@ C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System\obj\De
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\Restuarant System.exe.config
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\Restuarant System.exe
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\Restuarant System.pdb
-C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\System.Buffers.dll
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\System.Memory.dll
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\System.Numerics.Vectors.dll
@@ -300,7 +299,6 @@ C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\System.ValueTuple.xml
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\Restaurant System.csproj.AssemblyReference.cache
-C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\Restaurant System.csproj.SuggestedBindingRedirects.cache
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\Restuarant_System.DB_Connection_Test.resources
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\Restuarant_System.frmAddMenuItem.resources
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\Restuarant_System.frmCancelOrder.resources
