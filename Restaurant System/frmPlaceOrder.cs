@@ -19,17 +19,16 @@ namespace Restuarant_System
 
         private void frmPlaceOrder_Load(object sender, EventArgs e)
         {
-            //Create Data Grid View
-            //Populate Data Grid View with information from database
-
+            // Populate Data Grid View with information from database
             DataSet dataSet = MenuItem.GetAllMenuItems();
-
             menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
+            // Create Data Grid View
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.Font =
                 new Font(menuItemsDataGridView.Font, FontStyle.Bold);
+
 
             menuItemsDataGridView.Name = "menuItemsDataGridView";
             menuItemsDataGridView.AutoSizeRowsMode =
@@ -40,13 +39,6 @@ namespace Restuarant_System
             menuItemsDataGridView.GridColor = Color.Black;
             menuItemsDataGridView.RowHeadersVisible = false;
 
-            menuItemsDataGridView.Columns[0].Name = "Availability";
-            menuItemsDataGridView.Columns[1].Name = "ID";
-            menuItemsDataGridView.Columns[2].Name = "Name";
-            menuItemsDataGridView.Columns[3].Name = "Type";
-            menuItemsDataGridView.Columns[4].Name = "Description";
-            menuItemsDataGridView.Columns[5].Name = "Price";
-
             menuItemsDataGridView.Columns[0].DefaultCellStyle.Font =
                 new Font(menuItemsDataGridView.DefaultCellStyle.Font, FontStyle.Italic);
 
@@ -55,7 +47,7 @@ namespace Restuarant_System
             menuItemsDataGridView.AllowUserToAddRows = false;
             menuItemsDataGridView.MultiSelect = false;
 
-            //ensure columns span whole DataGrid View Table
+            // Ensure columns span whole DataGrid View Table
             menuItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             menuItemsDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
@@ -65,19 +57,16 @@ namespace Restuarant_System
             }
 
 
-            //Create Order menuItems Data Grid View
-            //Populate Data Grid View with information from database
-
+            // Populate Data Grid View with information from database
             DataSet orderDataSet = OrderItem.GetAllOrderItems();
-
-            orderItemsDataGridView.ColumnCount = 5;
+            orderItemsDataGridView.DataSource = orderDataSet.Tables[0];
 
             orderItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             orderItemsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             orderItemsDataGridView.ColumnHeadersDefaultCellStyle.Font =
                 new Font(orderItemsDataGridView.Font, FontStyle.Bold);
 
-            orderItemsDataGridView.Name = "menuItemsDataGridView";
+            orderItemsDataGridView.Name = "orderItemsDataGridView";
             orderItemsDataGridView.AutoSizeRowsMode =
                 DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             orderItemsDataGridView.ColumnHeadersBorderStyle =
@@ -86,30 +75,20 @@ namespace Restuarant_System
             orderItemsDataGridView.GridColor = Color.Black;
             orderItemsDataGridView.RowHeadersVisible = false;
 
-            orderItemsDataGridView.Columns[0].Name = "Item ID";
-            orderItemsDataGridView.Columns[1].Name = "Name";
-            orderItemsDataGridView.Columns[2].Name = "Type";
-            orderItemsDataGridView.Columns[3].Name = "Description";
-            orderItemsDataGridView.Columns[4].Name = "Price";
-
-            orderItemsDataGridView.Columns[4].DefaultCellStyle.Font =
-                new Font(orderItemsDataGridView.DefaultCellStyle.Font, FontStyle.Italic);
-
             orderItemsDataGridView.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
             orderItemsDataGridView.AllowUserToAddRows = false;
             orderItemsDataGridView.MultiSelect = false;
 
-            foreach (DataGridViewColumn column in menuItemsDataGridView.Columns)
+            // Ensure columns span whole DataGrid View Table
+            orderItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            orderItemsDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            foreach (DataGridViewColumn column in orderItemsDataGridView.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
 
-            //ensure columns span whole DataGrid View Table
-            orderItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            orderItemsDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            orderItemsDataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            orderItemsDataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private void btnAddtoOrder_Click(object sender, EventArgs e)

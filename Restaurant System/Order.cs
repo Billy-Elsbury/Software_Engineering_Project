@@ -21,9 +21,6 @@ namespace Restuarant_System
         private string orderStatus;
         private List<OrderItem> items;
 
-        private MenuItem menuItem;
-        private int quantity;
-
         public int OrderId
         {
             get { return orderId; }
@@ -126,13 +123,13 @@ namespace Restuarant_System
         }
 
         // Calculate the total price of the order
-        // Calculate the total price of the order
         private decimal CalculateTotalPrice(List<OrderItem> items)
         {
             decimal totalPrice = 0;
 
             foreach (OrderItem item in items)
             {
+                MenuItem menuItem = item.MenuItem;
                 totalPrice += menuItem.getPrice() * item.Quantity;
             }
 
@@ -140,7 +137,7 @@ namespace Restuarant_System
         }
 
         // Get all orders
-        public List<Order> GetAllOrders()
+        public DataSet GetAllOrders()
         {
             // Define the SQL query
             string sqlQuery = "SELECT * FROM Orders";
@@ -149,71 +146,17 @@ namespace Restuarant_System
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
             using (OracleCommand cmd = new OracleCommand(sqlQuery, conn))
             {
-                // Open the database connection
-                conn.Open();
-
-                // Execute the query and get the results
-                using (OracleDataReader reader = cmd.ExecuteReader())
+                // Create a new OracleDataAdapter object
+                using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
                 {
-                    // Create a new list to hold the orders
-                    List<Order> orders = new List<Order>();
+                    // Create a new DataSet object to hold the results
+                    DataSet ds = new DataSet();
 
-                    // Loop through the results and add each order to the list
-                    while (reader.Read())
-                    {
-                        Order order = new Order();
-                        order.OrderId = Convert.ToInt32(reader["OrderId"]);
-                        order.TableNo = Convert.ToInt32(reader["TableNo"]);
-                        order.OrderDate = Convert.ToDateTime(reader["OrderDate"]);
-                        order.OrderPrice = Convert.ToDecimal(reader["OrderPrice"]);
-                        order.OrderStatus = reader["OrderStatus"].ToString();
+                    // Fill the DataSet with the results of the query
+                    adapter.Fill(ds, "Orders");
 
-                        // Get the order items for this order
-                        order.Items = GetOrderItems(order.OrderId);
-
-                        orders.Add(order);
-                    }
-
-                    // Return the list of orders
-                    return orders;
-                }
-            }
-        }
-
-        // Get the order items for a given order ID
-        private List<OrderItem> GetOrderItems(int orderId)
-        {
-            // Define the SQL query
-            string sqlQuery = "SELECT * FROM OrderItems WHERE OrderId = :orderId";
-
-            // Create a new OracleCommand object
-            using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
-            using (OracleCommand cmd = new OracleCommand(sqlQuery, conn))
-            {
-                // Set the parameterized values
-                cmd.Parameters.Add(new OracleParameter(":orderId", orderId));
-
-                // Open the database connection
-                conn.Open();
-
-                // Execute the query and get the results
-                using (OracleDataReader reader = cmd.ExecuteReader())
-                {
-                    // Create a new list to hold the order items
-                    List<OrderItem> items = new List<OrderItem>();
-
-                    // Loop through the results and add each order item to the list
-                    while (reader.Read())
-                    {
-                        OrderItem item = new OrderItem();
-                        item.ItemId = Convert.ToInt32(reader["ItemId"]);
-                        item.Quantity = Convert.ToInt32(reader["Quantity"]);
-
-                        items.Add(item);
-                    }
-
-                    // Return the list of order items
-                    return items;
+                    // Return the DataSet
+                    return ds;
                 }
             }
         }
