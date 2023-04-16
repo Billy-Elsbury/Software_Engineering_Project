@@ -27,7 +27,7 @@ namespace Restuarant_System
             cboItemAvailability.Items.Add("U");
 
             //Retrieve itemID from database
-            int itemIdCount = Convert.ToInt32(Utility.GetNextmenuItemId().ToString("0000"));
+            int itemIdCount = Convert.ToInt32(Utility.GetNextMenuItemId().ToString("0000"));
 
             for (int i = 1; i < itemIdCount; i++)
                 cboItemID.Items.Add(i);

@@ -24,7 +24,7 @@ namespace Restuarant_System
         private void frmQueryMenuItem_Load(object sender, EventArgs e)
         {
             //Retrieve itemID from database
-            int itemIdCount = Convert.ToInt32(Utility.GetNextmenuItemId().ToString("0000"));
+            int itemIdCount = Convert.ToInt32(Utility.GetNextMenuItemId().ToString("0000"));
 
             cboItemID.Items.Add("");
 

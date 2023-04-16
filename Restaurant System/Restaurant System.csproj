@@ -79,6 +79,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderItem.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="DBConnect.cs" />
     <Compile Include="DB_Connection_Test.cs">

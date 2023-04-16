@@ -101,56 +101,6 @@ namespace Restuarant_System
             return ds;
         }
 
-        public static DataSet GetAllMenuItemsByType(String Type)
-        {
-            //Open a db connection
-            OracleConnection conn = new OracleConnection(DBConnect.oradb);
-
-            //Define the SQL query to be executed
-            String sqlQuery = "SELECT MenuItems, Name, Qty,Price " +
-                "FROM MenuItems WHERE ItemId = '" + Type + "' ORDER BY Type";
-
-            //Execute the SQL query (OracleCommand)
-            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
-
-            OracleDataAdapter da = new OracleDataAdapter(cmd);
-
-            DataSet ds = new DataSet();
-            da.Fill(ds, "menuItem");
-
-            //Close db connection
-            conn.Close();
-
-            return ds;
-        }
-
-        public void GetMenuItems(int Id)
-        {
-            //Open a db connection
-            OracleConnection conn = new OracleConnection(DBConnect.oradb);
-
-            //Define the SQL query to be executed
-            String sqlQuery = "SELECT * FROM MenuItems WHERE ItemId = " + Id;
-
-            //Execute the SQL query (OracleCommand)
-            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
-            conn.Open();
-
-            OracleDataReader dr = cmd.ExecuteReader();
-            dr.Read();
-
-            //set the instance variables with values from data reader
-            setAvailability(dr.GetChar(0));
-            setItemId(dr.GetInt32(1));
-            setType(dr.GetString(2));
-            setName(dr.GetString(3));
-            setDescription(dr.GetString(4));
-            setPrice(dr.GetDecimal(5));
-
-            //close DB
-            conn.Close();
-        }
-
         public void AddMenuItems()
         {
             //Open a db connection

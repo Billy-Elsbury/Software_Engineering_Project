@@ -34,7 +34,7 @@ namespace Restuarant_System
             cboMenuItemType.Items.Add("D");
 
             //Retrieve itemID from database
-            txtItemId.Text = Utility.GetNextmenuItemId().ToString("0000");
+            txtItemId.Text = Utility.GetNextMenuItemId().ToString("0000");
 
             //Create Data Grid View
 
@@ -102,7 +102,7 @@ namespace Restuarant_System
             // If input is valid, proceed with adding the menu item to the database and updating the UI
 
             //update item Id
-            string itemId = Utility.GetNextmenuItemId().ToString("0000");
+            string itemId = Utility.GetNextMenuItemId().ToString("0000");
 
             // Create an instance of a Menu Item and instantiate with values from form controls
             MenuItem aMenuItem = new MenuItem(Convert.ToInt32(itemId), 'A', itemType, itemName, itemDescription, Convert.ToDecimal(price));
@@ -116,7 +116,7 @@ namespace Restuarant_System
 
 
             //reset UI
-            txtItemId.Text = Utility.GetNextmenuItemId().ToString("0000");
+            txtItemId.Text = Utility.GetNextMenuItemId().ToString("0000");
             txtItemName.Clear();
             cboMenuItemType.SelectedIndex = -1;
             txtItemDescription.Clear();

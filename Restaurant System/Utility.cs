@@ -140,7 +140,39 @@ namespace Restuarant_System
         }
 
         //Retrieve MenuItemID from database and ensure it is itterated and up to date.
-        public static int GetNextmenuItemId()
+        public static int GetNextOrderItemId()
+        {
+            //Open a db connection
+            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+
+            //SQL query to be executed:
+            String sqlQuery = "SELECT MAX(OrderId) FROM OrderItems";
+
+            //Execute the SQL query (OracleCommand())
+            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
+            conn.Open();
+
+            OracleDataReader reader = cmd.ExecuteReader();
+
+            //Test dataReader for NULL value
+            int nextId;
+            reader.Read();
+
+            if (reader.IsDBNull(0))
+                nextId = 1;
+            else
+            {
+                nextId = reader.GetInt32(0) + 1;
+            }
+
+            //Close db connection
+            conn.Close();
+
+            return nextId;
+        }
+
+        //Retrieve MenuItemID from database and ensure it is itterated and up to date.
+        public static int GetNextMenuItemId()
         {
             //Open a db connection
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
@@ -170,6 +202,7 @@ namespace Restuarant_System
 
             return nextId;
         }
+
 
         public static void ShowNextForm(Form currentForm, Form nextForm)
         {

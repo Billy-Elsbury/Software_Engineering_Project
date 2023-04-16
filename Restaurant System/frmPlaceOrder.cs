@@ -19,9 +19,12 @@ namespace Restuarant_System
 
         private void frmPlaceOrder_Load(object sender, EventArgs e)
         {
-            //Create menuItems Data Grid View
+            //Create Data Grid View
+            //Populate Data Grid View with information from database
 
-            menuItemsDataGridView.ColumnCount = 6;
+            DataSet dataSet = MenuItem.GetAllMenuItems();
+
+            menuItemsDataGridView.DataSource = dataSet.Tables[0];
 
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -45,56 +48,27 @@ namespace Restuarant_System
             menuItemsDataGridView.Columns[5].Name = "Price";
 
             menuItemsDataGridView.Columns[0].DefaultCellStyle.Font =
-                new Font(menuItemsDataGridView.DefaultCellStyle.Font, FontStyle.Bold);
+                new Font(menuItemsDataGridView.DefaultCellStyle.Font, FontStyle.Italic);
 
             menuItemsDataGridView.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
             menuItemsDataGridView.AllowUserToAddRows = false;
             menuItemsDataGridView.MultiSelect = false;
 
+            //ensure columns span whole DataGrid View Table
+            menuItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            menuItemsDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
             foreach (DataGridViewColumn column in menuItemsDataGridView.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
 
-            //ensure columns span whole DataGrid View Table
-            menuItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            menuItemsDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            menuItemsDataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            menuItemsDataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            menuItemsDataGridView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-
-            //Populate Data Grid View with default information
-
-            string[] menuItem1 = { "A - Available", "1", "Spaghetti", "F - Food", "Italian", "14.00" };
-            string[] menuItem2 = { "A - Available", "2", "Sushi", "F - Food", "Japanese", "12.50" };
-            string[] menuItem3 = { "U - Unvailable", "3", "Guiness", "B - Beverage", "Irish", "4.90" };
-            string[] menuItem4 = { "A - Available", "4", "CheeseCake", "D - Dessert", "Greek", "7.50" };
-            string[] menuItem5 = { "A - Available", "5", "Chips", "F - Food", "Belgium", "6.00" };
-            string[] menuItem6 = { "U - Unvailable", "6", "Apple-Pie", "D - Dessert", "English", "5.40" };
-            string[] menuItem7 = { "U - Unvailable", "7", "Bloody Mary", "B - Beverage", "French", "9.75" };
-            string[] menuItem8 = { "A - Available", "8", "Vindaloo", "F - Food", "Portuguese", "12.00" };
-            string[] menuItem9 = { "U - Unvailable", "9", "Mojito", "B - Beverage", "Cuban", "4.90" };
-            string[] menuItem10 = { "A - Available", "10", "Biryani", "F - Food", "Persian", "9.99" };
-            string[] menuItem11 = { "A - Available", "11", "Quesadilla", "F - Food", "Mexican", "6.50" };
-            string[] menuItem12 = { "U - Unvailable", "12", "Chow Mein", "F - Food", "Chinese", "10.75" };
-
-            menuItemsDataGridView.Rows.Add(menuItem1);
-            menuItemsDataGridView.Rows.Add(menuItem2);
-            menuItemsDataGridView.Rows.Add(menuItem3);
-            menuItemsDataGridView.Rows.Add(menuItem4);
-            menuItemsDataGridView.Rows.Add(menuItem5);
-            menuItemsDataGridView.Rows.Add(menuItem6);
-            menuItemsDataGridView.Rows.Add(menuItem7);
-            menuItemsDataGridView.Rows.Add(menuItem8);
-            menuItemsDataGridView.Rows.Add(menuItem9);
-            menuItemsDataGridView.Rows.Add(menuItem10);
-            menuItemsDataGridView.Rows.Add(menuItem11);
-            menuItemsDataGridView.Rows.Add(menuItem12);
-
 
             //Create Order menuItems Data Grid View
+            //Populate Data Grid View with information from database
+
+            DataSet orderDataSet = OrderItem.GetAllOrderItems();
 
             orderItemsDataGridView.ColumnCount = 5;
 
@@ -136,55 +110,58 @@ namespace Restuarant_System
             orderItemsDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             orderItemsDataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             orderItemsDataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
         }
+
         private void btnAddtoOrder_Click(object sender, EventArgs e)
         {
-            //Read from menuItem Data Grid View and add to Order Menu Grid View ONLY if available
+            // Read from menuItem Data Grid View and add to Order Menu Grid View ONLY if available
 
-            String itemAvailability = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value).ToString();
+            string itemAvailability = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[1].Value).ToString();
+            string itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[3].Value).ToString();
             bool itemIsAvailable = false;
 
-            if (itemAvailability.Equals("A - Available"))
+            if (itemAvailability.Equals("A"))
             {
                 itemIsAvailable = true;
             }
 
-            if (itemIsAvailable) 
+            if (itemIsAvailable)
             {
+                int itemId = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value);
 
-                String itemID = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[1].Value).ToString();
-
-                String itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[2].Value).ToString();
-
-                String itemType = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[3].Value).ToString();
-
-                String itemDescription = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[4].Value).ToString();
-
-                String itemPrice = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[5].Value).ToString();
-
-                string[] newMenuItem = { itemID, itemName, itemType, itemDescription, itemPrice };
-
-                try
+                //try
                 {
-                    int amountToAdd = Convert.ToInt32(txtAmounttoAdd.Text);
+                    int amountToAdd = Convert.ToInt32(txtAmountToAdd.Text);
+                    int orderId = Utility.GetNextOrderItemId();
 
-                    for (int i = 0; i < amountToAdd; i++)
-                    {
-                        orderItemsDataGridView.Rows.Add(newMenuItem);
-                    }
+                    // Create an instance of OrderItem for the selected menu item and quantity
+                    OrderItem orderItem = new OrderItem();
+                    orderItem.OrderId = orderId;
+                    orderItem.ItemId = itemId;
+                    orderItem.Quantity = amountToAdd;
+
+                    // Invoke the method to place the order
+                    orderItem.SaveOrderItem();
+
+                    // Display confirmation message
+                    MessageBox.Show(amountToAdd + " " + itemName + "(s) added to the order.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Reset the UI
+                    txtAmountToAdd.Text = "1";
+                    menuItemsDataGridView.ClearSelection();
+                    
                 }
-                catch (Exception ex)
+                //catch (Exception ex)
                 {
-                    MessageBox.Show("Error while adding Menu Item to Order, \n\nPlease ensure count is a valid number and try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   // MessageBox.Show("Error while adding Menu Item to Order, \n\nPlease ensure count is a valid number and try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
                 MessageBox.Show("Error while adding Menu Item to Order, \n\nPlease ensure the item is Available.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
 
         private void btnCommit_Click(object sender, EventArgs e)
         {

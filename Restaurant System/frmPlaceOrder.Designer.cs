@@ -31,7 +31,7 @@ namespace Restuarant_System
         {
             this.grpAddMenuItem = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.txtAmounttoAdd = new System.Windows.Forms.TextBox();
+            this.txtAmountToAdd = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.orderItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.menuItemsDataGridView = new System.Windows.Forms.DataGridView();
@@ -46,7 +46,7 @@ namespace Restuarant_System
             // 
             this.grpAddMenuItem.Controls.Add(this.btnCommit);
             this.grpAddMenuItem.Controls.Add(this.textBox2);
-            this.grpAddMenuItem.Controls.Add(this.txtAmounttoAdd);
+            this.grpAddMenuItem.Controls.Add(this.txtAmountToAdd);
             this.grpAddMenuItem.Controls.Add(this.textBox1);
             this.grpAddMenuItem.Controls.Add(this.orderItemsDataGridView);
             this.grpAddMenuItem.Controls.Add(this.menuItemsDataGridView);
@@ -70,13 +70,13 @@ namespace Restuarant_System
             // 
             // txtAmounttoAdd
             // 
-            this.txtAmounttoAdd.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.txtAmounttoAdd.Location = new System.Drawing.Point(633, 46);
-            this.txtAmounttoAdd.MaxLength = 2;
-            this.txtAmounttoAdd.Name = "txtAmounttoAdd";
-            this.txtAmounttoAdd.Size = new System.Drawing.Size(54, 20);
-            this.txtAmounttoAdd.TabIndex = 29;
-            this.txtAmounttoAdd.Text = "1";
+            this.txtAmountToAdd.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.txtAmountToAdd.Location = new System.Drawing.Point(633, 46);
+            this.txtAmountToAdd.MaxLength = 2;
+            this.txtAmountToAdd.Name = "txtAmounttoAdd";
+            this.txtAmountToAdd.Size = new System.Drawing.Size(54, 20);
+            this.txtAmountToAdd.TabIndex = 29;
+            this.txtAmountToAdd.Text = "1";
             // 
             // textBox1
             // 
@@ -153,7 +153,7 @@ namespace Restuarant_System
         private System.Windows.Forms.DataGridView menuItemsDataGridView;
         private System.Windows.Forms.Button btnAddtoOrder;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox txtAmounttoAdd;
+        private System.Windows.Forms.TextBox txtAmountToAdd;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button btnCommit;
     }
