@@ -99,7 +99,7 @@ namespace Restuarant_System
 
                 if (!string.IsNullOrEmpty(itemName))
                 {
-                    bool itemNameHasNoSpecial = itemName.All(c => char.IsLetter(c));
+                    bool itemNameHasNoSpecial = !Regex.IsMatch(itemName, @"[^a-zA-Z\s]"); // Only allow letters and spaces
                     if (!itemNameHasNoSpecial)
                     {
                         errorMessage = "Item Name cannot include special characters or numbers.";
@@ -109,7 +109,7 @@ namespace Restuarant_System
 
                 if (!string.IsNullOrEmpty(itemDescription))
                 {
-                    bool itemDescriptionHasNoSpecial = itemDescription.All(c => char.IsLetter(c));
+                    bool itemDescriptionHasNoSpecial = !Regex.IsMatch(itemDescription, @"[^a-zA-Z\s]"); // Only allow letters and spaces
                     if (!itemDescriptionHasNoSpecial)
                     {
                         errorMessage = "Item Description cannot include special characters or numbers.";

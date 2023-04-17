@@ -15,9 +15,7 @@ namespace Restuarant_System
     public class Order
     {
         private int orderId;
-        private int tableNo;
         private DateTime orderDate;
-        private decimal orderPrice;
         private string orderStatus;
         private List<OrderItem> items;
 
@@ -27,22 +25,10 @@ namespace Restuarant_System
             set { orderId = value; }
         }
 
-        public int TableNo
-        {
-            get { return tableNo; }
-            set { tableNo = value; }
-        }
-
         public DateTime OrderDate
         {
             get { return orderDate; }
             set { orderDate = value; }
-        }
-
-        public decimal OrderPrice
-        {
-            get { return orderPrice; }
-            set { orderPrice = value; }
         }
 
         public string OrderStatus
@@ -57,49 +43,55 @@ namespace Restuarant_System
             set { items = value; }
         }
 
+        // Save the order to the database
         public void PlaceOrder()
         {
-            // Define the SQL query with placeholders
-            string sqlQuery = "INSERT INTO Orders (TableNo, OrderDate, OrderPrice, OrderStatus) " +
-                              "VALUES (:tableNo, :orderDate, :orderPrice, :orderStatus); " +
-                              "SELECT OrderId FROM Orders WHERE OrderId = SCOPE_IDENTITY()";
-
-            // Create a new OracleCommand object
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
-            using (OracleCommand cmd = new OracleCommand(sqlQuery, conn))
             {
-                // Set the parameterized values
-                cmd.Parameters.Add(new OracleParameter(":tableNo", TableNo));
-                cmd.Parameters.Add(new OracleParameter(":orderDate", OrderDate));
-                cmd.Parameters.Add(new OracleParameter(":orderPrice", CalculateTotalPrice(items)));
-                cmd.Parameters.Add(new OracleParameter(":orderStatus", OrderStatus));
-
-                // Open the database connection
                 conn.Open();
 
-                // Execute the query and retrieve the new OrderId
-                OrderId = Convert.ToInt32(cmd.ExecuteScalar());
-
-                // Save the order items to the database
-                foreach (OrderItem item in items)
+                // Create a new order in the database
+                using (OracleCommand cmd = new OracleCommand())
                 {
-                    // Define the SQL query with placeholders
-                    sqlQuery = "INSERT INTO OrderItems (OrderId, ItemId, Quantity) " +
-                               "VALUES (:orderId, :itemId, :quantity)";
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO Orders (OrderDate, OrderStatus) " +
+                        "VALUES (:orderDate, :orderStatus)";
 
-                    // Create a new OracleCommand object
-                    OracleCommand orderItemCmd = new OracleCommand(sqlQuery, conn);
+                    cmd.Parameters.Add(":orderDate", this.OrderDate);
+                    cmd.Parameters.Add(":orderStatus", this.OrderStatus);
 
-                    // Set the parameterized values
-                    orderItemCmd.Parameters.Add(new OracleParameter(":orderId", OrderId));
-                    orderItemCmd.Parameters.Add(new OracleParameter(":itemId", item.ItemId)); // fixed property name
-                    orderItemCmd.Parameters.Add(new OracleParameter(":quantity", item.Quantity)); // fixed property name
+                    cmd.ExecuteNonQuery();
+                }
 
-                    // Execute the query
-                    orderItemCmd.ExecuteNonQuery();
+                // Retrieve the generated order ID
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT SEQ_ORDERS.CURRVAL FROM DUAL";
+                    this.OrderId = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+
+                // Save each order item to the database
+                foreach (OrderItem item in this.Items)
+                {
+                    using (OracleCommand cmd = new OracleCommand())
+                    {
+                        cmd.Connection = conn;
+                        cmd.CommandText = "INSERT INTO OrderItems (OrderId, ItemId, Quantity) " +
+                            "VALUES (:orderId, :itemId, :quantity)";
+
+                        cmd.Parameters.Add(":orderId", this.OrderId);
+                        cmd.Parameters.Add(":itemId", item.ItemId);
+                        cmd.Parameters.Add(":quantity", item.Quantity);
+
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
         }
+
+
+
 
         // Cancel the order
         public void CancelOrder()
@@ -123,18 +115,25 @@ namespace Restuarant_System
         }
 
         // Calculate the total price of the order
-        private decimal CalculateTotalPrice(List<OrderItem> items)
+        private decimal CalculateTotalPrice()
         {
             decimal totalPrice = 0;
 
             foreach (OrderItem item in items)
             {
-                MenuItem menuItem = item.MenuItem;
-                totalPrice += menuItem.getPrice() * item.Quantity;
+                // Retrieve the MenuItem object for this OrderItem from the database
+                MenuItem menuItem = MenuItem.GetMenuItemById(item.ItemId);
+
+                // Calculate the price for this OrderItem based on the quantity and menu item price
+                decimal itemPrice = menuItem.getPrice() * item.Quantity;
+
+                totalPrice += itemPrice;
             }
 
             return totalPrice;
         }
+
+
 
         // Get all orders
         public DataSet GetAllOrders()

@@ -36,31 +36,36 @@ namespace Restuarant_System
             set { quantity = value; }
         }
 
-        public MenuItem MenuItem { get; internal set; }
-
         // Save the order item to the database
         public void SaveOrderItem()
         {
-            // Define the SQL query with placeholders
-            string sqlQuery = "INSERT INTO OrderItems (OrderID, ItemID, Quantity) " +
-                              "VALUES (:orderId, :itemId, :quantity)";
-
-            // Create a new OracleCommand object
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
-            using (OracleCommand cmd = new OracleCommand(sqlQuery, conn))
             {
-                // Set the parameterized values
-                cmd.Parameters.Add(new OracleParameter(":orderId", OrderId));
-                cmd.Parameters.Add(new OracleParameter(":itemId", ItemId));
-                cmd.Parameters.Add(new OracleParameter(":quantity", Quantity));
-
-                // Open the database connection
                 conn.Open();
 
-                // Execute the query
-                cmd.ExecuteNonQuery();
+                // Create a new order and save it to the database
+                Order order = new Order();
+                order.OrderDate = DateTime.Now;
+                order.OrderStatus = "O";
+
+                order.PlaceOrder();
+
+                // Create a new order item and save it to the database
+                using (OracleCommand cmd = new OracleCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO OrderItems (OrderId, ItemId, Quantity, ItemPrice) " +
+                        "VALUES (:orderId, :itemId, :quantity, :itemPrice)";
+
+                    cmd.Parameters.Add(":orderId", this.OrderId);
+                    cmd.Parameters.Add(":itemId", this.ItemId);
+                    cmd.Parameters.Add(":quantity", this.Quantity);
+
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
+
 
         public static DataSet GetAllOrderItems()
             {

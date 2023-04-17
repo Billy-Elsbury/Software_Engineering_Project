@@ -103,28 +103,74 @@ namespace Restuarant_System
 
         public void AddMenuItems()
         {
-            //Open a db connection
-            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+            // Open a db connection
+            using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
+            {
+                conn.Open();
 
-            //Define the SQL query to be executed
-            string sqlQuery = "INSERT INTO MenuItems VALUES (" +
+                // Define the SQL query to be executed with parameter placeholders
+                string sqlQuery = "INSERT INTO MenuItems (ItemId, Availability, Type, Name, Description, Price) " +
+                                  "VALUES (:itemId, :availability, :type, :name, :description, :price)";
 
-                this.itemId + " , '" +
-                this.availability + "' , '" +
-                this.type + "', '" +
-                this.name + "', '" +
-                this.description + "', " +
-                this.price + ")";
+                // Create a new OracleCommand object with the SQL query and connection
+                using (OracleCommand cmd = new OracleCommand(sqlQuery, conn))
+                {
+                    // Set the parameter values for the query
+                    cmd.Parameters.Add("itemId", OracleDbType.Int32).Value = this.itemId;
+                    cmd.Parameters.Add("availability", OracleDbType.Char).Value = this.availability;
+                    cmd.Parameters.Add("type", OracleDbType.Varchar2).Value = this.type;
+                    cmd.Parameters.Add("name", OracleDbType.Varchar2).Value = this.name;
+                    cmd.Parameters.Add("description", OracleDbType.Varchar2).Value = this.description;
+                    cmd.Parameters.Add("price", OracleDbType.Decimal).Value = this.price;
 
-
-            //Execute the SQL query (OracleCommand)
-            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-
-            //Close db connection
-            conn.Close();
+                    // Execute the SQL query
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
+
+        public static MenuItem GetMenuItemById(int itemId)
+        {
+            // Open a db connection
+            using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
+            {
+                conn.Open();
+
+                // Define the SQL query to be executed with parameter placeholders
+                string sqlQuery = "SELECT ItemId, Availability, Type, Name, Description, Price " +
+                                  "FROM MenuItems " +
+                                  "WHERE ItemId = :itemId";
+
+                // Create a new OracleCommand object with the SQL query and connection
+                using (OracleCommand cmd = new OracleCommand(sqlQuery, conn))
+                {
+                    // Set the parameter values for the query
+                    cmd.Parameters.Add("itemId", OracleDbType.Int32).Value = itemId;
+
+                    // Execute the SQL query
+                    using (OracleDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            MenuItem item = new MenuItem();
+                            item.setItemId(dr.GetInt32(0));
+                            item.setAvailability(dr.GetChar(1));
+                            item.setType(dr.GetString(2));
+                            item.setName(dr.GetString(3));
+                            item.setDescription(dr.GetString(4));
+                            item.setPrice(dr.GetDecimal(5));
+                            return item;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         public static void UpdateMenuItem(int itemId, string availability, string type, string name, string description, decimal price)
         {
