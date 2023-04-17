@@ -233,12 +233,12 @@ namespace Restuarant_System
                         }
                         else 
                         { 
-                            totalPrice = reader.GetDouble(0); 
+                            totalPrice = reader.GetDouble(0);
                         }
                     }
                 }
             }
-
+            MessageBox.Show("Price: " + totalPrice, "INFORMATION", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return totalPrice;
         }
 

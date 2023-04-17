@@ -55,14 +55,16 @@ namespace Restuarant_System
                 {
                     // Retrieve the next order ID
                     int nextOrderId = Utility.GetNextOrderItemId();
-
+                    //calculate order price
+                    double orderPrice = Utility.CalculateOrderPrice(nextOrderId-1);
 
                     cmd.Connection = conn;
-                    cmd.CommandText = "INSERT INTO Orders (OrderId, OrderDate, OrderStatus) " +
-                        "VALUES (:orderId, :orderDate, :orderStatus)";
+                    cmd.CommandText = "INSERT INTO Orders (OrderId, OrderDate, OrderPrice, OrderStatus) " +
+                        "VALUES (:orderId, :orderDate, :OrderPrice, :orderStatus)";
 
                     cmd.Parameters.Add(":orderId", nextOrderId);
                     cmd.Parameters.Add(":orderDate", DateTime.Now);
+                    cmd.Parameters.Add(":orderPrice", orderPrice);
                     cmd.Parameters.Add(":orderStatus", 'O');
 
                     cmd.ExecuteNonQuery();
