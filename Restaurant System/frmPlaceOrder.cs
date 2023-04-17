@@ -161,5 +161,10 @@ namespace Restuarant_System
             DataSet orderDataSet = OrderItems.GetActiveOrderItems(Utility.GetNextOrderItemId());
             orderItemsDataGridView.DataSource = orderDataSet.Tables[0];
         }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

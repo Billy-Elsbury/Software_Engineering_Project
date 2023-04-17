@@ -238,7 +238,6 @@ namespace Restuarant_System
                     }
                 }
             }
-            MessageBox.Show("Price: " + totalPrice, "INFORMATION", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return totalPrice;
         }
 
