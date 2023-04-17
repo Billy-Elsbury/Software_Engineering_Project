@@ -140,6 +140,38 @@ namespace Restuarant_System
         }
 
         //Retrieve MenuItemID from database and ensure it is itterated and up to date.
+        public static int GetNextMenuItemId()
+        {
+            //Open a db connection
+            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+
+            //SQL query to be executed:
+            String sqlQuery = "SELECT MAX(ItemId) FROM MenuItems";
+
+            //Execute the SQL query (OracleCommand())
+            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
+            conn.Open();
+
+            OracleDataReader reader = cmd.ExecuteReader();
+
+            //Test dataReader for NULL value
+            int nextId;
+            reader.Read();
+
+            if (reader.IsDBNull(0))
+                nextId = 1;
+            else
+            {
+                nextId = reader.GetInt32(0) + 1;
+            }
+
+            //Close db connection
+            conn.Close();
+
+            return nextId;
+        }
+
+        //Retrieve OrderItemID from database and ensure it is itterated and up to date.
         public static int GetNextOrderItemId()
         {
             //Open a db connection
@@ -171,37 +203,45 @@ namespace Restuarant_System
             return nextId;
         }
 
-        //Retrieve MenuItemID from database and ensure it is itterated and up to date.
-        public static int GetNextMenuItemId()
+        // Calculate the total price of the order
+        public static double CalculateOrderPrice(int orderId)
         {
-            //Open a db connection
-            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+            double totalPrice = 0;
 
-            //SQL query to be executed:
-            String sqlQuery = "SELECT MAX(ItemId) FROM MenuItems";
-
-            //Execute the SQL query (OracleCommand())
-            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
-            conn.Open();
-
-            OracleDataReader reader = cmd.ExecuteReader();
-
-            //Test dataReader for NULL value
-            int nextId;
-            reader.Read();
-
-            if (reader.IsDBNull(0))
-                nextId = 1;
-            else
+            using (OracleConnection connection = new OracleConnection(DBConnect.oradb))
             {
-                nextId = reader.GetInt32(0) + 1;
+                connection.Open();
+
+                string sql = "SELECT SUM(OrderItems.Quantity * MenuItems.Price) AS TotalPrice " +
+                             "FROM OrderItems " +
+                             "JOIN MenuItems ON OrderItems.ItemId = MenuItems.ItemId " +
+                             "WHERE OrderItems.OrderId = :OrderId";
+
+                using (OracleCommand command = new OracleCommand(sql, connection))
+                {
+                    command.Parameters.Add(new OracleParameter(":OrderId", orderId));
+
+                    using (OracleDataReader reader = command.ExecuteReader())
+                    {
+                        // Test dataReader for NULL value
+ 
+                        reader.Read();
+
+                        if (reader.IsDBNull(0))
+                        {
+                            totalPrice = 0;
+                        }
+                        else 
+                        { 
+                            totalPrice = reader.GetDouble(0); 
+                        }
+                    }
+                }
             }
 
-            //Close db connection
-            conn.Close();
-
-            return nextId;
+            return totalPrice;
         }
+
 
 
         public static void ShowNextForm(Form currentForm, Form nextForm)

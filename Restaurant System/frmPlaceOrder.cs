@@ -12,6 +12,7 @@ namespace Restuarant_System
 {
     public partial class frmPlaceOrder : Form
     {
+
         public frmPlaceOrder()
         {
             InitializeComponent();
@@ -57,8 +58,10 @@ namespace Restuarant_System
             }
 
 
+
             // Populate Data Grid View with information from database
-            DataSet orderDataSet = OrderItem.GetAllOrderItems();
+            DataSet orderDataSet = OrderItems.GetActiveOrderItems(Utility.GetNextOrderItemId() -1);
+
             orderItemsDataGridView.DataSource = orderDataSet.Tables[0];
 
             orderItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
@@ -95,11 +98,13 @@ namespace Restuarant_System
         {
             // Read from menuItem Data Grid View and add to Order Menu Grid View ONLY if available
 
-            string itemAvailability = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[1].Value).ToString();
+            char itemAvailability = Convert.ToChar((menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[1].Value).ToString());
             string itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[3].Value).ToString();
+            double itemPrice = Convert.ToDouble((menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[5].Value).ToString());
+
             bool itemIsAvailable = false;
 
-            if (itemAvailability.Equals("A"))
+            if (itemAvailability == 'A')
             {
                 itemIsAvailable = true;
             }
@@ -108,18 +113,19 @@ namespace Restuarant_System
             {
                 int itemId = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value);
 
-                //try
+                try
                 {
                     int amountToAdd = Convert.ToInt32(txtAmountToAdd.Text);
                     int orderId = Utility.GetNextOrderItemId();
 
                     // Create an instance of OrderItem for the selected menu item and quantity
-                    OrderItem orderItem = new OrderItem();
+                    OrderItems orderItem = new OrderItems();
                     orderItem.OrderId = orderId;
                     orderItem.ItemId = itemId;
                     orderItem.Quantity = amountToAdd;
+                    orderItem.OrderItemPrice = itemPrice;
 
-                    // Invoke the method to place the order
+                    // Invoke the method to save the order item to order items
                     orderItem.SaveOrderItem();
 
                     // Display confirmation message
@@ -128,11 +134,15 @@ namespace Restuarant_System
                     // Reset the UI
                     txtAmountToAdd.Text = "1";
                     menuItemsDataGridView.ClearSelection();
-                    
+
+                    // Update Data Grid View with information from database
+                    DataSet orderDataSet = OrderItems.GetActiveOrderItems(Utility.GetNextOrderItemId()-1);
+                    orderItemsDataGridView.DataSource = orderDataSet.Tables[0];
+
                 }
-                //catch (Exception ex)
+                catch (Exception ex)
                 {
-                   // MessageBox.Show("Error while adding Menu Item to Order, \n\nPlease ensure count is a valid number and try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   MessageBox.Show("Error while adding Menu Item to Order, \n\nPlease ensure count is a valid number and try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -144,7 +154,12 @@ namespace Restuarant_System
 
         private void btnCommit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Order has succesfully been comitted", "Add Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Order has succesfully been comitted", "Order Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Order.PlaceOrder();
+
+            DataSet orderDataSet = OrderItems.GetActiveOrderItems(Utility.GetNextOrderItemId());
+            orderItemsDataGridView.DataSource = orderDataSet.Tables[0];
         }
     }
 }

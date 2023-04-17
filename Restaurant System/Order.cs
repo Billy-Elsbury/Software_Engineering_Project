@@ -16,8 +16,8 @@ namespace Restuarant_System
     {
         private int orderId;
         private DateTime orderDate;
-        private string orderStatus;
-        private List<OrderItem> items;
+        private double orderPrice;
+        private char orderStatus;
 
         public int OrderId
         {
@@ -31,20 +31,20 @@ namespace Restuarant_System
             set { orderDate = value; }
         }
 
-        public string OrderStatus
+        public double OrderPrice
+        {
+            get { return orderPrice; }
+            set { orderPrice = value; }
+        }
+
+        public char OrderStatus
         {
             get { return orderStatus; }
             set { orderStatus = value; }
         }
 
-        public List<OrderItem> Items
-        {
-            get { return items; }
-            set { items = value; }
-        }
-
         // Save the order to the database
-        public void PlaceOrder()
+        public static void PlaceOrder()
         {
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
             {
@@ -53,39 +53,19 @@ namespace Restuarant_System
                 // Create a new order in the database
                 using (OracleCommand cmd = new OracleCommand())
                 {
-                    cmd.Connection = conn;
-                    cmd.CommandText = "INSERT INTO Orders (OrderDate, OrderStatus) " +
-                        "VALUES (:orderDate, :orderStatus)";
+                    // Retrieve the next order ID
+                    int nextOrderId = Utility.GetNextOrderItemId();
 
-                    cmd.Parameters.Add(":orderDate", this.OrderDate);
-                    cmd.Parameters.Add(":orderStatus", this.OrderStatus);
+
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO Orders (OrderId, OrderDate, OrderStatus) " +
+                        "VALUES (:orderId, :orderDate, :orderStatus)";
+
+                    cmd.Parameters.Add(":orderId", nextOrderId);
+                    cmd.Parameters.Add(":orderDate", DateTime.Now);
+                    cmd.Parameters.Add(":orderStatus", 'O');
 
                     cmd.ExecuteNonQuery();
-                }
-
-                // Retrieve the generated order ID
-                using (OracleCommand cmd = new OracleCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandText = "SELECT SEQ_ORDERS.CURRVAL FROM DUAL";
-                    this.OrderId = Convert.ToInt32(cmd.ExecuteScalar());
-                }
-
-                // Save each order item to the database
-                foreach (OrderItem item in this.Items)
-                {
-                    using (OracleCommand cmd = new OracleCommand())
-                    {
-                        cmd.Connection = conn;
-                        cmd.CommandText = "INSERT INTO OrderItems (OrderId, ItemId, Quantity) " +
-                            "VALUES (:orderId, :itemId, :quantity)";
-
-                        cmd.Parameters.Add(":orderId", this.OrderId);
-                        cmd.Parameters.Add(":itemId", item.ItemId);
-                        cmd.Parameters.Add(":quantity", item.Quantity);
-
-                        cmd.ExecuteNonQuery();
-                    }
                 }
             }
         }
@@ -94,10 +74,10 @@ namespace Restuarant_System
 
 
         // Cancel the order
-        public void CancelOrder()
+        public static void VoidOrder(int OrderId)
         {
             // Define the SQL query with placeholders
-            string sqlQuery = "UPDATE Orders SET OrderStatus = 'C' WHERE OrderId = :orderId";
+            string sqlQuery = "UPDATE Orders SET OrderStatus = 'V' WHERE OrderId = :orderId";
 
             // Create a new OracleCommand object
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
@@ -114,29 +94,8 @@ namespace Restuarant_System
             }
         }
 
-        // Calculate the total price of the order
-        private decimal CalculateTotalPrice()
-        {
-            decimal totalPrice = 0;
-
-            foreach (OrderItem item in items)
-            {
-                // Retrieve the MenuItem object for this OrderItem from the database
-                MenuItem menuItem = MenuItem.GetMenuItemById(item.ItemId);
-
-                // Calculate the price for this OrderItem based on the quantity and menu item price
-                decimal itemPrice = menuItem.getPrice() * item.Quantity;
-
-                totalPrice += itemPrice;
-            }
-
-            return totalPrice;
-        }
-
-
-
         // Get all orders
-        public DataSet GetAllOrders()
+        public static DataSet GetAllOrders()
         {
             // Define the SQL query
             string sqlQuery = "SELECT * FROM Orders";
