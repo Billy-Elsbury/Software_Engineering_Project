@@ -115,17 +115,17 @@ namespace Restuarant_System
             this.orderItemsDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.orderItemsDataGridView.Name = "orderItemsDataGridView";
             this.orderItemsDataGridView.ReadOnly = true;
-            this.orderItemsDataGridView.Size = new System.Drawing.Size(535, 281);
+            this.orderItemsDataGridView.Size = new System.Drawing.Size(535, 515);
             this.orderItemsDataGridView.TabIndex = 27;
             // 
             // menuItemsDataGridView
             // 
             this.menuItemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.menuItemsDataGridView.Location = new System.Drawing.Point(0, 113);
+            this.menuItemsDataGridView.Location = new System.Drawing.Point(0, 23);
             this.menuItemsDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.menuItemsDataGridView.Name = "menuItemsDataGridView";
             this.menuItemsDataGridView.ReadOnly = true;
-            this.menuItemsDataGridView.Size = new System.Drawing.Size(649, 303);
+            this.menuItemsDataGridView.Size = new System.Drawing.Size(649, 703);
             this.menuItemsDataGridView.TabIndex = 26;
             // 
             // btnAddtoOrder
