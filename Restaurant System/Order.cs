@@ -56,7 +56,7 @@ namespace Restuarant_System
                     // Retrieve the next order ID
                     int nextOrderId = Utility.GetNextOrderItemId();
                     //calculate order price
-                    double orderPrice = Utility.CalculateOrderPrice(nextOrderId-1);
+                    double orderPrice = Utility.CalculateOrderPrice(nextOrderId - 1);
 
                     cmd.Connection = conn;
                     cmd.CommandText = "INSERT INTO Orders (OrderId, OrderDate, OrderPrice, OrderStatus) " +
@@ -71,8 +71,6 @@ namespace Restuarant_System
                 }
             }
         }
-
-
 
 
         // Cancel the order

@@ -124,7 +124,7 @@ namespace Restuarant_System
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error in Pay Bill Function, Please try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error in Pay Bill Function \n\n ____________________________________ \n\n" + ex.ToString(), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

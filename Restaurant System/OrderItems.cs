@@ -44,69 +44,42 @@ namespace Restuarant_System
         }
 
         // Save the order item to the database
-        public void SaveOrderItem()
+        /*public void SaveOrderItem()
         {
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
             {
                 conn.Open();
-
-                // Check if any orders exist in the database
-                string checkOrderSql = "SELECT COUNT(*) FROM Orders";
-                using (OracleCommand cmd = new OracleCommand(checkOrderSql, conn))
                 {
-                    int orderCount = Convert.ToInt32(cmd.ExecuteScalar());
-                    if (orderCount == 0)
+                    // Create new order and add item
+                    Order order = new Order();
+                    order.OrderId = Utility.GetNextOrderItemId();
+                    order.OrderDate = DateTime.Now;
+                    order.OrderPrice = Utility.CalculateOrderPrice(Utility.GetNextMenuItemId());
+                    order.OrderStatus = 'O';
+
+                    // Insert the order into the database
+                    string insertOrderSql = "INSERT INTO Orders (OrderId, OrderDate, OrderPrice, OrderStatus) VALUES (:OrderId, :OrderDate, :OrderPrice, :OrderStatus)";
+                    using (OracleCommand insertCmd = new OracleCommand(insertOrderSql, conn))
                     {
-                        // Create new order and add item
-                        Order order = new Order();
-                        order.OrderId = Utility.GetNextOrderItemId();
-                        order.OrderDate = DateTime.Now;
-                        order.OrderPrice = Utility.CalculateOrderPrice(Utility.GetNextMenuItemId());
-                        order.OrderStatus = 'O';
-
-                        // Insert the order into the database
-                        string insertOrderSql = "INSERT INTO Orders (OrderId, OrderDate, OrderPrice, OrderStatus) VALUES (:OrderId, :OrderDate, :OrderPrice, :OrderStatus)";
-                        using (OracleCommand insertCmd = new OracleCommand(insertOrderSql, conn))
-                        {
-                            insertCmd.Parameters.Add(":OrderId", order.OrderId);
-                            insertCmd.Parameters.Add(":OrderDate", order.OrderDate);
-                            insertCmd.Parameters.Add(":OrderPrice", order.OrderPrice);
-                            insertCmd.Parameters.Add(":OrderStatus", order.OrderStatus);
-                            insertCmd.ExecuteNonQuery();
-                        }
-
-                        // Insert the order item into the database
-                        string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, Quantity) VALUES (:OrderId, :ItemId, :Quantity)";
-                        using (OracleCommand insertCmd = new OracleCommand(insertOrderItemSql, conn))
-                        {
-                            insertCmd.Parameters.Add(":OrderId", order.OrderId);
-                            insertCmd.Parameters.Add(":ItemId", ItemId);
-                            insertCmd.Parameters.Add(":Quantity", Quantity);
-                            insertCmd.ExecuteNonQuery();
-                        }
+                        insertCmd.Parameters.Add(":OrderId", order.OrderId);
+                        insertCmd.Parameters.Add(":OrderDate", order.OrderDate);
+                        insertCmd.Parameters.Add(":OrderPrice", order.OrderPrice);
+                        insertCmd.Parameters.Add(":OrderStatus", order.OrderStatus);
+                        insertCmd.ExecuteNonQuery();
                     }
-                    else
-                    {
-                        // Get the last order in the database
-                        string getLastOrderSql = "SELECT OrderId FROM Orders ORDER BY OrderDate DESC FETCH FIRST 1 ROW ONLY";
-                        using (OracleCommand getLastOrderCmd = new OracleCommand(getLastOrderSql, conn))
-                        {
-                            int lastOrderId = Convert.ToInt32(getLastOrderCmd.ExecuteScalar());
 
-                            // Insert the order item into the database
-                            string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, Quantity) VALUES (:OrderId, :ItemId, :Quantity)";
-                            using (OracleCommand insertCmd = new OracleCommand(insertOrderItemSql, conn))
-                            {
-                                insertCmd.Parameters.Add(":OrderId", lastOrderId);
-                                insertCmd.Parameters.Add(":ItemId", ItemId);
-                                insertCmd.Parameters.Add(":Quantity", Quantity);
-                                insertCmd.ExecuteNonQuery();
-                            }
-                        }
+                    // Insert the order item into the database
+                    string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, Quantity) VALUES (:OrderId, :ItemId, :Quantity)";
+                    using (OracleCommand insertCmd = new OracleCommand(insertOrderItemSql, conn))
+                    {
+                        insertCmd.Parameters.Add(":OrderId", order.OrderId);
+                        insertCmd.Parameters.Add(":ItemId", ItemId);
+                        insertCmd.Parameters.Add(":Quantity", Quantity);
+                        insertCmd.ExecuteNonQuery();
                     }
                 }
             }
-        }
+        }*/
 
         public static DataSet GetAllOrderItems()
         {

@@ -89,7 +89,7 @@ namespace Restuarant_System
                 return true;
             }
 
-            public static bool QueryValidFilter(string itemName, string itemDescription, string price, out string errorMessage)
+            public static bool QueryMenuItemValidFilter(string itemName, string itemDescription, string price, out string errorMessage)
             {
                 // Initialize errorMessage to empty string
                 errorMessage = string.Empty;
@@ -136,6 +136,25 @@ namespace Restuarant_System
                 return true;
             }
 
+            public static bool ValidItemName(string itemName, out string errorMessage)
+            {
+                // Initialize errorMessage to empty string
+                errorMessage = string.Empty;
+
+                if (!string.IsNullOrEmpty(itemName))
+                {
+                    // Only allow letters and spaces
+                    bool itemNameHasNoSpecial = !Regex.IsMatch(itemName, @"[^a-zA-Z\s]"); 
+                    if (!itemNameHasNoSpecial)
+                    {
+                        errorMessage = "Item Name cannot include special characters or numbers.";
+                        return false;
+                    }
+                }
+
+                // If name validation passes, return true
+                return true;
+            }
 
         }
 
