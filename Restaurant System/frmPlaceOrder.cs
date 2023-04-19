@@ -109,8 +109,6 @@ namespace Restuarant_System
                     orderItem.Quantity = amountToAdd;
                     orderItem.OrderItemPrice = itemPrice;
 
-                    // Invoke the method to save the order item to order items
-                    orderItem.SaveOrderItem();
 
                     // Display confirmation message
                     MessageBox.Show(amountToAdd + " " + itemName + "(s) added to the order.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

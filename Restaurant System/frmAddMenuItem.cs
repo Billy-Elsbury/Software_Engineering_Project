@@ -111,7 +111,7 @@ namespace Restuarant_System
             aMenuItem.AddMenuItems();
 
             // Display confirmation message
-            MessageBox.Show("Product " + txtItemId.Text + " added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Product '" + txtItemName.Text + "' added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
 
