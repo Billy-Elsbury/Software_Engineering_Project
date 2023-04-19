@@ -197,6 +197,8 @@ namespace Restuarant_System
             {
                 Order.CreateOrder();
                 Order.AddOrderItems(orderItemsDataGridView);
+                Order.CalculateOrderPrice(Order.GetNextOrderId()-1);
+
                 orderItemsDataGridView.DataSource = new DataTable();
 
                 //Refresh OrderID text box and clear order data table
