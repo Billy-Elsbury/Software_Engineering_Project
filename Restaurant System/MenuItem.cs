@@ -79,6 +79,28 @@ namespace Restuarant_System
             return ds;
         }
 
+        public static string GetAvailableMenuItemSummary(string menuItemType, string itemName)
+        {
+            string sql = "SELECT ItemId, Name, Type, Price FROM MenuItems WHERE Availability = 'A'";
+
+            //cleaner method of constructing sql string allowing variable using:     $" SQL String '{variable}'"
+            //https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/strings/interpolated-strings
+
+            if (!string.IsNullOrEmpty(menuItemType))
+            {
+                sql += $" AND Type = '{menuItemType}'";
+            }
+            if (!string.IsNullOrEmpty(itemName))
+            {
+                sql += $" AND LOWER(Name) LIKE '%{itemName}%'";
+            }
+
+            sql += " ORDER BY Name";
+
+            return sql;
+        }
+
+
         public static DataSet GetAllMenuItems()
         {
             //Open a db connection

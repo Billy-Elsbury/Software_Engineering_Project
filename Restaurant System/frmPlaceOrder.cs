@@ -13,6 +13,9 @@ namespace Restuarant_System
     public partial class frmPlaceOrder : Form
     {
 
+        // Initialize order items DataTable
+        private DataTable orderItemsDataTable;
+
         public frmPlaceOrder()
         {
             InitializeComponent();
@@ -25,7 +28,9 @@ namespace Restuarant_System
             cboMenuItemType.Items.Add("B");
             cboMenuItemType.Items.Add("D");
 
+            //refresh Data Grid Views
             menuItemsDataGridView.DataSource = new DataTable();
+            orderItemsDataGridView.DataSource = new DataTable();
 
             // Create Data Grid View
             menuItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
@@ -57,7 +62,17 @@ namespace Restuarant_System
             }
 
             //Add OrderID to text box
-            txtOrderId.Text = (Convert.ToString(Utility.GetNextOrderItemId()));
+            txtOrderId.Text = (Convert.ToString(Order.GetNextOrderId()));
+
+
+            //config orderItems data grid
+
+            orderItemsDataTable = new DataTable();
+            orderItemsDataTable.Columns.Add("ItemId", typeof(int));
+            orderItemsDataTable.Columns.Add("Name", typeof(string));
+            orderItemsDataTable.Columns.Add("Type", typeof(string));
+            orderItemsDataTable.Columns.Add("Quantity", typeof(int));
+            orderItemsDataTable.Columns.Add("Price", typeof(double));
 
             orderItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             orderItemsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -88,68 +103,6 @@ namespace Restuarant_System
 
         }
 
-        private void btnAddtoOrder_Click(object sender, EventArgs e)
-        {
-            // Read from menuItem Data Grid View and add to Order Menu Grid View ONLY if available
-            {
-                string itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Name"].Value).ToString();
-                double itemPrice = Convert.ToDouble((menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Price"].Value).ToString());
-
-                int itemId = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value);
-
-                try
-                {
-                    int amountToAdd = Convert.ToInt32(txtAmountToAdd.Text);
-                    int orderId = Utility.GetNextOrderItemId();
-
-                    // Create an instance of OrderItem for the selected menu item and quantity
-                    OrderItems orderItem = new OrderItems();
-                    orderItem.OrderId = orderId;
-                    orderItem.ItemId = itemId;
-                    orderItem.Quantity = amountToAdd;
-                    orderItem.OrderItemPrice = itemPrice;
-
-
-                    // Display confirmation message
-                    MessageBox.Show(amountToAdd + " " + itemName + "(s) added to the order.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Reset the UI
-                    txtAmountToAdd.Text = "1";
-                    menuItemsDataGridView.ClearSelection();
-
-                    // Update Data Grid View with information from database
-                    DataSet orderDataSet = OrderItems.GetActiveOrderItems(Utility.GetNextOrderItemId() - 1);
-                    orderItemsDataGridView.DataSource = orderDataSet.Tables[0];
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error while adding Menu Item to Order, \n\nPlease ensure count is a valid number and try again. \n\n ____________________________________ \n\n" + ex.ToString(), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-
-        private void btnCommit_Click(object sender, EventArgs e)
-        {
-            if (orderItemsDataGridView.Rows.Count != 0)
-            {
-                MessageBox.Show("Order has succesfully been comitted", "Order Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                Order.PlaceOrder();
-
-                DataSet orderDataSet = OrderItems.GetActiveOrderItems(Utility.GetNextOrderItemId());
-                orderItemsDataGridView.DataSource = orderDataSet.Tables[0];
-
-                //Update OrderID to text box
-                txtOrderId.Text = (Convert.ToString(Utility.GetNextOrderItemId()));
-            }
-            else 
-            {
-                MessageBox.Show("Error while adding Menu Item to Order, \n\nPlease add at least one Menu Item to the order", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void btnSearchMenuItem_Click(object sender, EventArgs e)
         {
             // Validate the search input before filtering
@@ -161,24 +114,7 @@ namespace Restuarant_System
                 return;
             }
 
-            //1=1 is always true so allows more concise sql
-            //https://stackoverflow.com/questions/1264681/what-is-the-purpose-of-using-where-1-1-in-sql-statements
-
-            //cleaner method of constructing sql string allowing variable using {variable}
-            //https://learn.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/strings/interpolated-strings
-
-            string sql = "SELECT ItemId, Name, Type, Price FROM MenuItems WHERE Availability = 'A'";
-
-            if (!string.IsNullOrEmpty(cboMenuItemType.Text))
-            {
-                sql += $" AND Type = '{cboMenuItemType.Text}'";
-            }
-            if (!string.IsNullOrEmpty(txtItemName.Text))
-            {
-                sql += $" AND LOWER(Name) LIKE '%{txtItemName.Text}%'";
-            }
-
-            sql += " ORDER BY Name";
+            string sql = MenuItem.GetAvailableMenuItemSummary(cboMenuItemType.Text, txtItemName.Text);
 
             DataSet dataSet = MenuItem.FilterMenuItems(sql);
 
@@ -191,6 +127,84 @@ namespace Restuarant_System
             else
             {
                 menuItemsDataGridView.DataSource = new DataTable();
+            }
+        }
+
+        private void btnAddtoOrder_Click(object sender, EventArgs e)
+        {
+            // Read from menuItem Data Grid View and add to Order Menu Grid View ONLY if an item is selected
+            if (menuItemsDataGridView.SelectedRows.Count > 0)
+            {
+                {
+                    string itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Name"].Value).ToString();
+                    double itemPrice = Convert.ToDouble((menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Price"].Value).ToString());
+                    string itemType = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Type"].Value).ToString();
+
+                    int itemId = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value);
+
+                    try
+                    {
+                        int amountToAdd = Convert.ToInt32(txtAmountToAdd.Text);
+
+                        // Check if item already exists in the order
+                        DataRow[] rows = orderItemsDataTable.Select($"ItemId = {itemId}");
+                        if (rows.Length > 0)
+                        {
+                            // Increment quantity
+                            rows[0]["Quantity"] = Convert.ToInt32(rows[0]["Quantity"]) + amountToAdd;
+                            // Update price
+                            rows[0]["Price"] = Convert.ToInt32(rows[0]["Quantity"]) * itemPrice;
+
+                        }
+                        else
+                        {
+                            // Add new row to DataTable
+                            DataRow newRow = orderItemsDataTable.NewRow();
+                            newRow["ItemId"] = itemId;
+                            newRow["Name"] = itemName;
+                            newRow["Type"] = itemType;
+                            newRow["Quantity"] = amountToAdd;
+                            newRow["Price"] = itemPrice * amountToAdd;
+                            orderItemsDataTable.Rows.Add(newRow);
+                        }
+
+                        // Display confirmation message
+                        MessageBox.Show(amountToAdd + " " + itemName + "(s) added to the order.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Reset the UI
+                        txtAmountToAdd.Text = "1";
+                        menuItemsDataGridView.ClearSelection();
+
+                        // Bind DataTable to DataGridView
+                        orderItemsDataGridView.DataSource = orderItemsDataTable;
+                        orderItemsDataGridView.Columns["ItemId"].Visible = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error while adding Menu Item to Order, \n\nPlease ensure count is a valid number and try again. \n\n ____________________________________ \n\n" + ex.ToString(), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+
+
+        private void btnCommit_Click(object sender, EventArgs e)
+        {
+            if (orderItemsDataGridView.Rows.Count != 0)
+            {
+                Order.AddOrderItems(orderItemsDataGridView);
+                Order.CreateOrder();
+                orderItemsDataGridView.DataSource = new DataTable();
+
+                //Refresh OrderID text box
+                txtOrderId.Text = (Convert.ToString(Order.GetNextOrderId()));
+
+                MessageBox.Show("Order has succesfully been comitted", "Order Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Error while adding Menu Item to Order, \n\nPlease add at least one Menu Item to the order", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

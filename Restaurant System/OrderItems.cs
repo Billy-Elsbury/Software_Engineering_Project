@@ -43,44 +43,6 @@ namespace Restuarant_System
             set { orderItemPrice = value; }
         }
 
-        // Save the order item to the database
-        /*public void SaveOrderItem()
-        {
-            using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
-            {
-                conn.Open();
-                {
-                    // Create new order and add item
-                    Order order = new Order();
-                    order.OrderId = Utility.GetNextOrderItemId();
-                    order.OrderDate = DateTime.Now;
-                    order.OrderPrice = Utility.CalculateOrderPrice(Utility.GetNextMenuItemId());
-                    order.OrderStatus = 'O';
-
-                    // Insert the order into the database
-                    string insertOrderSql = "INSERT INTO Orders (OrderId, OrderDate, OrderPrice, OrderStatus) VALUES (:OrderId, :OrderDate, :OrderPrice, :OrderStatus)";
-                    using (OracleCommand insertCmd = new OracleCommand(insertOrderSql, conn))
-                    {
-                        insertCmd.Parameters.Add(":OrderId", order.OrderId);
-                        insertCmd.Parameters.Add(":OrderDate", order.OrderDate);
-                        insertCmd.Parameters.Add(":OrderPrice", order.OrderPrice);
-                        insertCmd.Parameters.Add(":OrderStatus", order.OrderStatus);
-                        insertCmd.ExecuteNonQuery();
-                    }
-
-                    // Insert the order item into the database
-                    string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, Quantity) VALUES (:OrderId, :ItemId, :Quantity)";
-                    using (OracleCommand insertCmd = new OracleCommand(insertOrderItemSql, conn))
-                    {
-                        insertCmd.Parameters.Add(":OrderId", order.OrderId);
-                        insertCmd.Parameters.Add(":ItemId", ItemId);
-                        insertCmd.Parameters.Add(":Quantity", Quantity);
-                        insertCmd.ExecuteNonQuery();
-                    }
-                }
-            }
-        }*/
-
         public static DataSet GetAllOrderItems()
         {
                 {

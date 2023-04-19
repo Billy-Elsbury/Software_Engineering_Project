@@ -1,13 +1,6 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Restuarant_System
@@ -44,33 +37,63 @@ namespace Restuarant_System
         }
 
         // Save the order to the database
-        public static void PlaceOrder()
+
+        public static void CreateOrder()
         {
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
             {
                 conn.Open();
-
-                // Create a new order in the database
-                using (OracleCommand cmd = new OracleCommand())
                 {
-                    // Retrieve the next order ID
-                    int nextOrderId = Utility.GetNextOrderItemId();
-                    //calculate order price
-                    double orderPrice = Utility.CalculateOrderPrice(nextOrderId - 1);
+                    // Create new order and add item
+                    Order order = new Order();
+                    order.OrderId = Order.GetNextOrderId();
+                    order.OrderDate = DateTime.Now;
+                    order.OrderPrice = Order.CalculateOrderPrice(Utility.GetNextMenuItemId());
+                    order.OrderStatus = 'O';
 
-                    cmd.Connection = conn;
-                    cmd.CommandText = "INSERT INTO Orders (OrderId, OrderDate, OrderPrice, OrderStatus) " +
-                        "VALUES (:orderId, :orderDate, :OrderPrice, :orderStatus)";
+                    // Insert the order into the database
+                    string insertOrderSql = "INSERT INTO Orders (OrderId, OrderDate, OrderPrice, OrderStatus) VALUES (:OrderId, :OrderDate, :OrderPrice, :OrderStatus)";
+                    using (OracleCommand insertCmd = new OracleCommand(insertOrderSql))
+                    {
+                        insertCmd.Parameters.Add(":OrderId", order.OrderId);
+                        insertCmd.Parameters.Add(":OrderDate", order.OrderDate);
+                        insertCmd.Parameters.Add(":OrderPrice", order.OrderPrice);
+                        insertCmd.Parameters.Add(":OrderStatus", order.OrderStatus);
+                        insertCmd.ExecuteNonQuery();
+                    }
 
-                    cmd.Parameters.Add(":orderId", nextOrderId);
-                    cmd.Parameters.Add(":orderDate", DateTime.Now);
-                    cmd.Parameters.Add(":orderPrice", orderPrice);
-                    cmd.Parameters.Add(":orderStatus", 'O');
 
-                    cmd.ExecuteNonQuery();
                 }
             }
         }
+
+        public static void AddOrderItems(DataGridView dataGridView)
+        {
+            using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
+            {
+                int orderId = Order.GetNextOrderId();
+
+                conn.Open();
+                // Loop through each row in the datagridview
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    // Get the item id and quantity from the row
+                    int itemId = Convert.ToInt32(row.Cells["ItemId"].Value);
+                    int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
+
+                    // Insert the order item into the database
+                    string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, Quantity) VALUES (:OrderId, :ItemId, :Quantity)";
+                    using (OracleCommand insertCmd = new OracleCommand(insertOrderItemSql, conn))
+                    {
+                        insertCmd.Parameters.Add(":OrderId", orderId);
+                        insertCmd.Parameters.Add(":ItemId", itemId);
+                        insertCmd.Parameters.Add(":Quantity", quantity);
+                        insertCmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
 
 
         // Cancel the order
@@ -117,6 +140,76 @@ namespace Restuarant_System
                     return ds;
                 }
             }
+        }
+
+        //Retrieve OrderItemID from database and ensure it is itterated and up to date.
+        public static int GetNextOrderId()
+        {
+            //Open a db connection
+            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+
+            //SQL query to be executed:
+            String sqlQuery = "SELECT MAX(OrderId) FROM Orders";
+
+            //Execute the SQL query (OracleCommand())
+            OracleCommand cmd = new OracleCommand(sqlQuery, conn);
+            conn.Open();
+
+            OracleDataReader reader = cmd.ExecuteReader();
+
+            //Test dataReader for NULL value
+            int nextId;
+            reader.Read();
+
+            if (reader.IsDBNull(0))
+                nextId = 1;
+            else
+            {
+                nextId = reader.GetInt32(0) + 1;
+            }
+
+            //Close db connection
+            conn.Close();
+
+            return nextId;
+        }
+
+        // Calculate the total price of the order
+        public static double CalculateOrderPrice(int orderId)
+        {
+            double totalPrice = 0;
+
+            using (OracleConnection connection = new OracleConnection(DBConnect.oradb))
+            {
+                connection.Open();
+
+                string sql = "SELECT SUM(OrderItems.Quantity * MenuItems.Price) AS TotalPrice " +
+                             "FROM OrderItems " +
+                             "JOIN MenuItems ON OrderItems.ItemId = MenuItems.ItemId " +
+                             "WHERE OrderItems.OrderId = :OrderId";
+
+                using (OracleCommand command = new OracleCommand(sql, connection))
+                {
+                    command.Parameters.Add(new OracleParameter(":OrderId", orderId));
+
+                    using (OracleDataReader reader = command.ExecuteReader())
+                    {
+                        // Test dataReader for NULL value
+
+                        reader.Read();
+
+                        if (reader.IsDBNull(0))
+                        {
+                            totalPrice = 0;
+                        }
+                        else
+                        {
+                            totalPrice = reader.GetDouble(0);
+                        }
+                    }
+                }
+            }
+            return totalPrice;
         }
     }
 }
