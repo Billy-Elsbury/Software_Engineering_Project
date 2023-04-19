@@ -247,6 +247,7 @@ namespace Restuarant_System
             this.ClientSize = new System.Drawing.Size(603, 636);
             this.Controls.Add(this.grpEditMenuItem);
             this.Name = "frmEditMenuItem";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Billy\'s Restuarant - [Edit Menu Item]";
             this.Load += new System.EventHandler(this.frmEditMenuItem_Load);
             this.grpEditMenuItem.ResumeLayout(false);

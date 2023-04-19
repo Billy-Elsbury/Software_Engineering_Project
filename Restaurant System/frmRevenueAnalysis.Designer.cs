@@ -49,6 +49,7 @@ namespace Restuarant_System
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.pictureBoxRevenueAnalysis);
             this.Name = "frmRevenueAnalysis";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Revenue Analysis";
             this.Load += new System.EventHandler(this.frmRevenueAnalysis_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRevenueAnalysis)).EndInit();

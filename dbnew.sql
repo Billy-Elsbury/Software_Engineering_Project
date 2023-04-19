@@ -21,7 +21,6 @@ CREATE TABLE MenuItems(
  --Orders table
 CREATE TABLE Orders (
     OrderID numeric(4) PRIMARY KEY,
-    TableNo numeric(4),
     OrderDate date NOT NULL,
     OrderPrice numeric (5,2) NOT NULL,
     OrderStatus char(1) NOT NULL
@@ -31,9 +30,10 @@ CREATE TABLE Orders (
 CREATE TABLE OrderItems (
     OrderID numeric(4) NOT NULL,
     ItemID numeric(4) NOT NULL,
+    UnitPrice numeric (5,2) NOT NULL,
     Quantity numeric(4) NOT NULL,
-    PRIMARY KEY (OrderID, ItemID),
     
+    PRIMARY KEY (OrderID, ItemID),
     CONSTRAINT fk_OrderItems_OrderID FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     CONSTRAINT fk_OrderItems_ItemID FOREIGN KEY (ItemID) REFERENCES MenuItems(ItemID)
 );
@@ -72,6 +72,24 @@ INSERT INTO MenuItems VALUES (28, 'A', 'D', 'Chocolate Cake', 'Rich and decadent
 INSERT INTO MenuItems VALUES (29, 'U', 'B', 'Tequila Sunrise', 'Tequila cocktail with orange, grenadine', 6.50);
 INSERT INTO MenuItems VALUES (30, 'A', 'F', 'Pho', 'Vietnamese noodle soup with herbs and beef', 10.50);
 
+--Test Data
 
+-- Insert statements for Orders table
+INSERT INTO Orders (OrderID, OrderDate, OrderPrice, OrderStatus) VALUES (1, TO_DATE('2022-01-01', 'YYYY-MM-DD'), 100.00, 'A');
+
+INSERT INTO Orders (OrderID, OrderDate, OrderPrice, OrderStatus) VALUES (2, TO_DATE('2022-01-01', 'YYYY-MM-DD'), 200.00, 'B');
+
+INSERT INTO Orders (OrderID, OrderDate, OrderPrice, OrderStatus) VALUES (3, TO_DATE('2022-01-01', 'YYYY-MM-DD'), 300.00, 'C');
+
+-- Insert statements for OrderItems table
+INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (1, 1, 12.50, 2);
+
+INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (2, 12, 4.30, 1);
+
+INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (2, 21, 5.60, 3);
+
+INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (3, 6, 2.30, 4);
+
+INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (3, 7, 9.30, 2);
 
 COMMIT;

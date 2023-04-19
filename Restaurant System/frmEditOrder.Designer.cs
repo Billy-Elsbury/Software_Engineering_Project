@@ -87,6 +87,7 @@ namespace Restuarant_System
             this.ClientSize = new System.Drawing.Size(512, 450);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmEditOrder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Billy\'s Restuarant - [Edit Order]";
             this.Load += new System.EventHandler(this.frmEditOrder_Load);
             this.groupBox1.ResumeLayout(false);

@@ -48,47 +48,53 @@ namespace Restuarant_System
                     Order order = new Order();
                     order.OrderId = Order.GetNextOrderId();
                     order.OrderDate = DateTime.Now;
-                    order.OrderPrice = Order.CalculateOrderPrice(Utility.GetNextMenuItemId());
+                    order.OrderPrice = 0; //initilize to 0 so the order can be made, order items added into the database, and then the price can be calculated after
                     order.OrderStatus = 'O';
 
                     // Insert the order into the database
                     string insertOrderSql = "INSERT INTO Orders (OrderId, OrderDate, OrderPrice, OrderStatus) VALUES (:OrderId, :OrderDate, :OrderPrice, :OrderStatus)";
-                    using (OracleCommand insertCmd = new OracleCommand(insertOrderSql))
+
+                    using (OracleCommand cmd = new OracleCommand(insertOrderSql, conn))
                     {
-                        insertCmd.Parameters.Add(":OrderId", order.OrderId);
-                        insertCmd.Parameters.Add(":OrderDate", order.OrderDate);
-                        insertCmd.Parameters.Add(":OrderPrice", order.OrderPrice);
-                        insertCmd.Parameters.Add(":OrderStatus", order.OrderStatus);
-                        insertCmd.ExecuteNonQuery();
+                        cmd.Parameters.Add(":OrderId", order.OrderId);
+                        cmd.Parameters.Add(":OrderDate", order.OrderDate);
+                        cmd.Parameters.Add(":OrderPrice", order.OrderPrice);
+                        cmd.Parameters.Add(":OrderStatus", order.OrderStatus);
+                        cmd.ExecuteNonQuery();
                     }
-
-
                 }
             }
         }
 
-        public static void AddOrderItems(DataGridView dataGridView)
+        public static void AddOrderItems(DataGridView orderItemsDataGridView)
         {
+            int orderId = Order.GetNextOrderId() - 1;
+
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
             {
-                int orderId = Order.GetNextOrderId();
-
                 conn.Open();
                 // Loop through each row in the datagridview
-                foreach (DataGridViewRow row in dataGridView.Rows)
+                foreach (DataGridViewRow row in orderItemsDataGridView.Rows)
                 {
+                    double price = (Convert.ToDouble(row.Cells["Price"].Value.ToString()));
+
+
+
                     // Get the item id and quantity from the row
                     int itemId = Convert.ToInt32(row.Cells["ItemId"].Value);
                     int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
 
+                    double unitPrice = price / quantity;
+
                     // Insert the order item into the database
-                    string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, Quantity) VALUES (:OrderId, :ItemId, :Quantity)";
-                    using (OracleCommand insertCmd = new OracleCommand(insertOrderItemSql, conn))
+                    string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, UnitPrice, Quantity) VALUES (:OrderId, :ItemId, :UnitPrice, :Quantity)";
+                    using (OracleCommand cmd = new OracleCommand(insertOrderItemSql, conn))
                     {
-                        insertCmd.Parameters.Add(":OrderId", orderId);
-                        insertCmd.Parameters.Add(":ItemId", itemId);
-                        insertCmd.Parameters.Add(":Quantity", quantity);
-                        insertCmd.ExecuteNonQuery();
+                        cmd.Parameters.Add(":OrderId", orderId);
+                        cmd.Parameters.Add(":ItemId", itemId);
+                        cmd.Parameters.Add(":UnitPrice", unitPrice);
+                        cmd.Parameters.Add(":Quantity", quantity);
+                        cmd.ExecuteNonQuery();
                     }
                 }
             }
@@ -183,31 +189,36 @@ namespace Restuarant_System
             {
                 connection.Open();
 
-                string sql = "SELECT SUM(OrderItems.Quantity * MenuItems.Price) AS TotalPrice " +
-                             "FROM OrderItems " +
-                             "JOIN MenuItems ON OrderItems.ItemId = MenuItems.ItemId " +
-                             "WHERE OrderItems.OrderId = :OrderId";
+                // Calculate the total price of the order items
+                string sql = "SELECT SUM(UnitPrice * Quantity) AS TotalPrice " +
+                                "FROM OrderItems " +
+                                "WHERE OrderID = :orderId;";
 
                 using (OracleCommand command = new OracleCommand(sql, connection))
                 {
-                    command.Parameters.Add(new OracleParameter(":OrderId", orderId));
+                    command.Parameters.Add(new OracleParameter(":orderId", orderId));
 
-                    using (OracleDataReader reader = command.ExecuteReader())
+                    object result = command.ExecuteScalar();
+
+                    if (result != DBNull.Value)
                     {
-                        // Test dataReader for NULL value
-
-                        reader.Read();
-
-                        if (reader.IsDBNull(0))
-                        {
-                            totalPrice = 0;
-                        }
-                        else
-                        {
-                            totalPrice = reader.GetDouble(0);
-                        }
+                        totalPrice = Convert.ToDouble(result);
                     }
                 }
+
+                // Update the order table with the calculated total price
+                sql = "UPDATE Orders " +
+                        "SET TotalPrice = :totalPrice " +
+                        "WHERE OrderID = :orderId;";
+
+                using (OracleCommand command = new OracleCommand(sql, connection))
+                {
+                    command.Parameters.Add(new OracleParameter(":totalPrice", totalPrice));
+                    command.Parameters.Add(new OracleParameter(":orderId", orderId));
+
+                    command.ExecuteNonQuery();
+                }
+
             }
             return totalPrice;
         }

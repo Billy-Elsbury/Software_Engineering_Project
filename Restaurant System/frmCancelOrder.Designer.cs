@@ -88,6 +88,7 @@ namespace Restuarant_System
             this.ClientSize = new System.Drawing.Size(538, 450);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmCancelOrder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Billy\'s Restuarant - [Cancel Order]";
             this.Load += new System.EventHandler(this.frmCancelOrder_Load);
             this.groupBox1.ResumeLayout(false);

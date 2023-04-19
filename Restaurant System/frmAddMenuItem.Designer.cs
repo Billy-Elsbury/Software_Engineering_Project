@@ -200,6 +200,7 @@ namespace Restuarant_System
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.grpAddMenuItem);
             this.Name = "frmAddMenuItem";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Billy\'s Restuarant - [Add Menu Item]";
             this.Load += new System.EventHandler(this.frmAddMenuItem_Load);
             this.grpAddMenuItem.ResumeLayout(false);

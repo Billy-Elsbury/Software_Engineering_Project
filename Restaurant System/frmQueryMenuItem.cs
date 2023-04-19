@@ -107,27 +107,27 @@ namespace Restuarant_System
             string sql = "SELECT * FROM MenuItems WHERE 1=1";
             if (!string.IsNullOrEmpty(cboItemID.Text))
             {
-                sql += $" AND ItemId = {cboItemID.Text}";
+                sql += $" AND LOWER(ItemId) = {cboItemID.Text}";
             }
             if (!string.IsNullOrEmpty(cboItemAvailability.Text))
             {
-                sql += $" AND Availability = '{cboItemAvailability.Text}'";
+                sql += $" AND LOWER(Availability) = '{cboItemAvailability.Text}'";
             }
             if (!string.IsNullOrEmpty(cboMenuItemType.Text))
             {
-                sql += $" AND Type = '{cboMenuItemType.Text}'";
+                sql += $" AND LOWER(Type) = '{cboMenuItemType.Text}'";
             }
             if (!string.IsNullOrEmpty(txtItemName.Text))
             {
-                sql += $" AND Name LIKE '%{txtItemName.Text}%'";
+                sql += $" AND LOWER(Name) LIKE '%{txtItemName.Text}%'";
             }
             if (!string.IsNullOrEmpty(txtItemDescription.Text))
             {
-                sql += $" AND Description LIKE '%{txtItemDescription.Text}%'";
+                sql += $" AND LOWER(Description) LIKE '%{txtItemDescription.Text}%'";
             }
             if (!string.IsNullOrEmpty(txtPrice.Text))
             {
-                sql += $" AND Price LIKE '{txtPrice.Text}%'";
+                sql += $" AND LOWER(Price) LIKE '{txtPrice.Text}%'";
             }
             DataSet dataSet = MenuItem.FilterMenuItems(sql);
 

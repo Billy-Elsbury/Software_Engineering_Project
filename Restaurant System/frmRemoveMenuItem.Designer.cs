@@ -30,9 +30,9 @@ namespace Restuarant_System
         private void InitializeComponent()
         {
             this.grpEditMenuItem = new System.Windows.Forms.GroupBox();
+            this.btnBack = new System.Windows.Forms.Button();
             this.menuItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.btnRemoveMenuItem = new System.Windows.Forms.Button();
-            this.btnBack = new System.Windows.Forms.Button();
             this.grpEditMenuItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -48,6 +48,16 @@ namespace Restuarant_System
             this.grpEditMenuItem.TabIndex = 22;
             this.grpEditMenuItem.TabStop = false;
             this.grpEditMenuItem.Text = "Remove Menu Item Details";
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(399, 397);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 44;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // menuItemsDataGridView
             // 
@@ -69,16 +79,6 @@ namespace Restuarant_System
             this.btnRemoveMenuItem.UseVisualStyleBackColor = true;
             this.btnRemoveMenuItem.Click += new System.EventHandler(this.btnRemoveMenuItem_Click);
             // 
-            // btnBack
-            // 
-            this.btnBack.Location = new System.Drawing.Point(399, 397);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 23);
-            this.btnBack.TabIndex = 44;
-            this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
             // frmRemoveMenuItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -86,6 +86,7 @@ namespace Restuarant_System
             this.ClientSize = new System.Drawing.Size(513, 450);
             this.Controls.Add(this.grpEditMenuItem);
             this.Name = "frmRemoveMenuItem";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Billy\'s Restuarant - [Remove Menu Item]";
             this.Load += new System.EventHandler(this.frmRemoveMenuItem_Load);
             this.grpEditMenuItem.ResumeLayout(false);

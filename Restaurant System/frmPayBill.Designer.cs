@@ -88,6 +88,7 @@ namespace Restuarant_System
             this.ClientSize = new System.Drawing.Size(513, 450);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmPayBill";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Billy\'s Restuarant - [Pay a Bill]";
             this.Load += new System.EventHandler(this.frmPayBill_Load);
             this.groupBox1.ResumeLayout(false);

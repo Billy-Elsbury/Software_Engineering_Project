@@ -174,6 +174,8 @@ namespace Restuarant_System
                         // Reset the UI
                         txtAmountToAdd.Text = "1";
                         menuItemsDataGridView.ClearSelection();
+                        
+
 
                         // Bind DataTable to DataGridView
                         orderItemsDataGridView.DataSource = orderItemsDataTable;
@@ -193,12 +195,13 @@ namespace Restuarant_System
         {
             if (orderItemsDataGridView.Rows.Count != 0)
             {
-                Order.AddOrderItems(orderItemsDataGridView);
                 Order.CreateOrder();
+                Order.AddOrderItems(orderItemsDataGridView);
                 orderItemsDataGridView.DataSource = new DataTable();
 
-                //Refresh OrderID text box
-                txtOrderId.Text = (Convert.ToString(Order.GetNextOrderId()));
+                //Refresh OrderID text box and clear order data table
+                txtOrderId.Text = Convert.ToString(Order.GetNextOrderId());
+                orderItemsDataTable.Clear();
 
                 MessageBox.Show("Order has succesfully been comitted", "Order Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

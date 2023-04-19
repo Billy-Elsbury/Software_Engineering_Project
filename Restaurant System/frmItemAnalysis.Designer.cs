@@ -49,6 +49,7 @@ namespace Restuarant_System
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.pictureBoxMenuItemAnalysis);
             this.Name = "frmItemAnalysis";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu Item Analysis";
             this.Load += new System.EventHandler(this.frmItemAnalysis_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMenuItemAnalysis)).EndInit();

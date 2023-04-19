@@ -181,6 +181,7 @@ namespace Restuarant_System
             this.Controls.Add(this.mnuMainMenu);
             this.MainMenuStrip = this.mnuMainMenu;
             this.Name = "frmRestaurantTillMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmRestauarantTilMenu_FormClosing);
             this.Load += new System.EventHandler(this.frmRestuarantTillMenu_Load);
