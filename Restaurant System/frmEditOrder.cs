@@ -161,40 +161,31 @@ namespace Restuarant_System
                     int orderId = Convert.ToInt32(txtOrderId.Text);
                     int itemId = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value);
 
-                    try
+                    // Access a specific row in the DataTable
+                    DataRow row = orderItemsDataTable.Rows[2];
+
+                    // Get the value of the "Quantity" column for the row
+                    int quantity = Convert.ToInt32(row["Quantity"]);
+
+
+
+
+                    //try
                     {
                         int amountToAdd = Convert.ToInt32(txtAmountToAdd.Text);
 
                         //check if there is any order selected in the table
                         if (orderItemsDataGridView.Rows.Count != 0)
                         {
-                            // Check if item already exists in the order
-                            DataRow[] rows = orderItemsDataTable.Select($"ItemId = {itemId}");
-                            if (rows.Length > 0)
-                            {
-                                // Increment quantity
-                                rows[0]["Quantity"] = Convert.ToInt32(rows[0]["Quantity"]) + amountToAdd;
-                                // Update price
-                                rows[0]["Price"] = Convert.ToInt32(rows[0]["Quantity"]) * itemPrice;
+                            DataRow newRow = orderItemsDataTable.NewRow();
 
-                            }
-                            else
-                            {
-                                // maybe change to dataGridView if time permits
+                            // Add new row to DataTable
+                            newRow["OrderId"] = orderId;
+                            newRow["ItemId"] = itemId;
+                            newRow["Price"] = itemPrice * amountToAdd;
+                            newRow["Quantity"] = amountToAdd + quantity;
 
-                                // Add new row to DataTable
-                                DataRow newRow = orderItemsDataTable.NewRow();
-                                newRow["OrderId"] = orderId;
-                                newRow["ItemId"] = itemId;
-                                newRow["Price"] = itemPrice * amountToAdd;
-                                newRow["Quantity"] = amountToAdd;
-                                
-                                orderItemsDataTable.Rows.Add(newRow);
-
-                                string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, UnitPrice, Quantity) VALUES (:OrderId, :ItemId, :UnitPrice, :Quantity)";
-
-                            }
-
+                            orderItemsDataTable.Rows.Add(newRow);
 
                             // Display confirmation message
                             MessageBox.Show(amountToAdd + " " + itemName + "(s) added to the order.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -203,11 +194,11 @@ namespace Restuarant_System
                             txtAmountToAdd.Text = "1";
                             menuItemsDataGridView.ClearSelection();
 
-                            //Order.AddOrderItems(orderItemsDataGridView);
-
                             // Bind DataTable to DataGridView
                             DataTable dt = Order.GetOrderItemsByOrderId(orderId);
                             orderItemsDataGridView.DataSource = dt;
+
+                            Order.EditOrderItems(newRow);
 
                             txtOrderTotalPrice.Text = Convert.ToString(Order.CalculateOrderPrice(orderId));
 
@@ -218,9 +209,9 @@ namespace Restuarant_System
                             MessageBox.Show("Please select an order", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
-                    catch (Exception ex)
+                    //catch (Exception ex)
                     {
-                        MessageBox.Show("Error while adding Menu Item to Order", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show("Error while adding Menu Item to Order", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

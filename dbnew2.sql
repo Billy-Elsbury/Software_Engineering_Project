@@ -1,0 +1,1 @@
+UPDATE OrderItems SET Quantity = 4 WHERE OrderId = 2 AND ItemId = 21;

@@ -66,7 +66,7 @@ namespace Restuarant_System
             }
         }
 
-        public static void AddOrderItems(DataGridView orderItemsDataGridView)
+        public static void AddNewOrderItems(DataGridView orderItemsDataGridView)
         {
             int orderId = Order.GetNextOrderId() - 1;
 
@@ -77,8 +77,6 @@ namespace Restuarant_System
                 foreach (DataGridViewRow row in orderItemsDataGridView.Rows)
                 {
                     double price = (Convert.ToDouble(row.Cells["Price"].Value.ToString()));
-
-
 
                     // Get the item id and quantity from the row
                     int itemId = Convert.ToInt32(row.Cells["ItemId"].Value);
@@ -99,6 +97,60 @@ namespace Restuarant_System
                 }
             }
         }
+
+        public static void EditOrderItems(DataRow orderItemsDataRow)
+        {
+            using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
+            {
+                conn.Open();
+
+                int orderId = Convert.ToInt32(orderItemsDataRow["OrderId"]);
+                int itemId = Convert.ToInt32(orderItemsDataRow["ItemId"]);
+                double price = Convert.ToDouble(orderItemsDataRow["Price"]);
+                int quantity = Convert.ToInt32(orderItemsDataRow["Quantity"]);
+
+                double unitPrice = price / quantity;
+
+                string selectOrderItemSql = "SELECT Quantity FROM OrderItems WHERE OrderId = :OrderId AND ItemId = :ItemId";
+                using (OracleCommand selectCmd = new OracleCommand(selectOrderItemSql, conn))
+                {
+                    selectCmd.Parameters.Add(":OrderId", orderId);
+                    selectCmd.Parameters.Add(":ItemId", itemId);
+                    object result = selectCmd.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        // Item is already in the order, so update the quantity
+                        int currentQuantity = Convert.ToInt32(result);
+                        quantity += currentQuantity;
+
+                        string updateOrderItemSql = "UPDATE OrderItems SET Quantity = :Quantity WHERE OrderId = :OrderId AND ItemId = :ItemId";
+                        using (OracleCommand updateCmd = new OracleCommand(updateOrderItemSql, conn))
+                        {
+                            updateCmd.Parameters.Add(":OrderId", orderId);
+                            updateCmd.Parameters.Add(":ItemId", itemId);
+                            updateCmd.Parameters.Add(":Quantity", quantity);
+                            updateCmd.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        // Item is not yet in the order, so insert a new row
+                        string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, UnitPrice, Quantity) VALUES (:OrderId, :ItemId, :UnitPrice, :Quantity)";
+                        using (OracleCommand insertCmd = new OracleCommand(insertOrderItemSql, conn))
+                        {
+                            insertCmd.Parameters.Add(":OrderId", orderId);
+                            insertCmd.Parameters.Add(":ItemId", itemId);
+                            insertCmd.Parameters.Add(":UnitPrice", unitPrice);
+                            insertCmd.Parameters.Add(":Quantity", quantity);
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+        }
+
+
 
 
 

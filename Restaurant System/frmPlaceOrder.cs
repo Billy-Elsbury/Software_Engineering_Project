@@ -196,7 +196,7 @@ namespace Restuarant_System
             if (orderItemsDataGridView.Rows.Count != 0)
             {
                 Order.CreateOrder();
-                Order.AddOrderItems(orderItemsDataGridView);
+                Order.AddNewOrderItems(orderItemsDataGridView);
                 Order.CalculateOrderPrice(Order.GetNextOrderId()-1);
 
                 orderItemsDataGridView.DataSource = new DataTable();
