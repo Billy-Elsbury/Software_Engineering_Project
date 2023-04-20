@@ -240,38 +240,27 @@ namespace Restuarant_System
             return totalPrice;
         }
 
-        public static void UpdateOrderStatus(string orderId, char editedOrderStatus)
+        public static DataTable GetOrderItemsByOrderId(int orderId)
         {
-            //using parameterized query to avoid SQL Injection
-            //https://www.c-sharpcorner.com/UploadFile/a20beb/why-should-always-use-the-parameterized-query-to-avoid-sql-i/
-
-            //Open a db connection
+            DataTable dt = new DataTable();
             using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
             {
-                try
+                string sql = "SELECT MenuItems.ItemId As ItemId, MenuItems.Name AS ItemName, MenuItems.Type AS ItemType, OrderItems.Quantity AS Quantity, OrderItems.unitPrice AS UnitPrice " +
+                             "FROM OrderItems " +
+                             "JOIN MenuItems ON OrderItems.ItemID = MenuItems.ItemID " +
+                             "JOIN Orders ON OrderItems.OrderID = Orders.OrderID " +
+                             "WHERE Orders.OrderID = :OrderId";
+
+                using (OracleCommand cmd = new OracleCommand(sql, conn))
                 {
-                    conn.Open();
-
-                    //Define the SQL query with placeholders
-                    String sqlQuery = "UPDATE Orders SET " +
-                        "OrderStatus = :status," +
-                        " WHERE OrderId = :orderId";
-
-                    //Create a new OracleCommand object
-                    OracleCommand cmd = new OracleCommand(sqlQuery, conn);
-
-                    //Set the parameterized values
-                    cmd.Parameters.Add(new OracleParameter(":status", editedOrderStatus));
-
-                    //Execute the SQL query
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    // Handle any errors
-                    Console.WriteLine("Error updating menu item: " + ex.Message);
+                    cmd.Parameters.Add(":OrderId", orderId);
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
                 }
             }
+            return dt;
         }
     }
 }

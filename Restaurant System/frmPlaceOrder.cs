@@ -65,7 +65,7 @@ namespace Restuarant_System
             txtOrderId.Text = (Convert.ToString(Order.GetNextOrderId()));
 
 
-            //config orderItems data grid
+            //config orderItems data table
 
             orderItemsDataTable = new DataTable();
             orderItemsDataTable.Columns.Add("ItemId", typeof(int));
@@ -73,6 +73,8 @@ namespace Restuarant_System
             orderItemsDataTable.Columns.Add("Type", typeof(string));
             orderItemsDataTable.Columns.Add("Quantity", typeof(int));
             orderItemsDataTable.Columns.Add("Price", typeof(double));
+
+            //config orderItems data grid
 
             orderItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             orderItemsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -127,7 +129,7 @@ namespace Restuarant_System
             else
             {
                 menuItemsDataGridView.DataSource = new DataTable();
-            }
+             }
         }
 
         private void btnAddtoOrder_Click(object sender, EventArgs e)
@@ -188,8 +190,6 @@ namespace Restuarant_System
                 }
             }
         }
-
-
 
         private void btnCommit_Click(object sender, EventArgs e)
         {

@@ -318,3 +318,5 @@ C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\Restuarant System.exe
 C:\Users\billy\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\Restuarant System.pdb
 C:\Users\T00224562\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\Restaurant System.csproj.AssemblyReference.cache
+C:\Users\Billy\Desktop\Software_Engineering_Project\Restaurant System\obj\Debug\Restaurant System.csproj.SuggestedBindingRedirects.cache
+C:\Users\Billy\Desktop\Software_Engineering_Project\Restaurant System\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll

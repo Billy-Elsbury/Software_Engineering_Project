@@ -18,121 +18,213 @@ namespace Restuarant_System
             InitializeComponent();
         }
 
+        // Initialize order items DataTable
+        private DataTable orderItemsDataTable;
+
         private void frmEditOrder_Load(object sender, EventArgs e)
         {
-            cboOrderStatus.Items.Add("");
-            cboOrderStatus.Items.Add("O - Open");
-            cboOrderStatus.Items.Add("C - Closed");
-            cboOrderStatus.Items.Add("V - Void");
+            cboMenuItemType.Items.Add("");
+            cboMenuItemType.Items.Add("F");
+            cboMenuItemType.Items.Add("B");
+            cboMenuItemType.Items.Add("D");
 
-            cboNewOrderStatus.Items.Add("O - Open");
-            cboNewOrderStatus.Items.Add("C - Closed");
-            cboNewOrderStatus.Items.Add("V - Void");
+            //refresh Data Grid Views
+            menuItemsDataGridView.DataSource = new DataTable();
+            orderItemsDataGridView.DataSource = new DataTable();
 
-            //Populate Data Grid View with information from database
+            //config Orders Data Grid View
 
-            DataSet dataSet = Order.GetAllOrders();
+            menuItemsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
+            menuItemsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            menuItemsDataGridView.ColumnHeadersDefaultCellStyle.Font =
+                new Font(menuItemsDataGridView.Font, FontStyle.Bold);
 
-            ordersDataGridView.DataSource = dataSet.Tables[0];
 
-            //config Data Grid View
-
-            ordersDataGridView.Name = "ordersDataGridView";
-            ordersDataGridView.AutoSizeRowsMode =
+            menuItemsDataGridView.Name = "menuItemsDataGridView";
+            menuItemsDataGridView.AutoSizeRowsMode =
                 DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-            ordersDataGridView.ColumnHeadersBorderStyle =
+            menuItemsDataGridView.ColumnHeadersBorderStyle =
                 DataGridViewHeaderBorderStyle.Single;
-            ordersDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-            ordersDataGridView.GridColor = Color.Black;
-            ordersDataGridView.RowHeadersVisible = false;
+            menuItemsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            menuItemsDataGridView.GridColor = Color.Black;
+            menuItemsDataGridView.RowHeadersVisible = false;
 
-            ordersDataGridView.Columns[0].DefaultCellStyle.Font =
-                new Font(ordersDataGridView.DefaultCellStyle.Font, FontStyle.Bold);
-
-            ordersDataGridView.SelectionMode =
+            menuItemsDataGridView.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
-            ordersDataGridView.AllowUserToAddRows = false;
-            ordersDataGridView.MultiSelect = false;
+            menuItemsDataGridView.AllowUserToAddRows = false;
+            menuItemsDataGridView.MultiSelect = false;
 
-            foreach (DataGridViewColumn column in ordersDataGridView.Columns)
+            // Ensure columns span whole DataGrid View Table
+            menuItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
+            //config orderItems data table
+
+            orderItemsDataTable = new DataTable();
+            orderItemsDataTable.Columns.Add("ItemId", typeof(int));
+            orderItemsDataTable.Columns.Add("OrderId", typeof(int));
+            orderItemsDataTable.Columns.Add("Name", typeof(string));
+            orderItemsDataTable.Columns.Add("Type", typeof(string));
+            orderItemsDataTable.Columns.Add("Quantity", typeof(int));
+            orderItemsDataTable.Columns.Add("Price", typeof(double));
+
+            //config Order Items Data Grid View
+
+            orderItemsDataGridView.Name = "ordersItemsDataGridView";
+            orderItemsDataGridView.AutoSizeRowsMode =
+                DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            orderItemsDataGridView.ColumnHeadersBorderStyle =
+                DataGridViewHeaderBorderStyle.Single;
+            orderItemsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            orderItemsDataGridView.GridColor = Color.Black;
+            orderItemsDataGridView.RowHeadersVisible = false;
+
+            orderItemsDataGridView.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+            orderItemsDataGridView.AllowUserToAddRows = false;
+            orderItemsDataGridView.MultiSelect = false;
+
+
+            orderItemsDataGridView.DataSource = new DataTable();
+
+            foreach (DataGridViewColumn column in orderItemsDataGridView.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
-            //ensure columns span whole DataGrid View Table
-            ordersDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            ordersDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            ordersDataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
-        private void btnFilter_Click(object sender, EventArgs e)
+        private void btnSearchMenuItem_Click(object sender, EventArgs e)
         {
-            string orderId = txtOrderId.Text;
-            string orderStatus;
+            // Validate the search input before filtering
+            string errorMessage;
 
-            if (string.IsNullOrEmpty(cboOrderStatus.Text))
+            if (!Utility.ValidationUtility.ValidItemName(txtItemName.Text, out errorMessage))
             {
-                orderStatus = "";
+                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else orderStatus = (cboOrderStatus.Text.Substring(0, 1));
 
-            string sql = Order.GenerateSqlFilterOrderQuery(orderId, orderStatus);
+            string sql = MenuItem.GetAvailableMenuItemSummary(cboMenuItemType.Text, txtItemName.Text);
 
             DataSet dataSet = Utility.GetFilteredResult(sql);
 
             if (dataSet != null && dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0)
             {
-                ordersDataGridView.DataSource = dataSet.Tables[0];
+                // Hide the ItemId column in the DataGridView
+                menuItemsDataGridView.DataSource = dataSet.Tables[0];
+                menuItemsDataGridView.Columns["ItemId"].Visible = false;
             }
             else
             {
-                ordersDataGridView.DataSource = new DataTable();
+                menuItemsDataGridView.DataSource = new DataTable();
             }
         }
 
-        private void btnClearFilters_Click(object sender, EventArgs e)
+        private void btnSearchOrder_Click(object sender, EventArgs e)
         {
-            // Clear text boxes
-            txtOrderId.Text = "";
-
-            // Clear combo boxes
-            cboOrderStatus.SelectedIndex = 0;
-        }
-
-        private void btnEditOrder_Click(object sender, EventArgs e)
-        {
-            // Get input values from form controls
-            string newOrderStatus;
-
-            if (string.IsNullOrEmpty(cboNewOrderStatus.Text))
+            try
             {
-                newOrderStatus = "";
-            }
-            else newOrderStatus = (cboNewOrderStatus.Text.Substring(0, 1));
+                int maxOrder = Order.GetNextOrderId();
 
-            {
-                try
+                int orderId = Convert.ToInt32(txtOrderId.Text);
+
+                if (orderId >= 1 && orderId < maxOrder)
                 {
-                    int maxOrder = Order.GetNextOrderId();
-                    int orderId = Convert.ToInt32((ordersDataGridView.Rows[ordersDataGridView.CurrentRow.Index].Cells[0].Value).ToString());
+                    DataTable dt = Order.GetOrderItemsByOrderId(orderId);
+                    orderItemsDataGridView.DataSource = dt;
 
-                    if (orderId >= 1 && orderId < maxOrder)
+                    txtOrderTotalPrice.Text = Convert.ToString(Order.CalculateOrderPrice(orderId));
+
+                    //ensure columns span whole DataGrid View Table
+                    orderItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    orderItemsDataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    orderItemsDataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                }
+                else MessageBox.Show("Id out of range \n\nThere are currently: " + (maxOrder - 1) + " order(s)", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Please enter a valid number Id", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnAddtoOrder_Click(object sender, EventArgs e)
+        {
+            // Read from menuItem Data Grid View and add to Order Menu Grid View ONLY if an item is selected
+            if (menuItemsDataGridView.SelectedRows.Count > 0)
+            {
+                {
+                    string itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Name"].Value).ToString();
+                    double itemPrice = Convert.ToDouble((menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Price"].Value).ToString());
+                    string itemType = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Type"].Value).ToString();
+                    int orderId = Convert.ToInt32(txtOrderId.Text);
+                    int itemId = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value);
+
+                    try
                     {
-                        Order.UpdateOrderStatus(txtOrderId.Text, Convert.ToChar(newOrderStatus));
+                        int amountToAdd = Convert.ToInt32(txtAmountToAdd.Text);
 
-                        //display confirmation message
-                        MessageBox.Show("Product " + txtOrderId.Text + " updated successfully", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //check if there is any order selected in the table
+                        if (orderItemsDataGridView.Rows.Count != 0)
+                        {
+                            // Check if item already exists in the order
+                            DataRow[] rows = orderItemsDataTable.Select($"ItemId = {itemId}");
+                            if (rows.Length > 0)
+                            {
+                                // Increment quantity
+                                rows[0]["Quantity"] = Convert.ToInt32(rows[0]["Quantity"]) + amountToAdd;
+                                // Update price
+                                rows[0]["Price"] = Convert.ToInt32(rows[0]["Quantity"]) * itemPrice;
+
+                            }
+                            else
+                            {
+                                // maybe change to dataGridView if time permits
+
+                                // Add new row to DataTable
+                                DataRow newRow = orderItemsDataTable.NewRow();
+                                newRow["OrderId"] = orderId;
+                                newRow["ItemId"] = itemId;
+                                newRow["Price"] = itemPrice * amountToAdd;
+                                newRow["Quantity"] = amountToAdd;
+                                
+                                orderItemsDataTable.Rows.Add(newRow);
+
+                                string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, UnitPrice, Quantity) VALUES (:OrderId, :ItemId, :UnitPrice, :Quantity)";
+
+                            }
+
+
+                            // Display confirmation message
+                            MessageBox.Show(amountToAdd + " " + itemName + "(s) added to the order.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Reset the UI
+                            txtAmountToAdd.Text = "1";
+                            menuItemsDataGridView.ClearSelection();
+
+                            //Order.AddOrderItems(orderItemsDataGridView);
+
+                            // Bind DataTable to DataGridView
+                            DataTable dt = Order.GetOrderItemsByOrderId(orderId);
+                            orderItemsDataGridView.DataSource = dt;
+
+                            txtOrderTotalPrice.Text = Convert.ToString(Order.CalculateOrderPrice(orderId));
+
+                        }
+
+                        else
+                        {
+                            MessageBox.Show("Please select an order", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error while adding Menu Item to Order", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error in Update \n\n ____________________________________ \n\n" + ex.ToString(), "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
         }
-
         private void btnBack_Click(object sender, EventArgs e)
         {
             Utility.BackButton(this);
