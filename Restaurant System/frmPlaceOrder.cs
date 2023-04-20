@@ -213,5 +213,9 @@ namespace Restuarant_System
             }
         }
 
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Utility.BackButton(this);
+        }
     }
 }

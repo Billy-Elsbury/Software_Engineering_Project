@@ -44,6 +44,7 @@ namespace Restuarant_System
             this.orderItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.menuItemsDataGridView = new System.Windows.Forms.DataGridView();
             this.btnAddtoOrder = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             this.grpAddMenuItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
@@ -51,6 +52,7 @@ namespace Restuarant_System
             // 
             // grpAddMenuItem
             // 
+            this.grpAddMenuItem.Controls.Add(this.btnBack);
             this.grpAddMenuItem.Controls.Add(this.cboMenuItemType);
             this.grpAddMenuItem.Controls.Add(this.lblItemType);
             this.grpAddMenuItem.Controls.Add(this.btnSearchMenuItem);
@@ -76,7 +78,7 @@ namespace Restuarant_System
             // 
             this.cboMenuItemType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMenuItemType.FormattingEnabled = true;
-            this.cboMenuItemType.Location = new System.Drawing.Point(128, 94);
+            this.cboMenuItemType.Location = new System.Drawing.Point(141, 94);
             this.cboMenuItemType.Name = "cboMenuItemType";
             this.cboMenuItemType.Size = new System.Drawing.Size(52, 21);
             this.cboMenuItemType.TabIndex = 50;
@@ -85,7 +87,7 @@ namespace Restuarant_System
             // 
             this.lblItemType.AutoSize = true;
             this.lblItemType.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblItemType.Location = new System.Drawing.Point(9, 97);
+            this.lblItemType.Location = new System.Drawing.Point(22, 97);
             this.lblItemType.Name = "lblItemType";
             this.lblItemType.Size = new System.Drawing.Size(112, 13);
             this.lblItemType.TabIndex = 49;
@@ -93,9 +95,9 @@ namespace Restuarant_System
             // 
             // btnSearchMenuItem
             // 
-            this.btnSearchMenuItem.Location = new System.Drawing.Point(302, 76);
+            this.btnSearchMenuItem.Location = new System.Drawing.Point(317, 71);
             this.btnSearchMenuItem.Name = "btnSearchMenuItem";
-            this.btnSearchMenuItem.Size = new System.Drawing.Size(75, 34);
+            this.btnSearchMenuItem.Size = new System.Drawing.Size(121, 44);
             this.btnSearchMenuItem.TabIndex = 47;
             this.btnSearchMenuItem.Text = "Search";
             this.btnSearchMenuItem.UseVisualStyleBackColor = true;
@@ -103,7 +105,7 @@ namespace Restuarant_System
             // 
             // txtOrderId
             // 
-            this.txtOrderId.Location = new System.Drawing.Point(128, 29);
+            this.txtOrderId.Location = new System.Drawing.Point(141, 28);
             this.txtOrderId.MaxLength = 20;
             this.txtOrderId.Name = "txtOrderId";
             this.txtOrderId.ReadOnly = true;
@@ -114,7 +116,7 @@ namespace Restuarant_System
             // 
             this.lblOrderId.AutoSize = true;
             this.lblOrderId.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblOrderId.Location = new System.Drawing.Point(67, 32);
+            this.lblOrderId.Location = new System.Drawing.Point(80, 31);
             this.lblOrderId.Name = "lblOrderId";
             this.lblOrderId.Size = new System.Drawing.Size(50, 13);
             this.lblOrderId.TabIndex = 37;
@@ -122,7 +124,7 @@ namespace Restuarant_System
             // 
             // txtItemName
             // 
-            this.txtItemName.Location = new System.Drawing.Point(128, 63);
+            this.txtItemName.Location = new System.Drawing.Point(141, 63);
             this.txtItemName.MaxLength = 20;
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.Size = new System.Drawing.Size(158, 20);
@@ -132,7 +134,7 @@ namespace Restuarant_System
             // 
             this.lblItemName.AutoSize = true;
             this.lblItemName.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblItemName.Location = new System.Drawing.Point(9, 68);
+            this.lblItemName.Location = new System.Drawing.Point(15, 67);
             this.lblItemName.Name = "lblItemName";
             this.lblItemName.Size = new System.Drawing.Size(119, 13);
             this.lblItemName.TabIndex = 35;
@@ -141,7 +143,7 @@ namespace Restuarant_System
             // btnCommit
             // 
             this.btnCommit.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnCommit.Location = new System.Drawing.Point(786, 529);
+            this.btnCommit.Location = new System.Drawing.Point(779, 515);
             this.btnCommit.Name = "btnCommit";
             this.btnCommit.Size = new System.Drawing.Size(121, 44);
             this.btnCommit.TabIndex = 31;
@@ -152,7 +154,7 @@ namespace Restuarant_System
             // txtQuantity
             // 
             this.txtQuantity.BackColor = System.Drawing.SystemColors.Info;
-            this.txtQuantity.Location = new System.Drawing.Point(0, 529);
+            this.txtQuantity.Location = new System.Drawing.Point(13, 515);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.ReadOnly = true;
             this.txtQuantity.Size = new System.Drawing.Size(56, 20);
@@ -162,7 +164,7 @@ namespace Restuarant_System
             // txtAmountToAdd
             // 
             this.txtAmountToAdd.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.txtAmountToAdd.Location = new System.Drawing.Point(61, 529);
+            this.txtAmountToAdd.Location = new System.Drawing.Point(74, 515);
             this.txtAmountToAdd.MaxLength = 2;
             this.txtAmountToAdd.Name = "txtAmountToAdd";
             this.txtAmountToAdd.Size = new System.Drawing.Size(38, 20);
@@ -187,28 +189,38 @@ namespace Restuarant_System
             this.orderItemsDataGridView.Location = new System.Drawing.Point(499, 92);
             this.orderItemsDataGridView.Name = "orderItemsDataGridView";
             this.orderItemsDataGridView.ReadOnly = true;
-            this.orderItemsDataGridView.Size = new System.Drawing.Size(401, 418);
+            this.orderItemsDataGridView.Size = new System.Drawing.Size(401, 406);
             this.orderItemsDataGridView.TabIndex = 27;
             // 
             // menuItemsDataGridView
             // 
             this.menuItemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.menuItemsDataGridView.Location = new System.Drawing.Point(0, 132);
+            this.menuItemsDataGridView.Location = new System.Drawing.Point(22, 132);
             this.menuItemsDataGridView.Name = "menuItemsDataGridView";
             this.menuItemsDataGridView.ReadOnly = true;
-            this.menuItemsDataGridView.Size = new System.Drawing.Size(487, 379);
+            this.menuItemsDataGridView.Size = new System.Drawing.Size(465, 366);
             this.menuItemsDataGridView.TabIndex = 26;
             // 
             // btnAddtoOrder
             // 
             this.btnAddtoOrder.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnAddtoOrder.Location = new System.Drawing.Point(104, 529);
+            this.btnAddtoOrder.Location = new System.Drawing.Point(117, 515);
             this.btnAddtoOrder.Name = "btnAddtoOrder";
             this.btnAddtoOrder.Size = new System.Drawing.Size(121, 44);
             this.btnAddtoOrder.TabIndex = 3;
             this.btnAddtoOrder.Text = "Add to Order";
             this.btnAddtoOrder.UseVisualStyleBackColor = false;
             this.btnAddtoOrder.Click += new System.EventHandler(this.btnAddtoOrder_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(825, 567);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 51;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmPlaceOrder
             // 
@@ -245,5 +257,6 @@ namespace Restuarant_System
         private System.Windows.Forms.Button btnSearchMenuItem;
         private System.Windows.Forms.Label lblItemType;
         private System.Windows.Forms.ComboBox cboMenuItemType;
+        private System.Windows.Forms.Button btnBack;
     }
 }

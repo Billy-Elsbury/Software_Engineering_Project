@@ -192,7 +192,7 @@ namespace Restuarant_System
                 // Calculate the total price of the order items
                 string sql = "SELECT SUM(UnitPrice * Quantity) AS TotalPrice " +
                                 "FROM OrderItems " +
-                                "WHERE OrderID = :orderId;";
+                                "WHERE OrderID = :orderId";
 
                 using (OracleCommand command = new OracleCommand(sql, connection))
                 {
@@ -208,8 +208,8 @@ namespace Restuarant_System
 
                 // Update the order table with the calculated total price
                 sql = "UPDATE Orders " +
-                        "SET TotalPrice = :totalPrice " +
-                        "WHERE OrderID = :orderId;";
+                        "SET OrderPrice = :TotalPrice " +
+                        "WHERE OrderID = :orderId";
 
                 using (OracleCommand command = new OracleCommand(sql, connection))
                 {
