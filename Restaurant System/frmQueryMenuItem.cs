@@ -102,35 +102,16 @@ namespace Restuarant_System
                 return;
             }
 
-            //https://stackoverflow.com/questions/1264681/what-is-the-purpose-of-using-where-1-1-in-sql-statements
+            string itemId = cboItemID.Text;
+            string itemAvailbility = cboItemAvailability.Text;
+            string itemType = cboMenuItemType.Text;
+            string itemName = txtItemName.Text;
+            string itemDescription = txtItemDescription.Text;
+            string itemPrice = txtPrice.Text;
 
-            string sql = "SELECT * FROM MenuItems WHERE 1=1";
-            if (!string.IsNullOrEmpty(cboItemID.Text))
-            {
-                sql += $" AND LOWER(ItemId) = {cboItemID.Text}";
-            }
-            if (!string.IsNullOrEmpty(cboItemAvailability.Text))
-            {
-                sql += $" AND LOWER(Availability) = '{cboItemAvailability.Text}'";
-            }
-            if (!string.IsNullOrEmpty(cboMenuItemType.Text))
-            {
-                sql += $" AND LOWER(Type) = '{cboMenuItemType.Text}'";
-            }
-            if (!string.IsNullOrEmpty(txtItemName.Text))
-            {
-                sql += $" AND LOWER(Name) LIKE '%{txtItemName.Text}%'";
-            }
-            if (!string.IsNullOrEmpty(txtItemDescription.Text))
-            {
-                sql += $" AND LOWER(Description) LIKE '%{txtItemDescription.Text}%'";
-            }
-            if (!string.IsNullOrEmpty(txtPrice.Text))
-            {
-                sql += $" AND LOWER(Price) LIKE '{txtPrice.Text}%'";
-            }
-            DataSet dataSet = MenuItem.FilterMenuItems(sql);
+            string sql = MenuItem.GenerateSqlFilterMenuItemQuery(itemId, itemAvailbility, itemType, itemName, itemDescription, itemPrice);
 
+            DataSet dataSet = Utility.GetFilteredResult(sql);
 
             if (dataSet != null && dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0)
             {

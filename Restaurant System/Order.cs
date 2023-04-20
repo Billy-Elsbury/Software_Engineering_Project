@@ -148,6 +148,23 @@ namespace Restuarant_System
             }
         }
 
+        public static string GenerateSqlFilterOrderQuery(string orderId, string orderStatus)
+        {
+            //https://stackoverflow.com/questions/1264681/what-is-the-purpose-of-using-where-1-1-in-sql-statements
+
+            string sql = "SELECT * FROM Orders WHERE 1=1";
+            if (!string.IsNullOrEmpty(orderId))
+            {
+                sql += $" AND LOWER(OrderId) = {orderId}";
+            }
+            if (!string.IsNullOrEmpty(orderStatus))
+            {
+                sql += $" AND (OrderStatus) = '{orderStatus}'";
+            }
+            return sql;
+        }
+
+
         //Retrieve OrderItemID from database and ensure it is itterated and up to date.
         public static int GetNextOrderId()
         {
@@ -221,6 +238,40 @@ namespace Restuarant_System
 
             }
             return totalPrice;
+        }
+
+        public static void UpdateOrderStatus(string orderId, char editedOrderStatus)
+        {
+            //using parameterized query to avoid SQL Injection
+            //https://www.c-sharpcorner.com/UploadFile/a20beb/why-should-always-use-the-parameterized-query-to-avoid-sql-i/
+
+            //Open a db connection
+            using (OracleConnection conn = new OracleConnection(DBConnect.oradb))
+            {
+                try
+                {
+                    conn.Open();
+
+                    //Define the SQL query with placeholders
+                    String sqlQuery = "UPDATE Orders SET " +
+                        "OrderStatus = :status," +
+                        " WHERE OrderId = :orderId";
+
+                    //Create a new OracleCommand object
+                    OracleCommand cmd = new OracleCommand(sqlQuery, conn);
+
+                    //Set the parameterized values
+                    cmd.Parameters.Add(new OracleParameter(":status", editedOrderStatus));
+
+                    //Execute the SQL query
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    // Handle any errors
+                    Console.WriteLine("Error updating menu item: " + ex.Message);
+                }
+            }
         }
     }
 }

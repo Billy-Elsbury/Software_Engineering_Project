@@ -237,7 +237,6 @@ namespace Restuarant_System
             }
         }
 
-
         public static void RemoveItem(int itemId)
         {
             OracleConnection conn = new OracleConnection(DBConnect.oradb);
@@ -286,39 +285,38 @@ namespace Restuarant_System
             conn.Close();
         }
 
-        public static DataSet FilterMenuItems(string sql)
+        public static string GenerateSqlFilterMenuItemQuery(string itemID, string availability, string type, string name, string description, string price)
         {
-            DataSet dataSet = new DataSet();
-            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+            //https://stackoverflow.com/questions/1264681/what-is-the-purpose-of-using-where-1-1-in-sql-statements
 
-            try
+            string sql = "SELECT * FROM MenuItems WHERE 1=1";
+            if (!string.IsNullOrEmpty(itemID))
             {
-                OracleDataAdapter adapter = new OracleDataAdapter(sql, conn);
-                adapter.Fill(dataSet);
-
-                // Check if the dataset has any tables
-                if (dataSet.Tables.Count > 0)
-                {
-                    DataTable dataTable = dataSet.Tables[0];
-
-                    // Check if the table exists in the Tables collection
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        return dataSet;
-                    }
-                }
-
-                return null;
+                sql += $" AND LOWER(ItemId) = {itemID}";
             }
-            catch (Exception ex)
+            if (!string.IsNullOrEmpty(availability))
             {
-                // Handle the exception appropriately
-                throw new Exception("Error executing SQL query", ex);
+                sql += $" AND (Availability) = '{availability}'";
             }
+            if (!string.IsNullOrEmpty(type))
+            {
+                sql += $" AND (Type) = '{type}'";
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                sql += $" AND LOWER(Name) LIKE '%{name}%'";
+            }
+            if (!string.IsNullOrEmpty(description))
+            {
+                sql += $" AND LOWER(Description) LIKE '%{description}%'";
+            }
+            if (!string.IsNullOrEmpty(price))
+            {
+                sql += $" AND LOWER(Price) LIKE '{price}%'";
+            }
+
+            return sql;
         }
-
-
-
     }
 }
 

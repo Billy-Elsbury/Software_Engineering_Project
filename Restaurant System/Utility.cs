@@ -1,6 +1,7 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,9 +21,9 @@ namespace Restuarant_System
 
                 double numberDouble;
                 bool priceIsParsable = double.TryParse(price, out numberDouble);
-                bool itemNameBlank = itemName.Equals("");
+                bool itemNameBlank = (string.IsNullOrWhiteSpace(itemName)) ;
                 bool itemNameContainsDigit = itemName.Any(char.IsDigit);
-                bool itemDescriptionBlank = itemDescription.Equals("");
+                bool itemDescriptionBlank = (string.IsNullOrWhiteSpace(itemDescription)) ;
                 bool itemDescriptionContainsDigit = itemName.Any(char.IsDigit);
 
                 //https://learn.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex?view=net-8.0
@@ -32,7 +33,7 @@ namespace Restuarant_System
 
                 if (itemNameBlank)
                 {
-                    errorMessage = "Name must be entered.";
+                    errorMessage = "Item Name cannot be blank.";
                     return false;
                 }
 
@@ -50,7 +51,7 @@ namespace Restuarant_System
 
                 if (itemDescriptionBlank)
                 {
-                    errorMessage = "Description must be entered.";
+                    errorMessage = "Description cannot be blank.";
                     return false;
                 }
 
@@ -157,6 +158,39 @@ namespace Restuarant_System
             }
 
         }
+
+        //input sql and recieve dataSet, if data set is empty an empty dataSet will be returned
+        public static DataSet GetFilteredResult(string sql)
+        {
+            DataSet dataSet = new DataSet();
+            OracleConnection conn = new OracleConnection(DBConnect.oradb);
+
+            try
+            {
+                OracleDataAdapter adapter = new OracleDataAdapter(sql, conn);
+                adapter.Fill(dataSet);
+
+                // Check if the dataset has any tables
+                if (dataSet.Tables.Count > 0)
+                {
+                    DataTable dataTable = dataSet.Tables[0];
+
+                    // Check if the table exists in the Tables collection
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        return dataSet;
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception appropriately
+                throw new Exception("Error executing SQL query", ex);
+            }
+        }
+
 
         //Retrieve MenuItemID from database and ensure it is itterated and up to date.
         public static int GetNextMenuItemId()

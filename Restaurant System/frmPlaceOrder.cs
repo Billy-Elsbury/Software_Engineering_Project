@@ -116,7 +116,7 @@ namespace Restuarant_System
 
             string sql = MenuItem.GetAvailableMenuItemSummary(cboMenuItemType.Text, txtItemName.Text);
 
-            DataSet dataSet = MenuItem.FilterMenuItems(sql);
+            DataSet dataSet = Utility.GetFilteredResult(sql);
 
             if (dataSet != null && dataSet.Tables.Count > 0 && dataSet.Tables[0].Rows.Count > 0)
             {

@@ -139,7 +139,6 @@ namespace Restuarant_System
             }
 
             // If input is valid, proceed with adding the menu item to the database and updating the UI
-
             {
                 try
                 {
