@@ -23,6 +23,14 @@ namespace Restuarant_System
 
         private void frmEditOrder_Load(object sender, EventArgs e)
         {
+            //DataTable for temporary order item storage
+            orderItemsDataTable = new DataTable();
+            orderItemsDataTable.Columns.Add("OrderId", typeof(int));
+            orderItemsDataTable.Columns.Add("ItemId", typeof(int));
+            orderItemsDataTable.Columns.Add("UnitPrice", typeof(double));
+            orderItemsDataTable.Columns.Add("Quantity", typeof(int));
+
+
             cboMenuItemType.Items.Add("");
             cboMenuItemType.Items.Add("F");
             cboMenuItemType.Items.Add("B");
@@ -56,17 +64,6 @@ namespace Restuarant_System
 
             // Ensure columns span whole DataGrid View Table
             menuItemsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-
-            //config orderItems data table
-
-            orderItemsDataTable = new DataTable();
-            orderItemsDataTable.Columns.Add("ItemId", typeof(int));
-            orderItemsDataTable.Columns.Add("OrderId", typeof(int));
-            orderItemsDataTable.Columns.Add("Name", typeof(string));
-            orderItemsDataTable.Columns.Add("Type", typeof(string));
-            orderItemsDataTable.Columns.Add("Quantity", typeof(int));
-            orderItemsDataTable.Columns.Add("Price", typeof(double));
 
             //config Order Items Data Grid View
 
@@ -161,36 +158,21 @@ namespace Restuarant_System
                 int itemId = Convert.ToInt32(menuItemsDataGridView.CurrentRow.Cells[0].Value);
                 int quantity = Convert.ToInt32(txtAmountToAdd.Text);
 
-                try
+                //try
                 {
                     int amountToAdd = Convert.ToInt32(txtAmountToAdd.Text);
 
-                    // Check if item already exists in order
-                    DataRow[] existingRows = orderItemsDataTable.Select($"ItemId = {itemId}");
+                    // add row to DataTable
 
-                    if (existingRows.Length > 0)
-                    {
-                        // Item already exists in order, update existing row with new quantity and price
-                        DataRow existingRow = existingRows[0];
-                        existingRow["Quantity"] = Convert.ToInt32(existingRow["Quantity"]) + amountToAdd;
-                        existingRow["Price"] = Convert.ToDouble(existingRow["Price"]) + (itemPrice * amountToAdd);
+                    DataRow dr = orderItemsDataTable.NewRow();
+                    dr["OrderId"] = orderId;
+                    dr["ItemId"] = itemId;
+                    dr["UnitPrice"] = itemPrice;
+                    dr["Quantity"] = amountToAdd;
+                    orderItemsDataTable.Rows.Add(dr);
 
-                        // Update order in database
-                        Order.EditOrderItems(existingRow);
-                    }
-                    else
-                    {
-                        // Item does not exist in order, add new row to DataTable
-                        DataRow newRow = orderItemsDataTable.NewRow();
-                        newRow["OrderId"] = orderId;
-                        newRow["ItemId"] = itemId;
-                        newRow["Price"] = itemPrice * amountToAdd;
-                        newRow["Quantity"] = amountToAdd;
-                        orderItemsDataTable.Rows.Add(newRow);
-
-                        // Update order in database
-                        Order.EditOrderItems(newRow);
-                    }
+                    // Update order in database
+                    Order.EditOrderItems(dr);
 
                     // Reset the UI
                     txtAmountToAdd.Text = "1";
@@ -205,12 +187,13 @@ namespace Restuarant_System
                     // Display confirmation message
                     MessageBox.Show(amountToAdd + " " + itemName + "(s) added to the order.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex)
+                //catch (Exception ex)
                 {
-                    MessageBox.Show("Error while adding Menu Item to Order", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error while adding Menu Item to Order", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-        }
+}
+}
+
 
 
         private void btnBack_Click(object sender, EventArgs e)

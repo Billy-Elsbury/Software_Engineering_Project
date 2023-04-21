@@ -106,7 +106,7 @@ namespace Restuarant_System
 
                 int orderId = Convert.ToInt32(orderItemsDataRow["OrderId"]);
                 int itemId = Convert.ToInt32(orderItemsDataRow["ItemId"]);
-                double price = Convert.ToDouble(orderItemsDataRow["Price"]);
+                double unitPrice = Convert.ToDouble(orderItemsDataRow["UnitPrice"]);
                 int quantity = Convert.ToInt32(orderItemsDataRow["Quantity"]);
 
                 string selectOrderItemSql = "SELECT Quantity FROM OrderItems WHERE OrderId = :OrderId AND ItemId = :ItemId";
@@ -115,8 +115,9 @@ namespace Restuarant_System
                     selectCmd.Parameters.Add(":OrderId", orderId);
                     selectCmd.Parameters.Add(":ItemId", itemId);
                     object result = selectCmd.ExecuteScalar();
+                    int quantityCount = Convert.ToInt32(result);
 
-                    if (result != null)
+                    if (quantityCount >= 1)
                     {
                         // Item is already in the order, so update the quantity
                         int currentQuantity = Convert.ToInt32(result);
@@ -130,18 +131,41 @@ namespace Restuarant_System
                             updateCmd.Parameters.Add(":Quantity", newQuantity);
                             updateCmd.ExecuteNonQuery();
                         }
+                        /*
+                         {
+                            updateCmd.Connection = conn;
+                            updateCmd.CommandText = updateOrderItemSql;
+                            updateCmd.BindByName = true;
+
+                            OracleParameter newQuantityParam = new OracleParameter(":newQuantity", OracleDbType.Int32);
+                            newQuantityParam.Direction = ParameterDirection.Input;
+                            newQuantityParam.Value = newQuantity;
+                            updateCmd.Parameters.Add(newQuantityParam);
+
+                            OracleParameter orderIdParam = new OracleParameter(":orderId", OracleDbType.Int32);
+                            orderIdParam.Direction = ParameterDirection.Input;
+                            orderIdParam.Value = orderId;
+                            updateCmd.Parameters.Add(orderIdParam);
+
+                            OracleParameter itemIdParam = new OracleParameter(":itemId", OracleDbType.Int32);
+                            itemIdParam.Direction = ParameterDirection.Input;
+                            itemIdParam.Value = itemId;
+                            updateCmd.Parameters.Add(itemIdParam);
+
+                            updateCmd.ExecuteNonQuery();
+                        }
+                         */
                     }
                     else
                     {
                         // Item is not yet in the order, so insert a new row
-                        double unitPrice = price / quantity;
 
                         string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, UnitPrice, Quantity) VALUES (:OrderId, :ItemId, :UnitPrice, :Quantity)";
                         using (OracleCommand insertCmd = new OracleCommand(insertOrderItemSql, conn))
                         {
                             insertCmd.Parameters.Add(":OrderId", orderId);
                             insertCmd.Parameters.Add(":ItemId", itemId);
-                            insertCmd.Parameters.Add(":UnitPrice", price);
+                            insertCmd.Parameters.Add(":UnitPrice", unitPrice);
                             insertCmd.Parameters.Add(":Quantity", quantity);
                             insertCmd.ExecuteNonQuery();
                         }
