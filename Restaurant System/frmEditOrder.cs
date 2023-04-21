@@ -154,68 +154,65 @@ namespace Restuarant_System
             // Read from menuItem Data Grid View and add to Order Menu Grid View ONLY if an item is selected
             if (menuItemsDataGridView.SelectedRows.Count > 0)
             {
+                string itemName = menuItemsDataGridView.CurrentRow.Cells["Name"].Value.ToString();
+                double itemPrice = Convert.ToDouble(menuItemsDataGridView.CurrentRow.Cells["Price"].Value.ToString());
+                string itemType = menuItemsDataGridView.CurrentRow.Cells["Type"].Value.ToString();
+                int orderId = Convert.ToInt32(txtOrderId.Text);
+                int itemId = Convert.ToInt32(menuItemsDataGridView.CurrentRow.Cells[0].Value);
+                int quantity = Convert.ToInt32(txtAmountToAdd.Text);
+
+                try
                 {
-                    string itemName = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Name"].Value).ToString();
-                    double itemPrice = Convert.ToDouble((menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Price"].Value).ToString());
-                    string itemType = (menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells["Type"].Value).ToString();
-                    int orderId = Convert.ToInt32(txtOrderId.Text);
-                    int itemId = Convert.ToInt32(menuItemsDataGridView.Rows[menuItemsDataGridView.CurrentRow.Index].Cells[0].Value);
+                    int amountToAdd = Convert.ToInt32(txtAmountToAdd.Text);
 
-                    // Access a specific row in the DataTable
-                    DataRow row = orderItemsDataTable.Rows[2];
+                    // Check if item already exists in order
+                    DataRow[] existingRows = orderItemsDataTable.Select($"ItemId = {itemId}");
 
-                    // Get the value of the "Quantity" column for the row
-                    int quantity = Convert.ToInt32(row["Quantity"]);
-
-
-
-
-                    //try
+                    if (existingRows.Length > 0)
                     {
-                        int amountToAdd = Convert.ToInt32(txtAmountToAdd.Text);
+                        // Item already exists in order, update existing row with new quantity and price
+                        DataRow existingRow = existingRows[0];
+                        existingRow["Quantity"] = Convert.ToInt32(existingRow["Quantity"]) + amountToAdd;
+                        existingRow["Price"] = Convert.ToDouble(existingRow["Price"]) + (itemPrice * amountToAdd);
 
-                        //check if there is any order selected in the table
-                        if (orderItemsDataGridView.Rows.Count != 0)
-                        {
-                            DataRow newRow = orderItemsDataTable.NewRow();
-
-                            // Add new row to DataTable
-                            newRow["OrderId"] = orderId;
-                            newRow["ItemId"] = itemId;
-                            newRow["Price"] = itemPrice * amountToAdd;
-                            newRow["Quantity"] = amountToAdd + quantity;
-
-                            orderItemsDataTable.Rows.Add(newRow);
-
-                            // Display confirmation message
-                            MessageBox.Show(amountToAdd + " " + itemName + "(s) added to the order.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            // Reset the UI
-                            txtAmountToAdd.Text = "1";
-                            menuItemsDataGridView.ClearSelection();
-
-                            // Bind DataTable to DataGridView
-                            DataTable dt = Order.GetOrderItemsByOrderId(orderId);
-                            orderItemsDataGridView.DataSource = dt;
-
-                            Order.EditOrderItems(newRow);
-
-                            txtOrderTotalPrice.Text = Convert.ToString(Order.CalculateOrderPrice(orderId));
-
-                        }
-
-                        else
-                        {
-                            MessageBox.Show("Please select an order", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                        // Update order in database
+                        Order.EditOrderItems(existingRow);
                     }
-                    //catch (Exception ex)
+                    else
                     {
-                        //MessageBox.Show("Error while adding Menu Item to Order", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Item does not exist in order, add new row to DataTable
+                        DataRow newRow = orderItemsDataTable.NewRow();
+                        newRow["OrderId"] = orderId;
+                        newRow["ItemId"] = itemId;
+                        newRow["Price"] = itemPrice * amountToAdd;
+                        newRow["Quantity"] = amountToAdd;
+                        orderItemsDataTable.Rows.Add(newRow);
+
+                        // Update order in database
+                        Order.EditOrderItems(newRow);
                     }
+
+                    // Reset the UI
+                    txtAmountToAdd.Text = "1";
+                    menuItemsDataGridView.ClearSelection();
+
+                    // Bind DataTable to DataGridView AFTER order is added
+                    DataTable dt = Order.GetOrderItemsByOrderId(orderId);
+                    orderItemsDataGridView.DataSource = dt;
+
+                    txtOrderTotalPrice.Text = Convert.ToString(Order.CalculateOrderPrice(orderId));
+
+                    // Display confirmation message
+                    MessageBox.Show(amountToAdd + " " + itemName + "(s) added to the order.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error while adding Menu Item to Order", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             Utility.BackButton(this);

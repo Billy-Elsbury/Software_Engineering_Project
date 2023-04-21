@@ -30,6 +30,8 @@ namespace Restuarant_System
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtOrderTotalPrice = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.txtQuantity = new System.Windows.Forms.TextBox();
             this.txtAmountToAdd = new System.Windows.Forms.TextBox();
             this.btnAddtoOrder = new System.Windows.Forms.Button();
@@ -47,8 +49,7 @@ namespace Restuarant_System
             this.btnRemoveItemFromOrder = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.orderItemsDataGridView = new System.Windows.Forms.DataGridView();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.txtOrderTotalPrice = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsDataGridView)).BeginInit();
@@ -56,6 +57,7 @@ namespace Restuarant_System
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox4);
             this.groupBox1.Controls.Add(this.txtOrderTotalPrice);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.txtQuantity);
@@ -82,19 +84,40 @@ namespace Restuarant_System
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Edit Order";
             // 
+            // txtOrderTotalPrice
+            // 
+            this.txtOrderTotalPrice.BackColor = System.Drawing.SystemColors.Info;
+            this.txtOrderTotalPrice.Location = new System.Drawing.Point(132, 525);
+            this.txtOrderTotalPrice.MaxLength = 20;
+            this.txtOrderTotalPrice.Name = "txtOrderTotalPrice";
+            this.txtOrderTotalPrice.ReadOnly = true;
+            this.txtOrderTotalPrice.Size = new System.Drawing.Size(78, 20);
+            this.txtOrderTotalPrice.TabIndex = 66;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox2.Location = new System.Drawing.Point(507, 91);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(463, 20);
+            this.textBox2.TabIndex = 65;
+            this.textBox2.Text = "Menu Items";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // txtQuantity
             // 
-            this.txtQuantity.BackColor = System.Drawing.SystemColors.Info;
+            this.txtQuantity.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.txtQuantity.Location = new System.Drawing.Point(507, 541);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.ReadOnly = true;
             this.txtQuantity.Size = new System.Drawing.Size(56, 20);
             this.txtQuantity.TabIndex = 64;
-            this.txtQuantity.Text = "Quantity";
+            this.txtQuantity.Text = "Quantity:";
             // 
             // txtAmountToAdd
             // 
-            this.txtAmountToAdd.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.txtAmountToAdd.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtAmountToAdd.Location = new System.Drawing.Point(569, 541);
             this.txtAmountToAdd.MaxLength = 2;
             this.txtAmountToAdd.Name = "txtAmountToAdd";
@@ -250,25 +273,15 @@ namespace Restuarant_System
             this.orderItemsDataGridView.Size = new System.Drawing.Size(401, 402);
             this.orderItemsDataGridView.TabIndex = 32;
             // 
-            // textBox2
+            // textBox4
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Info;
-            this.textBox2.Location = new System.Drawing.Point(507, 91);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(463, 20);
-            this.textBox2.TabIndex = 65;
-            this.textBox2.Text = "Menu Items";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txtOrderTotalPrice
-            // 
-            this.txtOrderTotalPrice.Location = new System.Drawing.Point(35, 525);
-            this.txtOrderTotalPrice.MaxLength = 20;
-            this.txtOrderTotalPrice.Name = "txtOrderTotalPrice";
-            this.txtOrderTotalPrice.ReadOnly = true;
-            this.txtOrderTotalPrice.Size = new System.Drawing.Size(78, 20);
-            this.txtOrderTotalPrice.TabIndex = 66;
+            this.textBox4.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox4.Location = new System.Drawing.Point(35, 525);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(91, 20);
+            this.textBox4.TabIndex = 67;
+            this.textBox4.Text = "Order Total Price:";
             // 
             // frmEditOrder
             // 
@@ -310,5 +323,6 @@ namespace Restuarant_System
         private System.Windows.Forms.Button btnAddtoOrder;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox txtOrderTotalPrice;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }

@@ -109,8 +109,6 @@ namespace Restuarant_System
                 double price = Convert.ToDouble(orderItemsDataRow["Price"]);
                 int quantity = Convert.ToInt32(orderItemsDataRow["Quantity"]);
 
-                double unitPrice = price / quantity;
-
                 string selectOrderItemSql = "SELECT Quantity FROM OrderItems WHERE OrderId = :OrderId AND ItemId = :ItemId";
                 using (OracleCommand selectCmd = new OracleCommand(selectOrderItemSql, conn))
                 {
@@ -122,26 +120,28 @@ namespace Restuarant_System
                     {
                         // Item is already in the order, so update the quantity
                         int currentQuantity = Convert.ToInt32(result);
-                        quantity += currentQuantity;
+                        int newQuantity = quantity + currentQuantity;
 
                         string updateOrderItemSql = "UPDATE OrderItems SET Quantity = :Quantity WHERE OrderId = :OrderId AND ItemId = :ItemId";
                         using (OracleCommand updateCmd = new OracleCommand(updateOrderItemSql, conn))
                         {
                             updateCmd.Parameters.Add(":OrderId", orderId);
                             updateCmd.Parameters.Add(":ItemId", itemId);
-                            updateCmd.Parameters.Add(":Quantity", quantity);
+                            updateCmd.Parameters.Add(":Quantity", newQuantity);
                             updateCmd.ExecuteNonQuery();
                         }
                     }
                     else
                     {
                         // Item is not yet in the order, so insert a new row
+                        double unitPrice = price / quantity;
+
                         string insertOrderItemSql = "INSERT INTO OrderItems (OrderId, ItemId, UnitPrice, Quantity) VALUES (:OrderId, :ItemId, :UnitPrice, :Quantity)";
                         using (OracleCommand insertCmd = new OracleCommand(insertOrderItemSql, conn))
                         {
                             insertCmd.Parameters.Add(":OrderId", orderId);
                             insertCmd.Parameters.Add(":ItemId", itemId);
-                            insertCmd.Parameters.Add(":UnitPrice", unitPrice);
+                            insertCmd.Parameters.Add(":UnitPrice", price);
                             insertCmd.Parameters.Add(":Quantity", quantity);
                             insertCmd.ExecuteNonQuery();
                         }
@@ -149,6 +149,7 @@ namespace Restuarant_System
                 }
             }
         }
+
 
 
 
