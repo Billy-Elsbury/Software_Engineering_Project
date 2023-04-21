@@ -126,35 +126,14 @@ namespace Restuarant_System
                         string updateOrderItemSql = "UPDATE OrderItems SET Quantity = :Quantity WHERE OrderId = :OrderId AND ItemId = :ItemId";
                         using (OracleCommand updateCmd = new OracleCommand(updateOrderItemSql, conn))
                         {
+                            updateCmd.Parameters.Add(":Quantity", newQuantity);
                             updateCmd.Parameters.Add(":OrderId", orderId);
                             updateCmd.Parameters.Add(":ItemId", itemId);
-                            updateCmd.Parameters.Add(":Quantity", newQuantity);
+                            
                             updateCmd.ExecuteNonQuery();
+
+                            var updateOuput = updateCmd.ExecuteNonQuery();
                         }
-                        /*
-                         {
-                            updateCmd.Connection = conn;
-                            updateCmd.CommandText = updateOrderItemSql;
-                            updateCmd.BindByName = true;
-
-                            OracleParameter newQuantityParam = new OracleParameter(":newQuantity", OracleDbType.Int32);
-                            newQuantityParam.Direction = ParameterDirection.Input;
-                            newQuantityParam.Value = newQuantity;
-                            updateCmd.Parameters.Add(newQuantityParam);
-
-                            OracleParameter orderIdParam = new OracleParameter(":orderId", OracleDbType.Int32);
-                            orderIdParam.Direction = ParameterDirection.Input;
-                            orderIdParam.Value = orderId;
-                            updateCmd.Parameters.Add(orderIdParam);
-
-                            OracleParameter itemIdParam = new OracleParameter(":itemId", OracleDbType.Int32);
-                            itemIdParam.Direction = ParameterDirection.Input;
-                            itemIdParam.Value = itemId;
-                            updateCmd.Parameters.Add(itemIdParam);
-
-                            updateCmd.ExecuteNonQuery();
-                        }
-                         */
                     }
                     else
                     {
