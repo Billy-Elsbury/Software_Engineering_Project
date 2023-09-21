@@ -13,9 +13,9 @@ CREATE TABLE MenuItems(
      ItemID numeric(4) PRIMARY KEY,
      Availability char(1) NOT NULL,
      Type char(1) NOT NULL,
-     Name varchar2(20),
-     Description varchar2(45),
-     Price numeric (5,2)
+     Name varchar2(20) NOT NULL,
+     Description varchar2(45) NOT NULL,
+     Price numeric (5,2) NOT NULL
  );
 
  --Orders table
@@ -75,20 +75,20 @@ INSERT INTO MenuItems VALUES (30, 'A', 'F', 'Pho', 'Vietnamese noodle soup with 
 --Test Data
 
 -- Insert statements for Orders table
-INSERT INTO Orders (OrderID, OrderDate, OrderPrice, OrderStatus) VALUES (1, TO_DATE('2022-01-01', 'YYYY-MM-DD'), 100.00, 'A');
+INSERT INTO Orders (OrderID, OrderDate, OrderPrice, OrderStatus) VALUES (1, TO_DATE('2023-01-01', 'YYYY-MM-DD'), 25.00, 'A');
 
-INSERT INTO Orders (OrderID, OrderDate, OrderPrice, OrderStatus) VALUES (2, TO_DATE('2022-01-01', 'YYYY-MM-DD'), 200.00, 'B');
+INSERT INTO Orders (OrderID, OrderDate, OrderPrice, OrderStatus) VALUES (2, TO_DATE('2023-05-01', 'YYYY-MM-DD'), 24.00, 'B');
 
-INSERT INTO Orders (OrderID, OrderDate, OrderPrice, OrderStatus) VALUES (3, TO_DATE('2022-01-01', 'YYYY-MM-DD'), 300.00, 'C');
+INSERT INTO Orders (OrderID, OrderDate, OrderPrice, OrderStatus) VALUES (3, TO_DATE('2023-02-01', 'YYYY-MM-DD'), 23.00, 'C');
 
 -- Insert statements for OrderItems table
-INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (1, 1, 12.50, 2);
+INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (1, 1, 23, 2);
 
 INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (2, 12, 4.30, 1);
 
 INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (2, 21, 5.60, 3);
 
-INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (3, 6, 2.30, 4);
+INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (3, 6, 2.30, 8);
 
 INSERT INTO OrderItems (OrderID, ItemID, UnitPrice, Quantity) VALUES (3, 7, 9.30, 2);
 
